@@ -1,6 +1,6 @@
 specVersion: 0.0.2
 schema:
-  file: ./schema.graphql
+  file: schema.graphql
 dataSources:
   - kind: ethereum/contract
     name: OtokenFactory
@@ -17,12 +17,12 @@ dataSources:
         - OtokenCreated
       abis:
         - name: OtokenFactory
-          file: ./abis/OtokenFactory.json
+          file: OtokenFactory/abis/OtokenFactory.json
       eventHandlers:
-        - event: OtokenCreated(indexed address,indexed address,address,address,address,uint256,uint256,bool)
+        - event: OtokenCreated(indexed address,indexed
+            address,address,address,address,uint256,uint256,bool)
           handler: handleOtokenCreated
-      file: ./src/OtokenFactory.ts
-
+      file: OtokenFactory/OtokenFactory.wasm
   - kind: ethereum/contract
     name: Controller
     network: rinkeby
@@ -53,7 +53,7 @@ dataSources:
         - VaultSettled
       abis:
         - name: Controller
-          file: ./abis/Controller.json
+          file: Controller/abis/Controller.json
       eventHandlers:
         - event: AccountOperatorUpdated(indexed address,indexed address,bool)
           handler: handleAccountOperatorUpdated
@@ -61,15 +61,19 @@ dataSources:
           handler: handleCallExecuted
         - event: CallRestricted(bool)
           handler: handleCallRestricted
-        - event: CollateralAssetDeposited(indexed address,indexed address,indexed address,uint256,uint256)
+        - event: CollateralAssetDeposited(indexed address,indexed address,indexed
+            address,uint256,uint256)
           handler: handleCollateralAssetDeposited
-        - event: CollateralAssetWithdrawed(indexed address,indexed address,indexed address,uint256,uint256)
+        - event: CollateralAssetWithdrawed(indexed address,indexed address,indexed
+            address,uint256,uint256)
           handler: handleCollateralAssetWithdrawed
         - event: FullPauserUpdated(indexed address,indexed address)
           handler: handleFullPauserUpdated
-        - event: LongOtokenDeposited(indexed address,indexed address,indexed address,uint256,uint256)
+        - event: LongOtokenDeposited(indexed address,indexed address,indexed
+            address,uint256,uint256)
           handler: handleLongOtokenDeposited
-        - event: LongOtokenWithdrawed(indexed address,indexed address,indexed address,uint256,uint256)
+        - event: LongOtokenWithdrawed(indexed address,indexed address,indexed
+            address,uint256,uint256)
           handler: handleLongOtokenWithdrawed
         - event: OwnershipTransferred(indexed address,indexed address)
           handler: handleOwnershipTransferred
@@ -89,4 +93,4 @@ dataSources:
           handler: handleVaultOpened
         - event: VaultSettled(indexed address,indexed address,uint256,uint256)
           handler: handleVaultSettled
-      file: ./src/Controller.ts
+      file: Controller/Controller.wasm
