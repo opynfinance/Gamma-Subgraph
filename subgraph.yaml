@@ -1,22 +1,23 @@
-specVersion: 0.0.1
+specVersion: 0.0.2
 schema:
   file: ./schema.graphql
 dataSources:
   - kind: ethereum/contract
-    name: Contract
+    name: OtokenFactory
     network: rinkeby
     source:
       address: "0x17ffbe9476ddcc79f4574e0c89ce537fd65a8cae"
-      abi: Contract
+      abi: OtokenFactory
+      startBlock: 7319933
     mapping:
       kind: ethereum/events
-      apiVersion: 0.0.2
+      apiVersion: 0.0.4
       language: wasm/assemblyscript
       entities:
         - OtokenCreated
       abis:
-        - name: Contract
-          file: ./abis/Contract.json
+        - name: OtokenFactory
+          file: ./abis/OtokenFactory.json
       eventHandlers:
         - event: OtokenCreated(indexed address,indexed address,address,address,address,uint256,uint256,bool)
           handler: handleOtokenCreated
