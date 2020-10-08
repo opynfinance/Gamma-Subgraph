@@ -1,8 +1,14 @@
 import { BigInt } from "@graphprotocol/graph-ts"
-import { OtokenFactory, OtokenCreated } from "../generated/OtokenFactory/OtokenFactory"
+import { OTokenFactory, OtokenCreated } from "../generated/OTokenFactory/OTokenFactory"
+import { OToken as OTokenSource } from "../generated/templates"
 import { OToken } from "../generated/schema"
 
 export function handleOtokenCreated(event: OtokenCreated): void {
+
+  // Start indeing the newly created OToken contract
+  OTokenSource.create(event.params.tokenAddress)
+
+  // Create Otoken Entity
   let entity = new OToken(event.params.tokenAddress.toHex())
 
   entity.underlyingAsset = event.params.underlying

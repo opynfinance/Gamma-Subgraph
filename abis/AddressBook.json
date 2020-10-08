@@ -70,7 +70,7 @@
   },
   {
     "inputs": [],
-    "name": "getOtokenFactory",
+    "name": "getOTokenFactory",
     "outputs": [{ "internalType": "address", "name": "", "type": "address" }],
     "stateMutability": "view",
     "type": "function"
@@ -150,7 +150,7 @@
   },
   {
     "inputs": [{ "internalType": "address", "name": "_otokenFactory", "type": "address" }],
-    "name": "setOtokenFactory",
+    "name": "setOTokenFactory",
     "outputs": [],
     "stateMutability": "nonpayable",
     "type": "function"

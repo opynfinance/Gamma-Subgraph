@@ -11,3 +11,18 @@ type OToken @entity {
 
   totalSupply: BigInt!
 }
+
+type Vault @entity {
+  id: ID!
+
+  owner: Bytes! # address
+  vaultId: BigInt!
+
+  shortOTokens: [Bytes]! # address
+  longOTokens: [Bytes]! # address
+  collateralAssets: [Bytes]! # address
+  
+  shortAmounts: [BigInt]! # address
+  longAmounts: [BigInt]! # address
+  collateralAmounts: [BigInt]! # address
+}

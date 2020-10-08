@@ -3,11 +3,11 @@ schema:
   file: ./schema.graphql
 dataSources:
   - kind: ethereum/contract
-    name: OtokenFactory
+    name: OTokenFactory
     network: rinkeby
     source:
       address: "0x17ffbe9476ddcc79f4574e0c89ce537fd65a8cae"
-      abi: OtokenFactory
+      abi: OTokenFactory
       startBlock: 7319933
     mapping:
       kind: ethereum/events
@@ -16,12 +16,12 @@ dataSources:
       entities:
         - OtokenCreated
       abis:
-        - name: OtokenFactory
-          file: ./abis/OtokenFactory.json
+        - name: OTokenFactory
+          file: ./abis/OTokenFactory.json
       eventHandlers:
         - event: OtokenCreated(indexed address,indexed address,address,address,address,uint256,uint256,bool)
           handler: handleOtokenCreated
-      file: ./src/OtokenFactory.ts
+      file: ./src/OTokenFactory.ts
 
   - kind: ethereum/contract
     name: Controller
@@ -90,3 +90,25 @@ dataSources:
         - event: VaultSettled(indexed address,indexed address,uint256,uint256)
           handler: handleVaultSettled
       file: ./src/Controller.ts
+
+templates:
+  - name: OToken
+    kind: ethereum/contract
+    network: rinkeby
+    source:
+      abi: OToken
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.4
+      language: wasm/assemblyscript
+      entities:
+        - OToken
+      abis:
+        - name: OToken
+          file: ./abis/OToken.json
+      eventHandlers:
+        - event: Approval(indexed address,indexed address,uint256)
+          handler: handleApproval
+        - event: Transfer(indexed address,indexed address,uint256)
+          handler: handleTransfer
+      file: ./src/OToken.ts
