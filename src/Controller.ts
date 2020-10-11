@@ -18,15 +18,37 @@ import {
   SystemFullyPaused,
   SystemPartiallyPaused,
   VaultOpened,
-  VaultSettled
+  VaultSettled,
+  VaultOpened__Params
 } from "../generated/Controller/Controller"
 import { log } from '@graphprotocol/graph-ts'
 
-import { BIGINT_ONE, BIGDECIMAL_ZERO } from './helper'
+import { BIGINT_ONE, BIGDECIMAL_ZERO, BIGDECIMAL_ONE } from './helper'
 
 import {
-  Operator, Account, AccountOperator
+  Operator, Account, AccountOperator, Vault
 } from '../generated/schema'
+
+function loadOrCreateAccount(accountId: string): Account {
+  let account = Account.load(accountId)
+  // if no account, create new entity
+  if (account == null) {
+    account = new Account(accountId)
+    account.operatorCount = new BigInt(0)
+    account.vaultCount = new BigInt(0)
+  }
+  return account as Account
+}
+
+function loadOrCreateOperator(operatorId: string): Operator {
+  let operator =  Operator.load(operatorId)
+  // if no operator, create new entity
+  if (operator == null ) {
+    operator = new Operator(operatorId)
+    operator.accountCount = new BigInt(0)
+  }
+  return operator as Operator
+}
 
 export function handleAccountOperatorUpdated(
   event: AccountOperatorUpdated
@@ -35,21 +57,9 @@ export function handleAccountOperatorUpdated(
   let operatorId = event.params.operator.toHex()
   let isSet = event.params.isSet
 
-  let account = Account.load(accountId)
-  let operator = Operator.load(operatorId)
-
-  // if no account, create new entity
-  if (account == null) {
-    account = new Account(accountId)
-    account.operatorCount = new BigInt(0)
-    account.vaultCount = new BigInt(0)
-  }
-
-  if (operator == null ) {
-    operator = new Operator(operatorId)
-    operator.accountCount = new BigInt(0)
-  }
-
+  let account = loadOrCreateAccount(accountId)
+  let operator = loadOrCreateOperator(operatorId)
+  
   let relationId = accountId + '-' + operatorId
   let relation = AccountOperator.load(relationId)  
 
@@ -104,6 +114,30 @@ export function handleSystemPartiallyPaused(
   event: SystemPartiallyPaused
 ): void {}
 
-export function handleVaultOpened(event: VaultOpened): void {}
+export function handleVaultOpened(event: VaultOpened): void {
+  let accountId = event.params.accountOwner.toHex()
+  let id = event.params.vaultId
+
+  // update the account entity
+  let account = loadOrCreateAccount(accountId)
+  account.vaultCount = account.vaultCount.plus(BIGINT_ONE)
+
+  // create and initializd a vault entity
+  let vaultId = accountId + '-' + id.toString()
+  let vault = new Vault(vaultId)
+
+  vault.owner = accountId;
+  vault.vaultId = id!
+
+  vault.shortOTokens = []
+  vault.longOTokens = []
+  vault.collateralAssets = []
+  
+  vault.shortAmounts = []
+  vault.longAmounts = []
+  vault.collateralAmounts = []
+
+  vault.save()
+}
 
 export function handleVaultSettled(event: VaultSettled): void {}
