@@ -1,4 +1,5 @@
 import { BigInt } from "@graphprotocol/graph-ts"
+import { store } from '@graphprotocol/graph-ts'
 import {
   Controller,
   AccountOperatorUpdated,
@@ -19,11 +20,55 @@ import {
   VaultOpened,
   VaultSettled
 } from "../generated/Controller/Controller"
+import { log } from '@graphprotocol/graph-ts'
 
+import { BIGINT_ONE, BIGDECIMAL_ZERO } from './helper'
+
+import {
+  Operator, Account, AccountOperator
+} from '../generated/schema'
 
 export function handleAccountOperatorUpdated(
   event: AccountOperatorUpdated
-): void {}
+): void {
+  let accountId = event.params.accountOwner.toHex()
+  let operatorId = event.params.operator.toHex()
+  let isSet = event.params.isSet
+
+  let account = Account.load(accountId)
+  let operator = Operator.load(operatorId)
+
+  // if no account, create new entity
+  if (account == null) {
+    account = new Account(accountId)
+    account.operatorCount = new BigInt(0)
+    account.vaultCount = new BigInt(0)
+  }
+
+  if (operator == null ) {
+    operator = new Operator(operatorId)
+    operator.accountCount = new BigInt(0)
+  }
+
+  let relationId = accountId + '-' + operatorId
+  let relation = AccountOperator.load(relationId)  
+
+  if (isSet && relation == null) { // adding a new  operator
+    relation = new AccountOperator(relationId)
+    relation.account = accountId
+    relation.operator = operatorId
+    relation.save()
+    account.operatorCount = account.operatorCount.plus(BIGINT_ONE);
+    operator.accountCount = operator.accountCount.plus(BIGINT_ONE);
+  } else if (!isSet && relation != null) {
+    store.remove('AccountOperator', relationId)
+    account.operatorCount = account.operatorCount.minus(BIGINT_ONE);
+    operator.accountCount = operator.accountCount.minus(BIGINT_ONE);
+  }
+  
+  account.save()
+  operator.save()
+}
 
 export function handleCallExecuted(event: CallExecuted): void {}
 

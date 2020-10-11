@@ -18,7 +18,10 @@ export function handleOtokenCreated(event: OtokenCreated): void {
   entity.isPut = event.params.isPut
   entity.expiryTimestamp = event.params.expiry
   entity.creator = event.params.creator
+
   entity.totalSupply = BigInt.fromI32(0)
+  entity.createdAt = event.block.timestamp
+  entity.createdTx = event.transaction.hash
 
   entity.save()
 }

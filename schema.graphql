@@ -9,20 +9,81 @@ type OToken @entity {
   expiryTimestamp: BigInt!
   isPut: Boolean!
 
+  createdAt: BigInt!
+  createdTx: Bytes!
+
   totalSupply: BigInt!
 }
 
-type Vault @entity {
+type Account @entity {
   id: ID!
 
-  owner: Bytes! # address
+  "Amount of vaults this account has"
+  vaultCount: BigInt!
+
+  "Array of all vaults"
+  vaults: [Vault]! @derivedFrom(field: "owner")
+
+  "Amount of operators"
+  operatorCount: BigInt!
+
+  "Array of operator this account has"
+  operators: [AccountOperator!] @derivedFrom(field: "account")
+}
+
+type Operator @entity {
+  id: ID!
+
+  "Amount of account this operator is controlling"
+  accountCount: BigInt!
+
+  "Array of accounts this operator is controlling"
+  accounts: [AccountOperator]! @derivedFrom(field: "operator")
+}
+
+# For manage many-to-many relationship between operators and accounts
+type AccountOperator @entity {
+  " Equals to ${account}-${operator}`"
+  id: ID!
+  account: Account
+  operator: Operator
+}
+
+type Vault @entity {
+  "Equals to <owner>-<vaultId>"
+  id: ID!
+
+  owner: Account! # address
   vaultId: BigInt!
 
-  shortOTokens: [Bytes]! # address
-  longOTokens: [Bytes]! # address
-  collateralAssets: [Bytes]! # address
+  shortOTokens: [Bytes!]! # address
+  longOTokens: [Bytes!]! # address
+  collateralAssets: [Bytes!]! # address
   
-  shortAmounts: [BigInt]! # address
-  longAmounts: [BigInt]! # address
-  collateralAmounts: [BigInt]! # address
+  shortAmounts: [BigInt!]!
+  longAmounts: [BigInt!]!
+  collateralAmounts: [BigInt!]!
+}
+
+#
+# Vault Events
+#
+interface VaultAction {
+  " Equals to: <actionType>-<transactionHash>-<logId>"
+  id: ID!
+
+  " Vault owner"
+  owner: Bytes!
+
+  " Vault Id"
+  vauldId: BigInt!
+
+  " Block number "
+  block: BigInt!
+
+  " Transaction hash (tx) "
+  transactionHash: Bytes!
+
+  " Timestamp as seconds (time) "
+  timestamp: BigInt!
 }
