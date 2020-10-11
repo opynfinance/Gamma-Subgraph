@@ -1,5 +1,4 @@
-import { BigInt } from "@graphprotocol/graph-ts"
-import { store } from '@graphprotocol/graph-ts'
+import { BigInt, Address, store } from "@graphprotocol/graph-ts"
 import {
   Controller,
   AccountOperatorUpdated,
@@ -86,7 +85,20 @@ export function handleCallRestricted(event: CallRestricted): void {}
 
 export function handleCollateralAssetDeposited(
   event: CollateralAssetDeposited
-): void {}
+): void {
+  let accountId = event.params.accountOwner.toHex()
+  let id = event.params.vaultId
+  let asset = event.params.asset
+  let from = event.params.from
+  let amount = event.params.amount
+
+  // update vault struct
+  let vaultId = accountId + '-' + id.toString()
+  let vault = Vault.load(vaultId)
+  vault.collateralAssets = asset;
+  vault.collateralAmounts = vault.collateralAmounts.plus(amount)
+  vault.save()
+}
 
 export function handleCollateralAssetWithdrawed(
   event: CollateralAssetWithdrawed
@@ -128,14 +140,6 @@ export function handleVaultOpened(event: VaultOpened): void {
 
   vault.owner = accountId;
   vault.vaultId = id!
-
-  vault.shortOTokens = []
-  vault.longOTokens = []
-  vault.collateralAssets = []
-  
-  vault.shortAmounts = []
-  vault.longAmounts = []
-  vault.collateralAmounts = []
 
   vault.save()
 }

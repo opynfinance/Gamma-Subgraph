@@ -56,13 +56,13 @@ type Vault @entity {
   owner: Account! # address
   vaultId: BigInt!
 
-  shortOTokens: [Bytes!]! # address
-  longOTokens: [Bytes!]! # address
-  collateralAssets: [Bytes!]! # address
+  shortOTokens: OToken # address
+  longOTokens: OToken # address
+  collateralAssets: Bytes # address
   
-  shortAmounts: [BigInt!]!
-  longAmounts: [BigInt!]!
-  collateralAmounts: [BigInt!]!
+  shortAmounts: BigInt
+  longAmounts: BigInt
+  collateralAmounts: BigInt
 }
 
 #
@@ -71,19 +71,33 @@ type Vault @entity {
 interface VaultAction {
   " Equals to: <actionType>-<transactionHash>-<logId>"
   id: ID!
-
-  " Vault owner"
-  owner: Bytes!
-
-  " Vault Id"
-  vauldId: BigInt!
-
+  " Transaction sender, either account or operator"
+  from: Bytes!
+  " The vault that this action operates on"
+  vault: Vault!
   " Block number "
   block: BigInt!
-
   " Transaction hash (tx) "
   transactionHash: Bytes!
-
   " Timestamp as seconds (time) "
   timestamp: BigInt!
+}
+
+type DepositCollateralAction implements VaultAction @entity {
+  " Equals to: <actionType>-<transactionHash>-<logId>"
+  id: ID!
+  " Transaction sender, either account or operator"
+  from: Bytes!
+  " The vault that this action operates on"
+  vault: Vault!
+  " Block number "
+  block: BigInt!
+  " Transaction hash (tx) "
+  transactionHash: Bytes!
+  " Timestamp as seconds (time) "
+  timestamp: BigInt!
+  " Collateral Asset"
+  asset: Bytes!
+  " Amount added in the vault"
+  amount: BigInt!
 }

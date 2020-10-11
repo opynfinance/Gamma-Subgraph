@@ -27,7 +27,7 @@ dataSources:
     name: Controller
     network: rinkeby
     source:
-      address: "0x5faCA6DF39c897802d752DfCb8c02Ea6959245Fc"
+      address: "0x5ca72b05416f728c877942078454d458e6733421"
       abi: Controller
       startBlock: 7319933
     mapping:
