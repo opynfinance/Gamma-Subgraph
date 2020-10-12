@@ -18,6 +18,8 @@ dataSources:
       abis:
         - name: OTokenFactory
           file: ./abis/OTokenFactory.json
+        - name: OToken
+          file: ./abis/OToken.json
       eventHandlers:
         - event: OtokenCreated(indexed address,indexed address,address,address,address,uint256,uint256,bool)
           handler: handleOtokenCreated
@@ -97,7 +99,7 @@ templates:
     kind: ethereum/contract
     network: rinkeby
     source:
-      abi: Otoken
+      abi: OToken
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.4
@@ -105,8 +107,8 @@ templates:
       entities:
         - OToken
       abis:
-        - name: Otoken
-          file: ./abis/Otoken.json
+        - name: OToken
+          file: ./abis/OToken.json
       eventHandlers:
         - event: Approval(indexed address,indexed address,uint256)
           handler: handleApproval

@@ -1,7 +1,7 @@
 import { BigInt } from "@graphprotocol/graph-ts"
 import { OTokenFactory, OtokenCreated } from "../generated/OTokenFactory/OTokenFactory"
 import { OToken as OTokenSource } from "../generated/templates"
-import { OToken as OTokenContract } from "../generated/templates/OToken/OToken"
+import { OToken as TokenContract } from "../generated/templates/OToken/OToken"
 import { OToken } from "../generated/schema"
 
 export function handleOtokenCreated(event: OtokenCreated): void {
@@ -20,7 +20,7 @@ export function handleOtokenCreated(event: OtokenCreated): void {
   entity.expiryTimestamp = event.params.expiry
   entity.creator = event.params.creator
 
-  let contract = OTokenContract.bind(event.params.tokenAddress)
+  let contract = TokenContract.bind(event.params.tokenAddress)
   // Access state variables and functions by calling them
   entity.symbol = contract.symbol()
   entity.name = contract.name()
