@@ -95,8 +95,8 @@ export function handleCollateralAssetDeposited(
   // update vault struct
   let vaultId = accountId + '-' + id.toString()
   let vault = Vault.load(vaultId)
-  vault.collateralAssets = asset;
-  vault.collateralAmounts = vault.collateralAmounts.plus(amount)
+  vault.collateralAsset = asset;
+  vault.collateralAmount = vault.collateralAmount.plus(amount)
   vault.save()
 }
 
@@ -133,6 +133,7 @@ export function handleVaultOpened(event: VaultOpened): void {
   // update the account entity
   let account = loadOrCreateAccount(accountId)
   account.vaultCount = account.vaultCount.plus(BIGINT_ONE)
+  account.save()
 
   // create and initializd a vault entity
   let vaultId = accountId + '-' + id.toString()

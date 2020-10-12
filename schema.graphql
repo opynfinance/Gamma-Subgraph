@@ -1,5 +1,7 @@
 type OToken @entity {
   id: ID!
+  name: String!
+  symbol: String!
   strikeAsset: Bytes! # address
   underlyingAsset: Bytes! # address
   collateralAsset: Bytes! # address
@@ -56,13 +58,13 @@ type Vault @entity {
   owner: Account! # address
   vaultId: BigInt!
 
-  shortOTokens: OToken # address
-  longOTokens: OToken # address
-  collateralAssets: Bytes # address
+  shortOToken: OToken # address
+  longOToken: OToken # address
+  collateralAsset: Bytes # address
   
-  shortAmounts: BigInt
-  longAmounts: BigInt
-  collateralAmounts: BigInt
+  shortAmount: BigInt
+  longAmount: BigInt
+  collateralAmount: BigInt
 }
 
 #
