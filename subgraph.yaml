@@ -97,7 +97,7 @@ templates:
     kind: ethereum/contract
     network: rinkeby
     source:
-      abi: OToken
+      abi: Otoken
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.4
@@ -105,8 +105,8 @@ templates:
       entities:
         - OToken
       abis:
-        - name: OToken
-          file: ./abis/OToken.json
+        - name: Otoken
+          file: ./abis/Otoken.json
       eventHandlers:
         - event: Approval(indexed address,indexed address,uint256)
           handler: handleApproval
