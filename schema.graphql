@@ -74,7 +74,7 @@ interface VaultAction {
   " Equals to: <actionType>-<transactionHash>-<logId>"
   id: ID!
   " Transaction sender, either account or operator"
-  from: Bytes!
+  messageSender: Bytes!
   " The vault that this action operates on"
   vault: Vault!
   " Block number "
@@ -85,21 +85,117 @@ interface VaultAction {
   timestamp: BigInt!
 }
 
-type DepositCollateralAction implements VaultAction @entity {
-  " Equals to: <actionType>-<transactionHash>-<logId>"
+type OpenVaultAction implements VaultAction @entity {
+    # Vault fields
   id: ID!
-  " Transaction sender, either account or operator"
-  from: Bytes!
-  " The vault that this action operates on"
+  messageSender: Bytes!
   vault: Vault!
-  " Block number "
   block: BigInt!
-  " Transaction hash (tx) "
   transactionHash: Bytes!
-  " Timestamp as seconds (time) "
   timestamp: BigInt!
+}
+
+type DepositCollateralAction implements VaultAction @entity {
+  # Vault fields
+  id: ID!
+  messageSender: Bytes!
+  vault: Vault!
+  block: BigInt!
+  transactionHash: Bytes!
+  timestamp: BigInt!
+  
+  # Specific field
+  " Collateral sender, either account or operator"
+  from: Bytes!
   " Collateral Asset"
   asset: Bytes!
+  " Amount added in the vault"
+  amount: BigInt!
+}
+
+type WithdrawCollateralAction implements VaultAction @entity {
+    # Vault fields
+  id: ID!
+  messageSender: Bytes!
+  vault: Vault!
+  block: BigInt!
+  transactionHash: Bytes!
+  timestamp: BigInt!
+  
+  " Collateral sender, either account or operator"
+  to: Bytes!
+  " Collateral Asset"
+  asset: Bytes!
+  " Amount added in the vault"
+  amount: BigInt!
+}
+
+type DepositLongAction implements VaultAction @entity {
+  # Vault fields
+  id: ID!
+  messageSender: Bytes!
+  vault: Vault!
+  block: BigInt!
+  transactionHash: Bytes!
+  timestamp: BigInt!
+  
+  # Specific field
+  " oToken sender, either account or operator"
+  from: Bytes!
+  " oToken Asset"
+  oToken: OToken!
+  " oToken added in the vault"
+  amount: BigInt!
+}
+
+type WithdrawLongAction implements VaultAction @entity {
+    # Vault fields
+  id: ID!
+  messageSender: Bytes!
+  vault: Vault!
+  block: BigInt!
+  transactionHash: Bytes!
+  timestamp: BigInt!
+  
+  " Long oToken sender, either account or operator"
+  to: Bytes!
+  " Long oToken Asset"
+  oToken: OToken!
+  " Amount added in the vault"
+  amount: BigInt!
+}
+
+type BurnShortAction implements VaultAction @entity {
+  # Vault fields
+  id: ID!
+  messageSender: Bytes!
+  vault: Vault!
+  block: BigInt!
+  transactionHash: Bytes!
+  timestamp: BigInt!
+  
+  # Specific field
+  " oToken holder, either account or operator"
+  from: Bytes!
+  " oToken Asset"
+  oToken: OToken!
+  " Amount added in the vault"
+  amount: BigInt!
+}
+
+type MintShortAction implements VaultAction @entity {
+    # Vault fields
+  id: ID!
+  messageSender: Bytes!
+  vault: Vault!
+  block: BigInt!
+  transactionHash: Bytes!
+  timestamp: BigInt!
+  
+  " Create oToken to"
+  to: Bytes!
+  " OToken asset"
+  oToken: OToken!
   " Amount added in the vault"
   amount: BigInt!
 }
