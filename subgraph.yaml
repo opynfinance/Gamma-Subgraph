@@ -120,6 +120,8 @@ dataSources:
       abis:
         - name: Whitelist
           file: ./abis/Whitelist.json
+        - name: ERC20
+          file: ./abis/ERC20.json
       eventHandlers:
         - event: CalleeBlacklisted(indexed address)
           handler: handleCalleeBlacklisted

@@ -79,6 +79,7 @@ function checkERC20Entity(address: Address): void {
   let contract = ERC20Contract.bind(address)
   entity.symbol = contract.symbol()
   entity.name = contract.name()
+  entity.decimals = contract.decimals()
   entity.save();
   
 }

@@ -2,6 +2,7 @@ type ERC20 @entity {
   id: ID!
   symbol: String!
   name: String!
+  decimals: Int!
 }
 
 type OToken @entity {
