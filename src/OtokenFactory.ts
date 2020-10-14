@@ -13,10 +13,6 @@ export function handleOtokenCreated(event: OtokenCreated): void {
   // Create Otoken Entity
   let entity = new OToken(event.params.tokenAddress.toHex())
 
-  createERC20(event.params.underlying)
-  createERC20(event.params.strike)
-  createERC20(event.params.collateral)
-
   entity.underlyingAsset = event.params.underlying.toHex()
   entity.strikeAsset = event.params.strike.toHex()
   entity.collateralAsset = event.params.collateral.toHex()
@@ -37,18 +33,3 @@ export function handleOtokenCreated(event: OtokenCreated): void {
   entity.save()
 }
 
-/**
- * Should be moved to whitelist module
- * @param address 
- */
-function createERC20(address: Address): void {
-  let entity = ERC20.load(address.toHex())
-  if (entity != null) return
-  
-  entity = new ERC20(address.toHex())
-  let contract = ERC20Contract.bind(address)
-  entity.symbol = contract.symbol()
-  entity.name = contract.name()
-  entity.save();
-  
-}

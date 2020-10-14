@@ -96,6 +96,50 @@ dataSources:
           handler: handleVaultSettled
       file: ./src/Controller.ts
 
+  - kind: ethereum/contract
+    name: Whitelist
+    network: rinkeby
+    source:
+      address: "0x8d6994b701F480C27757c5FE2bd93d5352160081"
+      abi: Whitelist
+      startBlock: 7319938
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.4
+      language: wasm/assemblyscript
+      entities:
+        - CalleeBlacklisted
+        - CalleeWhitelisted
+        - CollateralBlacklisted
+        - CollateralWhitelisted
+        - OtokenBlacklisted
+        - OtokenWhitelisted
+        - OwnershipTransferred
+        - ProductBlacklisted
+        - ProductWhitelisted
+      abis:
+        - name: Whitelist
+          file: ./abis/Whitelist.json
+      eventHandlers:
+        - event: CalleeBlacklisted(indexed address)
+          handler: handleCalleeBlacklisted
+        - event: CalleeWhitelisted(indexed address)
+          handler: handleCalleeWhitelisted
+        - event: CollateralBlacklisted(indexed address)
+          handler: handleCollateralBlacklisted
+        - event: CollateralWhitelisted(indexed address)
+          handler: handleCollateralWhitelisted
+        - event: OtokenBlacklisted(indexed address)
+          handler: handleOtokenBlacklisted
+        - event: OtokenWhitelisted(indexed address)
+          handler: handleOtokenWhitelisted
+        - event: OwnershipTransferred(indexed address,indexed address)
+          handler: handleOwnershipTransferred
+        - event: ProductBlacklisted(bytes32,indexed address,indexed address,indexed address,bool)
+          handler: handleProductBlacklisted
+        - event: ProductWhitelisted(bytes32,indexed address,indexed address,indexed address,bool)
+          handler: handleProductWhitelisted
+      file: ./src/Whitelist.ts
 templates:
   - name: OToken
     kind: ethereum/contract

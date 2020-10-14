@@ -205,3 +205,12 @@ type MintShortAction implements VaultAction @entity {
   " Amount added in the vault"
   amount: BigInt!
 }
+
+type WhitelistedProduct @entity {
+  id: ID!
+  underlying: ERC20!
+  strike: ERC20!
+  collateral: ERC20!
+  isPut: Boolean!
+  isWhitelisted: Boolean!  
+}

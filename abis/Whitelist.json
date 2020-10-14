@@ -1,13 +1,20 @@
 [
   {
-    "inputs": [{ "internalType": "address", "name": "_addressBook", "type": "address" }],
+    "inputs": [
+      { "internalType": "address", "name": "_addressBook", "type": "address" }
+    ],
     "stateMutability": "nonpayable",
     "type": "constructor"
   },
   {
     "anonymous": false,
     "inputs": [
-      { "indexed": true, "internalType": "address", "name": "_callee", "type": "address" }
+      {
+        "indexed": true,
+        "internalType": "address",
+        "name": "_callee",
+        "type": "address"
+      }
     ],
     "name": "CalleeBlacklisted",
     "type": "event"
@@ -15,7 +22,12 @@
   {
     "anonymous": false,
     "inputs": [
-      { "indexed": true, "internalType": "address", "name": "_callee", "type": "address" }
+      {
+        "indexed": true,
+        "internalType": "address",
+        "name": "_callee",
+        "type": "address"
+      }
     ],
     "name": "CalleeWhitelisted",
     "type": "event"
@@ -23,7 +35,12 @@
   {
     "anonymous": false,
     "inputs": [
-      { "indexed": true, "internalType": "address", "name": "collateral", "type": "address" }
+      {
+        "indexed": true,
+        "internalType": "address",
+        "name": "collateral",
+        "type": "address"
+      }
     ],
     "name": "CollateralBlacklisted",
     "type": "event"
@@ -31,28 +48,57 @@
   {
     "anonymous": false,
     "inputs": [
-      { "indexed": true, "internalType": "address", "name": "collateral", "type": "address" }
+      {
+        "indexed": true,
+        "internalType": "address",
+        "name": "collateral",
+        "type": "address"
+      }
     ],
     "name": "CollateralWhitelisted",
     "type": "event"
   },
   {
     "anonymous": false,
-    "inputs": [{ "indexed": true, "internalType": "address", "name": "otoken", "type": "address" }],
+    "inputs": [
+      {
+        "indexed": true,
+        "internalType": "address",
+        "name": "otoken",
+        "type": "address"
+      }
+    ],
     "name": "OtokenBlacklisted",
     "type": "event"
   },
   {
     "anonymous": false,
-    "inputs": [{ "indexed": true, "internalType": "address", "name": "otoken", "type": "address" }],
+    "inputs": [
+      {
+        "indexed": true,
+        "internalType": "address",
+        "name": "otoken",
+        "type": "address"
+      }
+    ],
     "name": "OtokenWhitelisted",
     "type": "event"
   },
   {
     "anonymous": false,
     "inputs": [
-      { "indexed": true, "internalType": "address", "name": "previousOwner", "type": "address" },
-      { "indexed": true, "internalType": "address", "name": "newOwner", "type": "address" }
+      {
+        "indexed": true,
+        "internalType": "address",
+        "name": "previousOwner",
+        "type": "address"
+      },
+      {
+        "indexed": true,
+        "internalType": "address",
+        "name": "newOwner",
+        "type": "address"
+      }
     ],
     "name": "OwnershipTransferred",
     "type": "event"
@@ -60,11 +106,36 @@
   {
     "anonymous": false,
     "inputs": [
-      { "indexed": false, "internalType": "bytes32", "name": "productHash", "type": "bytes32" },
-      { "indexed": true, "internalType": "address", "name": "underlying", "type": "address" },
-      { "indexed": true, "internalType": "address", "name": "strike", "type": "address" },
-      { "indexed": true, "internalType": "address", "name": "collateral", "type": "address" },
-      { "indexed": false, "internalType": "bool", "name": "isPut", "type": "bool" }
+      {
+        "indexed": false,
+        "internalType": "bytes32",
+        "name": "productHash",
+        "type": "bytes32"
+      },
+      {
+        "indexed": true,
+        "internalType": "address",
+        "name": "underlying",
+        "type": "address"
+      },
+      {
+        "indexed": true,
+        "internalType": "address",
+        "name": "strike",
+        "type": "address"
+      },
+      {
+        "indexed": true,
+        "internalType": "address",
+        "name": "collateral",
+        "type": "address"
+      },
+      {
+        "indexed": false,
+        "internalType": "bool",
+        "name": "isPut",
+        "type": "bool"
+      }
     ],
     "name": "ProductBlacklisted",
     "type": "event"
@@ -72,11 +143,36 @@
   {
     "anonymous": false,
     "inputs": [
-      { "indexed": false, "internalType": "bytes32", "name": "productHash", "type": "bytes32" },
-      { "indexed": true, "internalType": "address", "name": "underlying", "type": "address" },
-      { "indexed": true, "internalType": "address", "name": "strike", "type": "address" },
-      { "indexed": true, "internalType": "address", "name": "collateral", "type": "address" },
-      { "indexed": false, "internalType": "bool", "name": "isPut", "type": "bool" }
+      {
+        "indexed": false,
+        "internalType": "bytes32",
+        "name": "productHash",
+        "type": "bytes32"
+      },
+      {
+        "indexed": true,
+        "internalType": "address",
+        "name": "underlying",
+        "type": "address"
+      },
+      {
+        "indexed": true,
+        "internalType": "address",
+        "name": "strike",
+        "type": "address"
+      },
+      {
+        "indexed": true,
+        "internalType": "address",
+        "name": "collateral",
+        "type": "address"
+      },
+      {
+        "indexed": false,
+        "internalType": "bool",
+        "name": "isPut",
+        "type": "bool"
+      }
     ],
     "name": "ProductWhitelisted",
     "type": "event"
@@ -89,21 +185,27 @@
     "type": "function"
   },
   {
-    "inputs": [{ "internalType": "address", "name": "_callee", "type": "address" }],
+    "inputs": [
+      { "internalType": "address", "name": "_callee", "type": "address" }
+    ],
     "name": "blacklistCallee",
     "outputs": [],
     "stateMutability": "nonpayable",
     "type": "function"
   },
   {
-    "inputs": [{ "internalType": "address", "name": "_collateral", "type": "address" }],
+    "inputs": [
+      { "internalType": "address", "name": "_collateral", "type": "address" }
+    ],
     "name": "blacklistCollateral",
     "outputs": [],
     "stateMutability": "nonpayable",
     "type": "function"
   },
   {
-    "inputs": [{ "internalType": "address", "name": "_otokenAddress", "type": "address" }],
+    "inputs": [
+      { "internalType": "address", "name": "_otokenAddress", "type": "address" }
+    ],
     "name": "blacklistOtoken",
     "outputs": [],
     "stateMutability": "nonpayable",
@@ -122,21 +224,27 @@
     "type": "function"
   },
   {
-    "inputs": [{ "internalType": "address", "name": "_callee", "type": "address" }],
+    "inputs": [
+      { "internalType": "address", "name": "_callee", "type": "address" }
+    ],
     "name": "isWhitelistedCallee",
     "outputs": [{ "internalType": "bool", "name": "", "type": "bool" }],
     "stateMutability": "view",
     "type": "function"
   },
   {
-    "inputs": [{ "internalType": "address", "name": "_collateral", "type": "address" }],
+    "inputs": [
+      { "internalType": "address", "name": "_collateral", "type": "address" }
+    ],
     "name": "isWhitelistedCollateral",
     "outputs": [{ "internalType": "bool", "name": "", "type": "bool" }],
     "stateMutability": "view",
     "type": "function"
   },
   {
-    "inputs": [{ "internalType": "address", "name": "_otoken", "type": "address" }],
+    "inputs": [
+      { "internalType": "address", "name": "_otoken", "type": "address" }
+    ],
     "name": "isWhitelistedOtoken",
     "outputs": [{ "internalType": "bool", "name": "", "type": "bool" }],
     "stateMutability": "view",
@@ -169,21 +277,27 @@
     "type": "function"
   },
   {
-    "inputs": [{ "internalType": "address", "name": "newOwner", "type": "address" }],
+    "inputs": [
+      { "internalType": "address", "name": "newOwner", "type": "address" }
+    ],
     "name": "transferOwnership",
     "outputs": [],
     "stateMutability": "nonpayable",
     "type": "function"
   },
   {
-    "inputs": [{ "internalType": "address", "name": "_collateral", "type": "address" }],
+    "inputs": [
+      { "internalType": "address", "name": "_collateral", "type": "address" }
+    ],
     "name": "whitelistCollateral",
     "outputs": [],
     "stateMutability": "nonpayable",
     "type": "function"
   },
   {
-    "inputs": [{ "internalType": "address", "name": "_otokenAddress", "type": "address" }],
+    "inputs": [
+      { "internalType": "address", "name": "_otokenAddress", "type": "address" }
+    ],
     "name": "whitelistOtoken",
     "outputs": [],
     "stateMutability": "nonpayable",
@@ -202,7 +316,9 @@
     "type": "function"
   },
   {
-    "inputs": [{ "internalType": "address", "name": "_callee", "type": "address" }],
+    "inputs": [
+      { "internalType": "address", "name": "_callee", "type": "address" }
+    ],
     "name": "whitelisteCallee",
     "outputs": [],
     "stateMutability": "nonpayable",
