@@ -102,7 +102,7 @@ export function handleCollateralAssetDeposited(event: CollateralAssetDeposited):
   // update vault struct
   let vaultId = accountId + '-' + id.toString();
   let vault = Vault.load(vaultId);
-  vault.collateralAsset = asset;
+  vault.collateralAsset = asset.toHex();
   vault.collateralAmount = vault.collateralAmount.plus(amount);
   vault.save();
 
@@ -117,7 +117,7 @@ export function handleCollateralAssetDeposited(event: CollateralAssetDeposited):
   action.timestamp = event.block.timestamp;
   // DepositCollaralAction fields
   action.from = from;
-  action.asset = asset;
+  action.asset = asset.toHex();
   action.amount = amount;
   action.save();
 }
@@ -132,7 +132,7 @@ export function handleCollateralAssetWithdrawed(event: CollateralAssetWithdrawed
   // update vault struct
   let vaultId = accountId + '-' + id.toString();
   let vault = Vault.load(vaultId);
-  vault.collateralAsset = asset;
+  vault.collateralAsset = asset.toHex();
   vault.collateralAmount = vault.collateralAmount.minus(amount);
   vault.save();
 
@@ -147,7 +147,7 @@ export function handleCollateralAssetWithdrawed(event: CollateralAssetWithdrawed
   action.timestamp = event.block.timestamp;
   // DepositCollaralAction fields
   action.to = to;
-  action.asset = asset;
+  action.asset = asset.toHex();
   action.amount = amount;
   action.save();
 }
@@ -164,7 +164,7 @@ export function handleLongOtokenDeposited(event: LongOtokenDeposited): void {
   // update vault struct
   let vaultId = accountId + '-' + id.toString();
   let vault = Vault.load(vaultId);
-  vault.longOToken = asset.toString();
+  vault.longOToken = asset.toHex();
   vault.longAmount = vault.longAmount.plus(amount);
   vault.save();
 
@@ -178,7 +178,7 @@ export function handleLongOtokenDeposited(event: LongOtokenDeposited): void {
   action.timestamp = event.block.timestamp;
   // DepositLong fields
   action.from = from;
-  action.oToken = asset.toString();
+  action.oToken = asset.toHex();
   action.amount = amount;
   action.save();
 }
@@ -193,7 +193,7 @@ export function handleLongOtokenWithdrawed(event: LongOtokenWithdrawed): void {
   // update vault struct
   let vaultId = accountId + '-' + id.toString();
   let vault = Vault.load(vaultId);
-  vault.longOToken = asset.toString();
+  vault.longOToken = asset.toHex();
   vault.longAmount = vault.longAmount.minus(amount);
   vault.save();
 
@@ -208,7 +208,7 @@ export function handleLongOtokenWithdrawed(event: LongOtokenWithdrawed): void {
   action.timestamp = event.block.timestamp;
   // WithdrawLong fields
   action.to = to;
-  action.oToken = asset.toString();
+  action.oToken = asset.toHex();
   action.amount = amount;
   action.save();
 }
@@ -229,7 +229,7 @@ export function handleShortOtokenBurned(event: ShortOtokenBurned): void {
   // update vault struct
   let vaultId = accountId + '-' + id.toString();
   let vault = Vault.load(vaultId);
-  vault.shortOToken = asset.toString(); // convert to id
+  vault.shortOToken = asset.toHex(); // convert to id
   vault.shortAmount = vault.shortAmount.minus(amount);
   vault.save();
 
@@ -243,7 +243,7 @@ export function handleShortOtokenBurned(event: ShortOtokenBurned): void {
   action.timestamp = event.block.timestamp;
   // DepositLong fields
   action.from = from;
-  action.oToken = asset.toString();
+  action.oToken = asset.toHex();
   action.amount = amount;
   action.save();
 }
@@ -258,7 +258,7 @@ export function handleShortOtokenMinted(event: ShortOtokenMinted): void {
   // update vault struct
   let vaultId = accountId + '-' + id.toString();
   let vault = Vault.load(vaultId);
-  vault.shortOToken = asset.toString(); // convert to id
+  vault.shortOToken = asset.toHex(); // convert to id
   vault.shortAmount = vault.shortAmount.plus(amount);
   vault.save();
 
@@ -272,7 +272,7 @@ export function handleShortOtokenMinted(event: ShortOtokenMinted): void {
   action.timestamp = event.block.timestamp;
   // MintShort fields
   action.to = to;
-  action.oToken = asset.toString();
+  action.oToken = asset.toHex();
   action.amount = amount;
   action.save();
 }

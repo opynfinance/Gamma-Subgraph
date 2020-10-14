@@ -20,6 +20,8 @@ dataSources:
           file: ./abis/OTokenFactory.json
         - name: OToken
           file: ./abis/OToken.json
+        - name: ERC20
+          file: ./abis/ERC20.json
       eventHandlers:
         - event: OtokenCreated(indexed address,indexed address,address,address,address,uint256,uint256,bool)
           handler: handleOtokenCreated

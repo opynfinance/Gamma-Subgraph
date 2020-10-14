@@ -1,10 +1,16 @@
+type ERC20 @entity {
+  id: ID!
+  symbol: String!
+  name: String!
+}
+
 type OToken @entity {
   id: ID!
   name: String!
   symbol: String!
-  strikeAsset: Bytes! # address
-  underlyingAsset: Bytes! # address
-  collateralAsset: Bytes! # address
+  strikeAsset: ERC20! # address
+  underlyingAsset: ERC20! # address
+  collateralAsset: ERC20! # address
   creator: Bytes! # address
   
   strikePrice: BigInt!
@@ -60,7 +66,7 @@ type Vault @entity {
 
   shortOToken: OToken # address
   longOToken: OToken # address
-  collateralAsset: Bytes # address
+  collateralAsset: ERC20 # address
   
   shortAmount: BigInt
   longAmount: BigInt
@@ -108,7 +114,7 @@ type DepositCollateralAction implements VaultAction @entity {
   " Collateral sender, either account or operator"
   from: Bytes!
   " Collateral Asset"
-  asset: Bytes!
+  asset: ERC20!
   " Amount added in the vault"
   amount: BigInt!
 }
@@ -125,7 +131,7 @@ type WithdrawCollateralAction implements VaultAction @entity {
   " Collateral sender, either account or operator"
   to: Bytes!
   " Collateral Asset"
-  asset: Bytes!
+  asset: ERC20!
   " Amount added in the vault"
   amount: BigInt!
 }
