@@ -142,6 +142,32 @@ dataSources:
         - event: ProductWhitelisted(bytes32,indexed address,indexed address,indexed address,bool)
           handler: handleProductWhitelisted
       file: ./src/Whitelist.ts
+  
+  - kind: ethereum/contract
+    name: AddressBook
+    network: rinkeby
+    source:
+      address: "0x7630e7de53e3d1f298f653d27fcf3710c602331c"
+      abi: AddressBook
+      startBlock: 7319933
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.4
+      language: wasm/assemblyscript
+      entities:
+        - AddressAdded
+        - OwnershipTransferred
+        - ProxyCreated
+      abis:
+        - name: AddressBook
+          file: ./abis/AddressBook.json
+        - name: Controller
+          file: ./abis/Controller.json
+      eventHandlers:
+        - event: ProxyCreated(bytes32,address)
+          handler: handleProxyCreated
+      file: ./src/AddressBook.ts
+
 templates:
   - name: OToken
     kind: ethereum/contract

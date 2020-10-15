@@ -1,6 +1,5 @@
 import { BigInt, Address, store } from '@graphprotocol/graph-ts';
 import {
-  Controller,
   AccountOperatorUpdated,
   CallExecuted,
   CallRestricted,
@@ -22,9 +21,10 @@ import {
 } from '../generated/Controller/Controller';
 import { Entity } from '@graphprotocol/graph-ts';
 
-import { BIGINT_ONE, BIGDECIMAL_ZERO, BIGDECIMAL_ONE } from './helper';
+import { BIGINT_ONE} from './helper';
 
 import {
+  Controller,
   Operator,
   Account,
   AccountOperator,
@@ -59,6 +59,7 @@ function loadOrCreateOperator(operatorId: string): Operator {
   return operator as Operator;
 }
 
+
 export function handleAccountOperatorUpdated(event: AccountOperatorUpdated): void {
   let accountId = event.params.accountOwner.toHex();
   let operatorId = event.params.operator.toHex();
@@ -90,7 +91,53 @@ export function handleAccountOperatorUpdated(event: AccountOperatorUpdated): voi
 
 export function handleCallExecuted(event: CallExecuted): void {}
 
-export function handleCallRestricted(event: CallRestricted): void {}
+/**
+ * System Settings
+ */
+
+export function handleCallRestricted(event: CallRestricted): void {
+  let controller = Controller.load('1')
+  controller.callRestricted = event.params.isRestricted;
+  controller.save()
+}
+
+export function handleOwnershipTransferred(event: OwnershipTransferred): void {
+  let controller = Controller.load('1')
+  controller.owner = event.params.newOwner;
+  controller.save()
+}
+
+export function handlePartialPauserUpdated(event: PartialPauserUpdated): void {
+  let controller = Controller.load('1')
+  controller.partialPauser = event.params.newPartialPauser;
+  controller.save()
+}
+
+export function handleFullPauserUpdated(event: FullPauserUpdated): void {
+  let controller = Controller.load('1')
+  controller.fullPauser = event.params.newFullPauser;
+  controller.save()
+}
+
+export function handleSystemFullyPaused(event: SystemFullyPaused): void {
+  let controller = Controller.load('1')
+  // Todo: update the event parameter name {isActive} 
+  controller.systemPartiallyPaused = event.params.isActive;
+  controller.save()
+}
+
+export function handleSystemPartiallyPaused(event: SystemPartiallyPaused): void {
+  let controller = Controller.load('1')
+  // Todo: update the event parameter name {isActive} 
+  controller.systemFullyPaused = event.params.isActive;
+  controller.save()
+}
+
+
+
+/**
+ * Vault Actions
+ */
 
 export function handleCollateralAssetDeposited(event: CollateralAssetDeposited): void {
   let accountId = event.params.accountOwner.toHex();
@@ -152,8 +199,6 @@ export function handleCollateralAssetWithdrawed(event: CollateralAssetWithdrawed
   action.save();
 }
 
-export function handleFullPauserUpdated(event: FullPauserUpdated): void {}
-
 export function handleLongOtokenDeposited(event: LongOtokenDeposited): void {
   let accountId = event.params.accountOwner.toHex();
   let id = event.params.vaultId;
@@ -213,11 +258,9 @@ export function handleLongOtokenWithdrawed(event: LongOtokenWithdrawed): void {
   action.save();
 }
 
-export function handleOwnershipTransferred(event: OwnershipTransferred): void {}
+export function handleRedeem(event: Redeem): void {
 
-export function handlePartialPauserUpdated(event: PartialPauserUpdated): void {}
-
-export function handleRedeem(event: Redeem): void {}
+}
 
 export function handleShortOtokenBurned(event: ShortOtokenBurned): void {
   let accountId = event.params.AccountOwner.toHex();
@@ -277,10 +320,6 @@ export function handleShortOtokenMinted(event: ShortOtokenMinted): void {
   action.save();
 }
 
-export function handleSystemFullyPaused(event: SystemFullyPaused): void {}
-
-export function handleSystemPartiallyPaused(event: SystemPartiallyPaused): void {}
-
 export function handleVaultOpened(event: VaultOpened): void {
   let accountId = event.params.accountOwner.toHex();
   let id = event.params.vaultId;
@@ -311,7 +350,3 @@ export function handleVaultOpened(event: VaultOpened): void {
 }
 
 export function handleVaultSettled(event: VaultSettled): void {}
-
-// function addVaultFields(action:Entity, vaultId:string, event) : any {
-
-// }

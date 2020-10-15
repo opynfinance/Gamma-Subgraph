@@ -215,3 +215,14 @@ type WhitelistedProduct @entity {
   isPut: Boolean!
   isWhitelisted: Boolean!  
 }
+
+type Controller @entity {
+  id: ID!
+  partialPauser: Bytes!
+  fullPauser: Bytes!
+  owner: Bytes!
+
+  systemPartiallyPaused: Boolean!
+  systemFullyPaused: Boolean!
+  callRestricted: Boolean!
+}

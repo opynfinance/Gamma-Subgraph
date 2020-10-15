@@ -1,9 +1,8 @@
-import { BigInt, Address } from "@graphprotocol/graph-ts"
+import { BigInt } from "@graphprotocol/graph-ts"
 import { OtokenCreated } from "../generated/OTokenFactory/OTokenFactory"
 import { OToken as OTokenSource } from "../generated/templates"
-import { ERC20 as ERC20Contract } from "../generated/OTokenFactory/ERC20"
 import { OToken as TokenContract } from "../generated/templates/OToken/OToken"
-import { OToken, ERC20 } from "../generated/schema"
+import { OToken } from "../generated/schema"
 
 export function handleOtokenCreated(event: OtokenCreated): void {
 
