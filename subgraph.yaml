@@ -168,6 +168,32 @@ dataSources:
           handler: handleProxyCreated
       file: ./src/AddressBook.ts
 
+  # Call handlers only supported on mainnet    
+  # - kind: ethereum/contract
+  #   name: MarginPool
+  #   network: mainnet
+  #   source:
+  #     address: "0x228D386D950984D1F4A2425683e620558A1430d9"
+  #     abi: MarginPool
+  #     startBlock: 7319942 
+  #   mapping:
+  #     kind: ethereum/events
+  #     apiVersion: 0.0.4
+  #     language: wasm/assemblyscript
+  #     entities:
+  #       - AssetFarmed
+  #       - FarmerUpdated
+  #       - OwnershipTransferred
+  #     abis:
+  #       - name: MarginPool
+  #         file: ./abis/MarginPool.json
+  #     callHandler:
+  #       - function: transferToPool(address,address,uint256)
+  #         handler: handleTransferToPool
+  #       - function: transferToUser(address,address,uint256)
+  #         handler: handleTransferToUser
+  #     file: ./src/MarginPool.ts
+
 templates:
   - name: OToken
     kind: ethereum/contract
