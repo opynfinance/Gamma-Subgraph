@@ -24,6 +24,7 @@ export function handleOtokenCreated(event: OtokenCreated): void {
   // Access state variables and functions by calling them
   entity.symbol = contract.symbol()
   entity.name = contract.name()
+  entity.decimals = 8
 
   entity.totalSupply = BigInt.fromI32(0)
   entity.createdAt = event.block.timestamp

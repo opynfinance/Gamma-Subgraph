@@ -5,10 +5,11 @@ type ERC20 @entity {
   decimals: Int!
 }
 
-type OToken @entity {
+type OToken implements ERC20 @entity {
   id: ID!
   name: String!
   symbol: String!
+  decimals: Int!
   strikeAsset: ERC20! # address
   underlyingAsset: ERC20! # address
   collateralAsset: ERC20! # address

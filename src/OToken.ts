@@ -1,4 +1,3 @@
-import { BigInt } from "@graphprotocol/graph-ts"
 import { Approval, Transfer } from "../generated/templates/OToken/OToken"
 
 const ZERO_ADDRESS = '0x0000000000000000000000000000000000000000'
