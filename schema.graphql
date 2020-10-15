@@ -1,11 +1,11 @@
-interface ERC20 @entity {
+type ERC20 @entity {
   id: ID!
   symbol: String!
   name: String!
   decimals: Int!
 }
 
-type OToken implements ERC20 @entity {
+type OToken @entity {
   id: ID!
   name: String!
   symbol: String!
