@@ -16,7 +16,7 @@ export function handleTransfer(event: Transfer): void {
     entity.totalSupply = entity.totalSupply.plus(event.params.value)
   } else if (event.params.to.toHex() == ZERO_ADDRESS) {
     // Burn event
-    entity.totalSupply = entity.totalSupply.plus(event.params.value)
+    entity.totalSupply = entity.totalSupply.minus(event.params.value)
   }
 
   entity.save()
