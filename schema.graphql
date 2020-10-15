@@ -1,4 +1,4 @@
-type ERC20 @entity {
+interface ERC20 @entity {
   id: ID!
   symbol: String!
   name: String!

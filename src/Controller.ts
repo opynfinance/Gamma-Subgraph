@@ -21,7 +21,7 @@ import {
 } from '../generated/Controller/Controller';
 import { Entity } from '@graphprotocol/graph-ts';
 
-import { BIGINT_ONE} from './helper';
+import { BIGINT_ONE, BIGINT_ZERO} from './helper';
 
 import {
   Controller,
@@ -349,4 +349,17 @@ export function handleVaultOpened(event: VaultOpened): void {
   action.save();
 }
 
-export function handleVaultSettled(event: VaultSettled): void {}
+export function handleVaultSettled(event: VaultSettled): void {
+  let id = event.params.vaultId;
+  let accountId = event.params.AccountOwner.toHex();
+  // update vault struct
+  let vaultId = accountId + '-' + id.toString();
+  let vault = Vault.load(vaultId);
+  vault.collateralAsset = null;
+  vault.collateralAmount = BIGINT_ZERO;
+  vault.shortOToken = null;
+  vault.shortAmount = BIGINT_ZERO;
+  vault.longOToken = null;
+  vault.longAmount = BIGINT_ZERO;
+  vault.save();
+}
