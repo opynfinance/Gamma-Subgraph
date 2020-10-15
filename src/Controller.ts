@@ -1,4 +1,4 @@
-import { BigInt, Address, store } from '@graphprotocol/graph-ts';
+import { BigInt, store } from '@graphprotocol/graph-ts';
 import {
   AccountOperatorUpdated,
   CallExecuted,
@@ -17,9 +17,7 @@ import {
   SystemPartiallyPaused,
   VaultOpened,
   VaultSettled,
-  VaultOpened__Params,
 } from '../generated/Controller/Controller';
-import { Entity } from '@graphprotocol/graph-ts';
 
 import { BIGINT_ONE, BIGINT_ZERO} from './helper';
 
