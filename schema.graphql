@@ -39,6 +39,9 @@ type Account @entity {
 
   "Array of operator this account has"
   operators: [AccountOperator!] @derivedFrom(field: "account")
+
+  "Balances"
+  balances: [AccountBalance!] @derivedFrom(field: "account")
 }
 
 type Operator @entity {
@@ -57,6 +60,14 @@ type AccountOperator @entity {
   id: ID!
   account: Account
   operator: Operator
+}
+
+type AccountBalance @entity {
+  " Equals to ${account}-${otoken}"
+  id: ID!
+  account: Account!
+  token: OToken!
+  balance: BigInt!
 }
 
 type Vault @entity {
