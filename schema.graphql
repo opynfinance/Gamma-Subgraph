@@ -32,16 +32,16 @@ type Account @entity {
   vaultCount: BigInt!
 
   "Array of all vaults"
-  vaults: [Vault]! @derivedFrom(field: "owner")
+  vaults: [Vault!]! @derivedFrom(field: "owner")
 
   "Amount of operators"
   operatorCount: BigInt!
 
   "Array of operator this account has"
-  operators: [AccountOperator!] @derivedFrom(field: "account")
+  operators: [AccountOperator!]! @derivedFrom(field: "account")
 
   "Balances"
-  balances: [AccountBalance!] @derivedFrom(field: "account")
+  balances: [AccountBalance!]! @derivedFrom(field: "account")
 }
 
 type Operator @entity {
@@ -51,7 +51,7 @@ type Operator @entity {
   accountCount: BigInt!
 
   "Array of accounts this operator is controlling"
-  accounts: [AccountOperator]! @derivedFrom(field: "operator")
+  accounts: [AccountOperator!]! @derivedFrom(field: "operator")
 }
 
 # For manage many-to-many relationship between operators and accounts
