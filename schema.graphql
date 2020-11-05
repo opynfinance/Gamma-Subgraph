@@ -219,6 +219,24 @@ type MintShortAction implements VaultAction @entity {
   amount: BigInt!
 }
 
+type SettleAction implements VaultAction @entity {
+  # Vault fields
+  id: ID!
+  messageSender: Bytes!
+  vault: Vault!
+  block: BigInt!
+  transactionHash: Bytes!
+  timestamp: BigInt!
+  
+  " Payout to to"
+  to: Bytes!
+  # Todo: add this field after updating the gamma contract
+  # " oToken "
+  # oToken: OToken!
+  " Amount payout"
+  amount: BigInt!
+}
+
 type WhitelistedProduct @entity {
   id: ID!
   underlying: ERC20!

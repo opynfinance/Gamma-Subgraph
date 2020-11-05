@@ -34,6 +34,7 @@ import {
   WithdrawLongAction,
   BurnShortAction,
   MintShortAction,
+  SettleAction
 } from '../generated/schema';
 
 function loadOrCreateAccount(accountId: string): Account {
@@ -360,4 +361,17 @@ export function handleVaultSettled(event: VaultSettled): void {
   vault.longOToken = null;
   vault.longAmount = BIGINT_ZERO;
   vault.save();
+
+  // create action entity
+  let actionId = 'SETTLE-' + event.transaction.hash.toHex() + '-' + event.logIndex.toString();
+  let action = new SettleAction(actionId);
+  action.messageSender = event.transaction.from;
+  action.vault = vaultId;
+  action.block = event.block.number;
+  action.transactionHash = event.transaction.hash;
+  action.timestamp = event.block.timestamp;
+  // Settle fields
+  action.to = event.params.to;;
+  action.amount = event.params.payout;
+  action.save();
 }
