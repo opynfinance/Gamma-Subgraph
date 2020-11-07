@@ -256,3 +256,53 @@ type Controller @entity {
   systemFullyPaused: Boolean!
   callRestricted: Boolean!
 }
+
+type Oracle @entity {
+  id: ID!
+  
+  disputer: Bytes!
+}
+
+type OracleAsset @entity {
+  "the address of the asset"
+  id: ID!
+  
+  asset: ERC20!
+
+  "pricer for the asset"
+  pricer: OraclePricer!
+
+  prices: [ExpiryPrice!]! @derivedFrom(field: "asset")
+}
+
+type OraclePricer @entity {
+  "address of the pricer"
+  id: ID!
+
+  "locking period for this pricer"
+  lockingPeriod: BigInt!
+
+  "disput period for this pricer"
+  disputePeriod: BigInt!
+
+}
+
+type ExpiryPrice @entity {
+   "asset-expiry"
+   id: ID!
+
+   "the asset"
+   asset: OracleAsset!
+
+   "timestamp"
+   expiry: BigInt!
+
+   "timestamp reported by pricer"
+   reportedTimestamp: BigInt!
+
+   "price in USD sacled by 1e8"
+   price: BigInt!
+
+   "if the price is overrided by the disputer"
+   isDisputed: Boolean!
+}

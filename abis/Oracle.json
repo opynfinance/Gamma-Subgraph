@@ -2,7 +2,12 @@
   {
     "anonymous": false,
     "inputs": [
-      { "indexed": true, "internalType": "address", "name": "newDisputer", "type": "address" }
+      {
+        "indexed": true,
+        "internalType": "address",
+        "name": "newDisputer",
+        "type": "address"
+      }
     ],
     "name": "DisputerUpdated",
     "type": "event"
@@ -10,11 +15,36 @@
   {
     "anonymous": false,
     "inputs": [
-      { "indexed": true, "internalType": "address", "name": "asset", "type": "address" },
-      { "indexed": true, "internalType": "uint256", "name": "expiryTimestamp", "type": "uint256" },
-      { "indexed": false, "internalType": "uint256", "name": "disputedPrice", "type": "uint256" },
-      { "indexed": false, "internalType": "uint256", "name": "newPrice", "type": "uint256" },
-      { "indexed": false, "internalType": "uint256", "name": "disputeTimestamp", "type": "uint256" }
+      {
+        "indexed": true,
+        "internalType": "address",
+        "name": "asset",
+        "type": "address"
+      },
+      {
+        "indexed": true,
+        "internalType": "uint256",
+        "name": "expiryTimestamp",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "disputedPrice",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "newPrice",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "disputeTimestamp",
+        "type": "uint256"
+      }
     ],
     "name": "ExpiryPriceDisputed",
     "type": "event"
@@ -22,10 +52,30 @@
   {
     "anonymous": false,
     "inputs": [
-      { "indexed": true, "internalType": "address", "name": "asset", "type": "address" },
-      { "indexed": true, "internalType": "uint256", "name": "expirtyTimestamp", "type": "uint256" },
-      { "indexed": false, "internalType": "uint256", "name": "price", "type": "uint256" },
-      { "indexed": false, "internalType": "uint256", "name": "onchainTimestamp", "type": "uint256" }
+      {
+        "indexed": true,
+        "internalType": "address",
+        "name": "asset",
+        "type": "address"
+      },
+      {
+        "indexed": true,
+        "internalType": "uint256",
+        "name": "expirtyTimestamp",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "price",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "onchainTimestamp",
+        "type": "uint256"
+      }
     ],
     "name": "ExpiryPriceUpdated",
     "type": "event"
@@ -33,8 +83,18 @@
   {
     "anonymous": false,
     "inputs": [
-      { "indexed": true, "internalType": "address", "name": "previousOwner", "type": "address" },
-      { "indexed": true, "internalType": "address", "name": "newOwner", "type": "address" }
+      {
+        "indexed": true,
+        "internalType": "address",
+        "name": "previousOwner",
+        "type": "address"
+      },
+      {
+        "indexed": true,
+        "internalType": "address",
+        "name": "newOwner",
+        "type": "address"
+      }
     ],
     "name": "OwnershipTransferred",
     "type": "event"
@@ -42,8 +102,18 @@
   {
     "anonymous": false,
     "inputs": [
-      { "indexed": true, "internalType": "address", "name": "pricer", "type": "address" },
-      { "indexed": false, "internalType": "uint256", "name": "disputePeriod", "type": "uint256" }
+      {
+        "indexed": true,
+        "internalType": "address",
+        "name": "pricer",
+        "type": "address"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "disputePeriod",
+        "type": "uint256"
+      }
     ],
     "name": "PricerDisputePeriodUpdated",
     "type": "event"
@@ -51,8 +121,18 @@
   {
     "anonymous": false,
     "inputs": [
-      { "indexed": true, "internalType": "address", "name": "pricer", "type": "address" },
-      { "indexed": false, "internalType": "uint256", "name": "lockingPeriod", "type": "uint256" }
+      {
+        "indexed": true,
+        "internalType": "address",
+        "name": "pricer",
+        "type": "address"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "lockingPeriod",
+        "type": "uint256"
+      }
     ],
     "name": "PricerLockingPeriodUpdated",
     "type": "event"
@@ -60,8 +140,18 @@
   {
     "anonymous": false,
     "inputs": [
-      { "indexed": false, "internalType": "address", "name": "asset", "type": "address" },
-      { "indexed": false, "internalType": "address", "name": "pricer", "type": "address" }
+      {
+        "indexed": false,
+        "internalType": "address",
+        "name": "asset",
+        "type": "address"
+      },
+      {
+        "indexed": false,
+        "internalType": "address",
+        "name": "pricer",
+        "type": "address"
+      }
     ],
     "name": "PricerUpdated",
     "type": "event"
@@ -69,7 +159,11 @@
   {
     "inputs": [
       { "internalType": "address", "name": "_asset", "type": "address" },
-      { "internalType": "uint256", "name": "_expiryTimestamp", "type": "uint256" },
+      {
+        "internalType": "uint256",
+        "name": "_expiryTimestamp",
+        "type": "uint256"
+      },
       { "internalType": "uint256", "name": "_price", "type": "uint256" }
     ],
     "name": "disputeExpiryPrice",
@@ -87,7 +181,11 @@
   {
     "inputs": [
       { "internalType": "address", "name": "_asset", "type": "address" },
-      { "internalType": "uint256", "name": "_expiryTimestamp", "type": "uint256" }
+      {
+        "internalType": "uint256",
+        "name": "_expiryTimestamp",
+        "type": "uint256"
+      }
     ],
     "name": "getExpiryPrice",
     "outputs": [
@@ -98,28 +196,36 @@
     "type": "function"
   },
   {
-    "inputs": [{ "internalType": "address", "name": "_asset", "type": "address" }],
+    "inputs": [
+      { "internalType": "address", "name": "_asset", "type": "address" }
+    ],
     "name": "getPrice",
     "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }],
     "stateMutability": "view",
     "type": "function"
   },
   {
-    "inputs": [{ "internalType": "address", "name": "_asset", "type": "address" }],
+    "inputs": [
+      { "internalType": "address", "name": "_asset", "type": "address" }
+    ],
     "name": "getPricer",
     "outputs": [{ "internalType": "address", "name": "", "type": "address" }],
     "stateMutability": "view",
     "type": "function"
   },
   {
-    "inputs": [{ "internalType": "address", "name": "_pricer", "type": "address" }],
+    "inputs": [
+      { "internalType": "address", "name": "_pricer", "type": "address" }
+    ],
     "name": "getPricerDisputePeriod",
     "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }],
     "stateMutability": "view",
     "type": "function"
   },
   {
-    "inputs": [{ "internalType": "address", "name": "_pricer", "type": "address" }],
+    "inputs": [
+      { "internalType": "address", "name": "_pricer", "type": "address" }
+    ],
     "name": "getPricerLockingPeriod",
     "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }],
     "stateMutability": "view",
@@ -128,7 +234,11 @@
   {
     "inputs": [
       { "internalType": "address", "name": "_asset", "type": "address" },
-      { "internalType": "uint256", "name": "_expiryTimestamp", "type": "uint256" }
+      {
+        "internalType": "uint256",
+        "name": "_expiryTimestamp",
+        "type": "uint256"
+      }
     ],
     "name": "isDisputePeriodOver",
     "outputs": [{ "internalType": "bool", "name": "", "type": "bool" }],
@@ -138,7 +248,11 @@
   {
     "inputs": [
       { "internalType": "address", "name": "_asset", "type": "address" },
-      { "internalType": "uint256", "name": "_expiryTimestamp", "type": "uint256" }
+      {
+        "internalType": "uint256",
+        "name": "_expiryTimestamp",
+        "type": "uint256"
+      }
     ],
     "name": "isLockingPeriodOver",
     "outputs": [{ "internalType": "bool", "name": "", "type": "bool" }],
@@ -180,7 +294,9 @@
     "type": "function"
   },
   {
-    "inputs": [{ "internalType": "address", "name": "_disputer", "type": "address" }],
+    "inputs": [
+      { "internalType": "address", "name": "_disputer", "type": "address" }
+    ],
     "name": "setDisputer",
     "outputs": [],
     "stateMutability": "nonpayable",
@@ -189,7 +305,11 @@
   {
     "inputs": [
       { "internalType": "address", "name": "_asset", "type": "address" },
-      { "internalType": "uint256", "name": "_expiryTimestamp", "type": "uint256" },
+      {
+        "internalType": "uint256",
+        "name": "_expiryTimestamp",
+        "type": "uint256"
+      },
       { "internalType": "uint256", "name": "_price", "type": "uint256" }
     ],
     "name": "setExpiryPrice",
@@ -208,7 +328,9 @@
     "type": "function"
   },
   {
-    "inputs": [{ "internalType": "address", "name": "newOwner", "type": "address" }],
+    "inputs": [
+      { "internalType": "address", "name": "newOwner", "type": "address" }
+    ],
     "name": "transferOwnership",
     "outputs": [],
     "stateMutability": "nonpayable",

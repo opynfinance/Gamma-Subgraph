@@ -168,6 +168,45 @@ dataSources:
           handler: handleProxyCreated
       file: ./src/AddressBook.ts
 
+  - kind: ethereum/contract
+    name: Oracle
+    network: rinkeby
+    source:
+      address: "0x2E03749e6eA3Cb3E5bddf22975d93f2F081c9aE3"
+      abi: Oracle
+      startBlock: 7319935
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.4
+      language: wasm/assemblyscript
+      entities:
+        - DisputerUpdated
+        - ExpiryPriceDisputed
+        - ExpiryPriceUpdated
+        - OwnershipTransferred
+        - PricerDisputePeriodUpdated
+        - PricerLockingPeriodUpdated
+        - PricerUpdated
+      abis:
+        - name: Oracle
+          file: ./abis/Oracle.json
+      eventHandlers:
+        - event: DisputerUpdated(indexed address)
+          handler: handleDisputerUpdated
+        - event: ExpiryPriceDisputed(indexed address,indexed uint256,uint256,uint256,uint256)
+          handler: handleExpiryPriceDisputed
+        - event: ExpiryPriceUpdated(indexed address,indexed uint256,uint256,uint256)
+          handler: handleExpiryPriceUpdated
+        - event: OwnershipTransferred(indexed address,indexed address)
+          handler: handleOwnershipTransferred
+        - event: PricerDisputePeriodUpdated(indexed address,uint256)
+          handler: handlePricerDisputePeriodUpdated
+        - event: PricerLockingPeriodUpdated(indexed address,uint256)
+          handler: handlePricerLockingPeriodUpdated
+        - event: PricerUpdated(address,address)
+          handler: handlePricerUpdated
+      file: ./src/Oracle.ts
+
   # Call handlers only supported on mainnet    
   # - kind: ethereum/contract
   #   name: MarginPool

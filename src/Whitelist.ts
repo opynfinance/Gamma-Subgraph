@@ -71,7 +71,7 @@ function getProductId(underlying:Address, strike:Address, collateral:Address, is
  * Make sure the ERC20 entity exist
  * @param address 
  */
-function checkERC20Entity(address: Address): void {
+export function checkERC20Entity(address: Address): void {
   let entity = ERC20.load(address.toHex())
   if (entity != null) return
   
