@@ -32,6 +32,7 @@ export function handleExpiryPriceDisputed(event: ExpiryPriceDisputed): void {
   priceEntity.price = event.params.newPrice
   // override the reported timestamp by disputed timestamp
   priceEntity.reportedTimestamp = event.params.disputeTimestamp
+  priceEntity.reportedTx = event.transaction.hash
   priceEntity.isDisputed = true
   priceEntity.save()
 }
@@ -43,6 +44,7 @@ export function handleExpiryPriceUpdated(event: ExpiryPriceUpdated): void {
   priceEntity.asset = event.params.asset.toHex()
   priceEntity.expiry = event.params.expirtyTimestamp
   priceEntity.reportedTimestamp = event.params.onchainTimestamp
+  priceEntity.reportedTx = event.transaction.hash
   priceEntity.price = event.params.price
   priceEntity.isDisputed = false
   priceEntity.save()

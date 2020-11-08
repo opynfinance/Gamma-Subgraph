@@ -297,6 +297,9 @@ type ExpiryPrice @entity {
    "timestamp"
    expiry: BigInt!
 
+  # "the transaction hash"
+   reportedTx: Bytes!
+
    "timestamp reported by pricer"
    reportedTimestamp: BigInt!
 

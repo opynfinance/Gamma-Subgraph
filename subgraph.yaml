@@ -172,9 +172,9 @@ dataSources:
     name: Oracle
     network: rinkeby
     source:
-      address: "0x2E03749e6eA3Cb3E5bddf22975d93f2F081c9aE3"
+      address: "0x1342b7f1a9AceC2fe4D7c8f187114cb0e9fCDC5a"
       abi: Oracle
-      startBlock: 7319935
+      startBlock: 7510130
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.4
@@ -190,6 +190,8 @@ dataSources:
       abis:
         - name: Oracle
           file: ./abis/Oracle.json
+        - name: ERC20
+          file: ./abis/ERC20.json
       eventHandlers:
         - event: DisputerUpdated(indexed address)
           handler: handleDisputerUpdated
