@@ -1,16 +1,19 @@
 {
-  "name": "gamma-rinkeby",
+  "name": "gamma-subgraph",
   "license": "UNLICENSED",
   "scripts": {
     "codegen": "graph codegen",
     "build": "graph build",
-    "deploy": "graph deploy --node https://api.thegraph.com/deploy/ --ipfs https://api.thegraph.com/ipfs/ antoncoding/gamma-rinkeby",
-    "create-local": "graph create --node http://localhost:8020/ antoncoding/gamma-rinkeby",
-    "remove-local": "graph remove --node http://localhost:8020/ antoncoding/gamma-rinkeby",
-    "deploy-local": "graph deploy --node http://localhost:8020/ --ipfs http://localhost:5001 antoncoding/gamma-rinkeby"
+    "prepare:rinkeby": "mustache config/rinkeby.json subgraph.template.yaml > subgraph.yaml",
+    "prepare:kovan": "mustache config/kovan.json subgraph.template.yaml > subgraph.yaml",
+    "deploy:rinkeby": "npm run prepare:rinkeby && graph deploy --node https://api.thegraph.com/deploy/ --ipfs https://api.thegraph.com/ipfs/ antoncoding/gamma-rinkeby",
+    "deploy:kovan": "npm run prepare:kovan && graph deploy --node https://api.thegraph.com/deploy/ --ipfs https://api.thegraph.com/ipfs/ antoncoding/gamma-kovan"
   },
   "dependencies": {
     "@graphprotocol/graph-cli": "0.18.0",
     "@graphprotocol/graph-ts": "0.18.0"
+  },
+  "devDependencies": {
+    "mustache": "^4.0.1"
   }
 }

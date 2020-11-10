@@ -39,10 +39,10 @@ export function handleExpiryPriceDisputed(event: ExpiryPriceDisputed): void {
 
 export function handleExpiryPriceUpdated(event: ExpiryPriceUpdated): void {
   // create a new ExpiryPrice entity
-  let id = event.params.asset.toHex().concat('-').concat(event.params.expirtyTimestamp.toString()) 
+  let id = event.params.asset.toHex().concat('-').concat(event.params.expiryTimestamp.toString()) 
   let priceEntity = new ExpiryPrice(id)
   priceEntity.asset = event.params.asset.toHex()
-  priceEntity.expiry = event.params.expirtyTimestamp
+  priceEntity.expiry = event.params.expiryTimestamp
   priceEntity.reportedTimestamp = event.params.onchainTimestamp
   priceEntity.reportedTx = event.transaction.hash
   priceEntity.price = event.params.price
