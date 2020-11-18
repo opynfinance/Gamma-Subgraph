@@ -19,7 +19,7 @@ import {
   VaultSettled,
 } from '../generated/Controller/Controller';
 
-import { BIGINT_ONE, BIGINT_ZERO} from './helper';
+import { BIGINT_ONE, BIGINT_ZERO, ZERO_ADDRESS} from './helper';
 
 import {
   Controller,
@@ -178,8 +178,10 @@ export function handleCollateralAssetWithdrawed(event: CollateralAssetWithdrawed
   // update vault struct
   let vaultId = accountId + '-' + id.toString();
   let vault = Vault.load(vaultId);
-  vault.collateralAsset = asset.toHex();
+  
+  vault.collateralAsset = vault.collateralAmount.minus(amount).isZero() ? null : asset.toHex();
   vault.collateralAmount = vault.collateralAmount.minus(amount);
+  
   vault.save();
 
   // create action entity
@@ -237,7 +239,8 @@ export function handleLongOtokenWithdrawed(event: LongOtokenWithdrawed): void {
   // update vault struct
   let vaultId = accountId + '-' + id.toString();
   let vault = Vault.load(vaultId);
-  vault.longOToken = asset.toHex();
+  // if amount = 0, set the longOtoken back to null
+  vault.longOToken = vault.longAmount.minus(amount).isZero() ? null : asset.toHex();
   vault.longAmount = vault.longAmount.minus(amount);
   vault.save();
 
@@ -271,8 +274,11 @@ export function handleShortOtokenBurned(event: ShortOtokenBurned): void {
   // update vault struct
   let vaultId = accountId + '-' + id.toString();
   let vault = Vault.load(vaultId);
-  vault.shortOToken = asset.toHex(); // convert to id
+
+  // if amount = 0, set the longOtoken back to null
+  vault.shortOToken = vault.shortAmount.minus(amount).isZero() ? null : asset.toHex(); // convert to id
   vault.shortAmount = vault.shortAmount.minus(amount);
+  
   vault.save();
 
   // create action entity

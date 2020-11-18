@@ -81,5 +81,4 @@ export function checkERC20Entity(address: Address): void {
   entity.name = contract.name()
   entity.decimals = contract.decimals()
   entity.save();
-  
 }
