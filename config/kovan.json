@@ -9,5 +9,7 @@
   "addressbook": "0xD37752Fd2976335fddb2e6A2cF5FfbfA88bf5F05",
   "addressbook-start-block":22013700,
   "oracle": "0x821097a79Aa9aEdB96aC588252E6802aFF9bC19a",
-  "oracle-start-block": 22013700
+  "oracle-start-block": 22013700,
+  "0xExchange": "0x4eacd0aF335451709e1e7B570B8Ea68EdEC8bc97",
+  "0xExchange-start-block": 22013700
 }

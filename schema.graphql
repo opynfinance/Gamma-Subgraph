@@ -309,3 +309,15 @@ type ExpiryPrice @entity {
    "if the price is overrided by the disputer"
    isDisputed: Boolean!
 }
+
+type FilledOrder @entity {
+  id: ID!
+  makerAddress: Bytes!
+  takerAddress: Bytes!
+  senderAddress: Bytes!
+  makerAssetAmount: BigInt!
+  takerAssetAmount: BigInt!
+  expirationTimeSeconds: uint256
+  makerAssetData: Bytes!
+  takerAssetData: Bytes!
+}
