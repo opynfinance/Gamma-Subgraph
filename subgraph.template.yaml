@@ -3,6 +3,27 @@ schema:
   file: ./schema.graphql
 dataSources:
   - kind: ethereum/contract
+    name: zxExchange
+    network: {{network}}
+    source:
+      address: "{{0xExchange}}"
+      abi: ZxExchange
+      startBlock: {{0xExchange-start-block}}
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.4
+      language: wasm/assemblyscript
+      entities:
+        - Fill
+      abis:
+        - name: ZxExchange
+          file: ./abis/0xExchange.json
+      eventHandlers:
+        - event: Fill(indexed address,indexed address,bytes,bytes,bytes,bytes,indexed bytes32,address,address,uint256,uint256,uint256,uint256,uint256)
+          handler: handleFillOrder
+      file: ./src/0xExchange.ts
+
+  - kind: ethereum/contract
     name: OTokenFactory
     network: {{network}}
     source:
@@ -208,28 +229,6 @@ dataSources:
         - event: PricerUpdated(address,address)
           handler: handlePricerUpdated
       file: ./src/Oracle.ts
-
-
-  - kind: ethereum/contract
-    name: 0xExchange
-    network: {{network}}
-    source:
-      address: "{{0xExchange}}"
-      abi: 0xExchange
-      startBlock: {{0xExchange-start-block}}
-    mapping:
-      kind: ethereum/events
-      apiVersion: 0.0.4
-      language: wasm/assemblyscript
-      entities:
-        - FilledOrder
-      abis:
-        - name: 0xExchange
-          file: ./abis/0xExchange.json
-      eventHandlers:
-        - event: fillOrder((address,address,address,address,uint256,uint256,uint256,uint256,uint256,uint256,bytes,bytes,bytes,bytes), uint256, bytes)
-          handler: handleFillOrder
-      file: ./src/0xExchange.ts
 
   # Call handlers only supported on mainnet    
   # - kind: ethereum/contract
