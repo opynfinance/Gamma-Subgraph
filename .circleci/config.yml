@@ -1,0 +1,58 @@
+version: 2.1
+orbs:
+  coveralls: coveralls/coveralls@1.0.6
+  node: circleci/node@1.1.6
+
+workflows:
+  build-test-report:
+    jobs:
+      - checkout_and_install
+      - build:
+          requires:
+            - checkout_and_install
+
+jobs:
+
+  checkout_and_install:
+    working_directory: ~/gamma-subgraph
+    docker:
+      - image: circleci/node:10.18.0
+      
+    steps:
+      - checkout
+      - restore_cache:
+          key: dependency-cache-{{ checksum "package.json" }}
+      - run:
+          name: Install packages
+          command: npm install
+      - save_cache: 
+          key: dependency-cache-{{ checksum "package.json" }}
+          paths:
+            - node_modules
+      - save_cache:
+          key: subgraph-{{ .Environment.CIRCLE_SHA1 }}
+          paths:
+            - ~/gamma-subgraph
+
+  build:
+    working_directory: ~/gamma-subgraph
+    docker:
+      - image: circleci/node:10.18.0
+    steps:
+      - checkout
+      - restore_cache:
+          key: gamma-{{ .Environment.CIRCLE_SHA1 }}
+      - run:
+          name: Install packages
+          command: npm install
+      - run:
+          name: Code Gen
+          command: npm run codegen
+      - run:
+          name: Build Subgraph
+          command: npm run build
+      - save_cache:
+          key: gamma-contracts-build-{{ .Environment.CIRCLE_SHA1 }}
+          paths:
+            - ~/gamma-subgraph
+  

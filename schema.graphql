@@ -317,7 +317,7 @@ type FilledOrder @entity {
   senderAddress: Bytes!
   makerAssetAmount: BigInt!
   takerAssetAmount: BigInt!
-  expirationTimeSeconds: uint256
+  expirationTimeSeconds: BigInt!
   makerAssetData: Bytes!
   takerAssetData: Bytes!
 }

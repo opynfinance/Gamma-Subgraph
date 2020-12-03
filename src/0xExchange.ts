@@ -4,7 +4,7 @@ import { FilledOrder } from '../generated/schema'
 
 
 export function handleFillOrder(event: fillOrder): void {
-  let id = event.params.orderHash.toHex()
+  let id = event.params.orderHash.toHex() + '-' + event.transaction.hash.toString()
   let order = new FilledOrder(id)
   order.makerAddress = event.params.makerAddress
   order.takerAddress = event.params.takerAddress
