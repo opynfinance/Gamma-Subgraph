@@ -45,6 +45,9 @@ jobs:
       - run:
           name: Install packages
           command: npm install
+      - run: 
+          name: Generate Config
+          command: npm run prepare:kovan
       - run:
           name: Code Gen
           command: npm run codegen
