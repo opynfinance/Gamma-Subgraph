@@ -310,14 +310,14 @@ type ExpiryPrice @entity {
    isDisputed: Boolean!
 }
 
-type FilledOrder @entity {
+type FillOrder @entity {
   id: ID!
   makerAddress: Bytes!
   takerAddress: Bytes!
   senderAddress: Bytes!
   makerAssetAmount: BigInt!
   takerAssetAmount: BigInt!
-  expirationTimeSeconds: BigInt!
+  protocolFeePaid: BigInt!
   makerAssetData: Bytes!
   takerAssetData: Bytes!
 }

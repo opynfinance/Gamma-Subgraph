@@ -1,18 +1,18 @@
-import { fillOrder } from "../generated/0xExchange/0xExchange"
+import { Fill } from "../generated/zxExchange/ZxExchange"
 
-import { FilledOrder } from '../generated/schema'
+import { FillOrder } from '../generated/schema'
 
 
-export function handleFillOrder(event: fillOrder): void {
+export function handleFillOrder(event: Fill): void {
   let id = event.params.orderHash.toHex() + '-' + event.transaction.hash.toString()
-  let order = new FilledOrder(id)
-  order.makerAddress = event.params.makerAddress
-  order.takerAddress = event.params.takerAddress
-  order.senderAddress = event.params.senderAddress
-  order.makerAssetAmount = event.params.makerAssetAmount
-  order.takerAssetAmount = event.params.takerAssetAmount
-  order.expirationTimeSeconds = event.params.expirationTimeSeconds
-  order.makerAssetData = event.params.makerAssetData
-  order.takerAssetData = event.params.takerAssetData
-  order.save()
+  let fill = new FillOrder(id)
+  fill.makerAddress = event.params.makerAddress
+  fill.takerAddress = event.params.takerAddress
+  fill.senderAddress = event.params.senderAddress
+  fill.makerAssetAmount = event.params.makerAssetFilledAmount
+  fill.takerAssetAmount = event.params.takerAssetFilledAmount
+  fill.protocolFeePaid = event.params.protocolFeePaid
+  fill.makerAssetData = event.params.makerAssetData
+  fill.takerAssetData = event.params.takerAssetData
+  fill.save()
 }
