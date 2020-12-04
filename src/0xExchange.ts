@@ -6,6 +6,7 @@ import { FillOrder } from '../generated/schema'
 export function handleFillOrder(event: Fill): void {
   let id = event.params.orderHash.toHex() + '-' + event.transaction.hash.toString()
   let fill = new FillOrder(id)
+  fill.timestamp = event.block.timestamp;
   fill.makerAddress = event.params.makerAddress
   fill.takerAddress = event.params.takerAddress
   fill.senderAddress = event.params.senderAddress

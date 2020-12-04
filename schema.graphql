@@ -312,6 +312,7 @@ type ExpiryPrice @entity {
 
 type FillOrder @entity {
   id: ID!
+  timestamp: BigInt!
   makerAddress: Bytes!
   takerAddress: Bytes!
   senderAddress: Bytes!
