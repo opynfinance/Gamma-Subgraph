@@ -167,6 +167,7 @@
     "inputs": [
       { "indexed": true, "internalType": "address", "name": "AccountOwner", "type": "address" },
       { "indexed": true, "internalType": "address", "name": "to", "type": "address" },
+      { "indexed": true, "internalType": "address", "name": "otoken", "type": "address" },
       { "indexed": false, "internalType": "uint256", "name": "vaultId", "type": "uint256" },
       { "indexed": false, "internalType": "uint256", "name": "payout", "type": "uint256" }
     ],
