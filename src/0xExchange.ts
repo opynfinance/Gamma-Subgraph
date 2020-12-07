@@ -4,7 +4,7 @@ import { FillOrder } from '../generated/schema'
 
 
 export function handleFillOrder(event: Fill): void {
-  let id = event.params.orderHash.toHex() + '-' + event.transaction.hash.toString()
+  let id = event.params.orderHash.toHex() + '-' + event.transaction.hash.toHex()
   let fill = new FillOrder(id)
   fill.timestamp = event.block.timestamp;
   fill.makerAddress = event.params.makerAddress
@@ -13,7 +13,7 @@ export function handleFillOrder(event: Fill): void {
   fill.makerAssetAmount = event.params.makerAssetFilledAmount
   fill.takerAssetAmount = event.params.takerAssetFilledAmount
   fill.protocolFeePaid = event.params.protocolFeePaid
-  fill.makerAssetData = event.params.makerAssetData
-  fill.takerAssetData = event.params.takerAssetData
+  fill.makerAssetData = event.params.makerAssetData.toHex()
+  fill.takerAssetData = event.params.takerAssetData.toHex()
   fill.save()
 }
