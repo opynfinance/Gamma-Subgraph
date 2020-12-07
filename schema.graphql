@@ -319,6 +319,6 @@ type FillOrder @entity {
   makerAssetAmount: BigInt!
   takerAssetAmount: BigInt!
   protocolFeePaid: BigInt!
-  makerAssetData: Bytes!
-  takerAssetData: Bytes!
+  makerAssetData: String!
+  takerAssetData: String!
 }
