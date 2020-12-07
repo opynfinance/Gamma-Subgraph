@@ -13,7 +13,7 @@ export function handleFillOrder(event: Fill): void {
   fill.makerAssetAmount = event.params.makerAssetFilledAmount
   fill.takerAssetAmount = event.params.takerAssetFilledAmount
   fill.protocolFeePaid = event.params.protocolFeePaid
-  fill.makerAssetData = event.params.makerAssetData.toHex()
-  fill.takerAssetData = event.params.takerAssetData.toHex()
+  fill.makerAssetData = event.params.makerAssetData
+  fill.takerAssetData = event.params.takerAssetData
   fill.save()
 }
