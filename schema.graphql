@@ -230,9 +230,8 @@ type SettleAction implements VaultAction @entity {
   
   " Payout to to"
   to: Bytes!
-  # Todo: add this field after updating the gamma contract
-  # " oToken "
-  # oToken: OToken!
+  " Short otoken of the vault. (Could be long token when there's no short)"
+  oToken: OToken!
   " Amount payout"
   amount: BigInt!
 }

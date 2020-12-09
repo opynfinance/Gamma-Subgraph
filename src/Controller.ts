@@ -377,6 +377,7 @@ export function handleVaultSettled(event: VaultSettled): void {
   action.transactionHash = event.transaction.hash;
   action.timestamp = event.block.timestamp;
   // Settle fields
+  action.oToken = event.params.otoken.toHex();
   action.to = event.params.to;;
   action.amount = event.params.payout;
   action.save();
