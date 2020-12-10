@@ -2,7 +2,7 @@ import { Fill } from "../generated/zxExchange/ZxExchange"
 import { Whitelist as WhitelistContract } from "../generated/Whitelist/Whitelist"
 import { AddressBook as AddressBookContract } from "../generated/AddressBook/AddressBook"
 import { FillOrder, Controller } from '../generated/schema'
-import { log, Address } from "@graphprotocol/graph-ts"
+import { Address } from "@graphprotocol/graph-ts"
 
 export function handleFillOrder(event: Fill): void {
   let id = event.params.orderHash.toHex() + '-' + event.transaction.hash.toHex()

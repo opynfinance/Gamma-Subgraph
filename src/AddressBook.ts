@@ -1,6 +1,5 @@
 import { ProxyCreated } from "../generated/AddressBook/AddressBook"
 import { Controller } from "../generated/schema"
-import { log } from '@graphprotocol/graph-ts'
 import { Controller as ControllerContract } from '../generated/Controller/Controller'
 export function handleProxyCreated(event: ProxyCreated): void {
   // createProxy is only used to  when Controller address is first created
