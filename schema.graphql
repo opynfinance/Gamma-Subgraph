@@ -247,6 +247,7 @@ type WhitelistedProduct @entity {
 
 type Controller @entity {
   id: ID!
+  addressBook: Bytes!
   partialPauser: Bytes!
   fullPauser: Bytes!
   owner: Bytes!
