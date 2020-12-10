@@ -18,6 +18,10 @@ dataSources:
       abis:
         - name: ZxExchange
           file: ./abis/0xExchange.json
+        - name: Whitelist
+          file: ./abis/Whitelist.json
+        - name: AddressBook
+          file: ./abis/AddressBook.json
       eventHandlers:
         - event: Fill(indexed address,indexed address,bytes,bytes,bytes,bytes,indexed bytes32,address,address,uint256,uint256,uint256,uint256,uint256)
           handler: handleFillOrder
