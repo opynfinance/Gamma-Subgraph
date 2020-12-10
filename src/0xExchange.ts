@@ -23,21 +23,21 @@ export function handleFillOrder(event: Fill): void {
     makerAssetIsOToken = whitelistContract.isWhitelistedOtoken(Address.fromString(makerAssetAddr))
     takerAssetIsOToken = whitelistContract.isWhitelistedOtoken(Address.fromString(takerAssetAddr))
   
-  if (makerAssetIsOToken || takerAssetIsOToken) {
-    let fill = new FillOrder(id)
-    fill.timestamp = event.block.timestamp
-    fill.makerAddress = event.params.makerAddress
-    fill.takerAddress = event.params.takerAddress
-    fill.senderAddress = event.params.senderAddress
-    fill.makerAssetAmount = event.params.makerAssetFilledAmount
-    fill.takerAssetAmount = event.params.takerAssetFilledAmount
-    fill.protocolFeePaid = event.params.protocolFeePaid
-    fill.makerAssetData = event.params.makerAssetData.toHex()
-    fill.takerAssetData = event.params.takerAssetData.toHex()
+  if (!makerAssetIsOToken && !takerAssetIsOToken) return
 
-    fill.makerAsset = makerAssetAddr
-    fill.takerAsset = takerAssetAddr
-    
-    fill.save()
-  }  
+  let fill = new FillOrder(id)
+  fill.timestamp = event.block.timestamp
+  fill.makerAddress = event.params.makerAddress
+  fill.takerAddress = event.params.takerAddress
+  fill.senderAddress = event.params.senderAddress
+  fill.makerAssetAmount = event.params.makerAssetFilledAmount
+  fill.takerAssetAmount = event.params.takerAssetFilledAmount
+  fill.protocolFeePaid = event.params.protocolFeePaid
+  fill.makerAssetData = event.params.makerAssetData.toHex()
+  fill.takerAssetData = event.params.takerAssetData.toHex()
+
+  fill.makerAsset = makerAssetAddr
+  fill.takerAsset = takerAssetAddr
+  
+  fill.save()
 }
