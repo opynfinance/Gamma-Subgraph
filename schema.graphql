@@ -247,6 +247,7 @@ type WhitelistedProduct @entity {
 
 type Controller @entity {
   id: ID!
+  addressBook: Bytes!
   partialPauser: Bytes!
   fullPauser: Bytes!
   owner: Bytes!
@@ -320,4 +321,10 @@ type FillOrder @entity {
   protocolFeePaid: BigInt!
   makerAssetData: String!
   takerAssetData: String!
+
+  "taker asset address"
+  takerAsset: String!
+
+  "maker asset address"
+  makerAsset: String!
 }
