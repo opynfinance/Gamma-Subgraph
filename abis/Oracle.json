@@ -141,13 +141,13 @@
     "anonymous": false,
     "inputs": [
       {
-        "indexed": false,
+        "indexed": true,
         "internalType": "address",
         "name": "asset",
         "type": "address"
       },
       {
-        "indexed": false,
+        "indexed": true,
         "internalType": "address",
         "name": "pricer",
         "type": "address"
@@ -157,114 +157,37 @@
     "type": "event"
   },
   {
+    "anonymous": false,
     "inputs": [
-      { "internalType": "address", "name": "_asset", "type": "address" },
       {
-        "internalType": "uint256",
-        "name": "_expiryTimestamp",
-        "type": "uint256"
+        "indexed": true,
+        "internalType": "address",
+        "name": "asset",
+        "type": "address"
       },
-      { "internalType": "uint256", "name": "_price", "type": "uint256" }
-    ],
-    "name": "disputeExpiryPrice",
-    "outputs": [],
-    "stateMutability": "nonpayable",
-    "type": "function"
-  },
-  {
-    "inputs": [],
-    "name": "getDisputer",
-    "outputs": [{ "internalType": "address", "name": "", "type": "address" }],
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
-    "inputs": [
-      { "internalType": "address", "name": "_asset", "type": "address" },
       {
+        "indexed": false,
         "internalType": "uint256",
-        "name": "_expiryTimestamp",
+        "name": "price",
         "type": "uint256"
       }
     ],
-    "name": "getExpiryPrice",
-    "outputs": [
-      { "internalType": "uint256", "name": "", "type": "uint256" },
-      { "internalType": "bool", "name": "", "type": "bool" }
-    ],
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
-    "inputs": [
-      { "internalType": "address", "name": "_asset", "type": "address" }
-    ],
-    "name": "getPrice",
-    "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }],
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
-    "inputs": [
-      { "internalType": "address", "name": "_asset", "type": "address" }
-    ],
-    "name": "getPricer",
-    "outputs": [{ "internalType": "address", "name": "", "type": "address" }],
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
-    "inputs": [
-      { "internalType": "address", "name": "_pricer", "type": "address" }
-    ],
-    "name": "getPricerDisputePeriod",
-    "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }],
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
-    "inputs": [
-      { "internalType": "address", "name": "_pricer", "type": "address" }
-    ],
-    "name": "getPricerLockingPeriod",
-    "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }],
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
-    "inputs": [
-      { "internalType": "address", "name": "_asset", "type": "address" },
-      {
-        "internalType": "uint256",
-        "name": "_expiryTimestamp",
-        "type": "uint256"
-      }
-    ],
-    "name": "isDisputePeriodOver",
-    "outputs": [{ "internalType": "bool", "name": "", "type": "bool" }],
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
-    "inputs": [
-      { "internalType": "address", "name": "_asset", "type": "address" },
-      {
-        "internalType": "uint256",
-        "name": "_expiryTimestamp",
-        "type": "uint256"
-      }
-    ],
-    "name": "isLockingPeriodOver",
-    "outputs": [{ "internalType": "bool", "name": "", "type": "bool" }],
-    "stateMutability": "view",
-    "type": "function"
+    "name": "StablePriceUpdated",
+    "type": "event"
   },
   {
     "inputs": [],
     "name": "owner",
-    "outputs": [{ "internalType": "address", "name": "", "type": "address" }],
+    "outputs": [
+      {
+        "internalType": "address",
+        "name": "",
+        "type": "address"
+      }
+    ],
     "stateMutability": "view",
-    "type": "function"
+    "type": "function",
+    "constant": true
   },
   {
     "inputs": [],
@@ -275,8 +198,203 @@
   },
   {
     "inputs": [
-      { "internalType": "address", "name": "_asset", "type": "address" },
-      { "internalType": "address", "name": "_pricer", "type": "address" }
+      {
+        "internalType": "address",
+        "name": "newOwner",
+        "type": "address"
+      }
+    ],
+    "name": "transferOwnership",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "_asset",
+        "type": "address"
+      }
+    ],
+    "name": "getPrice",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function",
+    "constant": true
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "_asset",
+        "type": "address"
+      },
+      {
+        "internalType": "uint256",
+        "name": "_expiryTimestamp",
+        "type": "uint256"
+      }
+    ],
+    "name": "getExpiryPrice",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      },
+      {
+        "internalType": "bool",
+        "name": "",
+        "type": "bool"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function",
+    "constant": true
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "_asset",
+        "type": "address"
+      }
+    ],
+    "name": "getPricer",
+    "outputs": [
+      {
+        "internalType": "address",
+        "name": "",
+        "type": "address"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function",
+    "constant": true
+  },
+  {
+    "inputs": [],
+    "name": "getDisputer",
+    "outputs": [
+      {
+        "internalType": "address",
+        "name": "",
+        "type": "address"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function",
+    "constant": true
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "_pricer",
+        "type": "address"
+      }
+    ],
+    "name": "getPricerLockingPeriod",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function",
+    "constant": true
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "_pricer",
+        "type": "address"
+      }
+    ],
+    "name": "getPricerDisputePeriod",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function",
+    "constant": true
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "_asset",
+        "type": "address"
+      },
+      {
+        "internalType": "uint256",
+        "name": "_expiryTimestamp",
+        "type": "uint256"
+      }
+    ],
+    "name": "isLockingPeriodOver",
+    "outputs": [
+      {
+        "internalType": "bool",
+        "name": "",
+        "type": "bool"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function",
+    "constant": true
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "_asset",
+        "type": "address"
+      },
+      {
+        "internalType": "uint256",
+        "name": "_expiryTimestamp",
+        "type": "uint256"
+      }
+    ],
+    "name": "isDisputePeriodOver",
+    "outputs": [
+      {
+        "internalType": "bool",
+        "name": "",
+        "type": "bool"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function",
+    "constant": true
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "_asset",
+        "type": "address"
+      },
+      {
+        "internalType": "address",
+        "name": "_pricer",
+        "type": "address"
+      }
     ],
     "name": "setAssetPricer",
     "outputs": [],
@@ -285,42 +403,16 @@
   },
   {
     "inputs": [
-      { "internalType": "address", "name": "_pricer", "type": "address" },
-      { "internalType": "uint256", "name": "_disputePeriod", "type": "uint256" }
-    ],
-    "name": "setDisputePeriod",
-    "outputs": [],
-    "stateMutability": "nonpayable",
-    "type": "function"
-  },
-  {
-    "inputs": [
-      { "internalType": "address", "name": "_disputer", "type": "address" }
-    ],
-    "name": "setDisputer",
-    "outputs": [],
-    "stateMutability": "nonpayable",
-    "type": "function"
-  },
-  {
-    "inputs": [
-      { "internalType": "address", "name": "_asset", "type": "address" },
+      {
+        "internalType": "address",
+        "name": "_pricer",
+        "type": "address"
+      },
       {
         "internalType": "uint256",
-        "name": "_expiryTimestamp",
+        "name": "_lockingPeriod",
         "type": "uint256"
-      },
-      { "internalType": "uint256", "name": "_price", "type": "uint256" }
-    ],
-    "name": "setExpiryPrice",
-    "outputs": [],
-    "stateMutability": "nonpayable",
-    "type": "function"
-  },
-  {
-    "inputs": [
-      { "internalType": "address", "name": "_pricer", "type": "address" },
-      { "internalType": "uint256", "name": "_lockingPeriod", "type": "uint256" }
+      }
     ],
     "name": "setLockingPeriod",
     "outputs": [],
@@ -329,9 +421,95 @@
   },
   {
     "inputs": [
-      { "internalType": "address", "name": "newOwner", "type": "address" }
+      {
+        "internalType": "address",
+        "name": "_pricer",
+        "type": "address"
+      },
+      {
+        "internalType": "uint256",
+        "name": "_disputePeriod",
+        "type": "uint256"
+      }
     ],
-    "name": "transferOwnership",
+    "name": "setDisputePeriod",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "_disputer",
+        "type": "address"
+      }
+    ],
+    "name": "setDisputer",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "_asset",
+        "type": "address"
+      },
+      {
+        "internalType": "uint256",
+        "name": "_price",
+        "type": "uint256"
+      }
+    ],
+    "name": "setStablePrice",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "_asset",
+        "type": "address"
+      },
+      {
+        "internalType": "uint256",
+        "name": "_expiryTimestamp",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "_price",
+        "type": "uint256"
+      }
+    ],
+    "name": "disputeExpiryPrice",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "_asset",
+        "type": "address"
+      },
+      {
+        "internalType": "uint256",
+        "name": "_expiryTimestamp",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "_price",
+        "type": "uint256"
+      }
+    ],
+    "name": "setExpiryPrice",
     "outputs": [],
     "stateMutability": "nonpayable",
     "type": "function"

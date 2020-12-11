@@ -34,7 +34,8 @@ import {
   WithdrawLongAction,
   BurnShortAction,
   MintShortAction,
-  SettleAction
+  SettleAction,
+  RedeemAction
 } from '../generated/schema';
 
 function loadOrCreateAccount(accountId: string): Account {
@@ -262,6 +263,20 @@ export function handleLongOtokenWithdrawed(event: LongOtokenWithdrawed): void {
 
 export function handleRedeem(event: Redeem): void {
 
+  // Create Redeem Action to keep track of this event.
+  let actionId = "REDEEM-" + event.transaction.hash.toHex() + '-' + event.logIndex.toString();
+  let action = new RedeemAction(actionId);
+  action.id = actionId
+  action.block = event.block.number;
+  action.transactionHash = event.transaction.hash;
+  action.timestamp = event.block.timestamp;
+  action.messageSender = event.transaction.from;
+  action.oToken = event.params.otoken.toHex()
+  action.otokenBurned = event.params.otokenBurned
+  action.payoutAsset = event.params.collateralAsset.toHex()
+  action.payoutAmount = event.params.payout
+  action.receiver = event.params.receiver
+  action.save()
 }
 
 export function handleShortOtokenBurned(event: ShortOtokenBurned): void {
@@ -323,6 +338,8 @@ export function handleShortOtokenMinted(event: ShortOtokenMinted): void {
   action.oToken = asset.toHex();
   action.amount = amount;
   action.save();
+
+  
 }
 
 export function handleVaultOpened(event: VaultOpened): void {

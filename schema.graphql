@@ -236,6 +236,33 @@ type SettleAction implements VaultAction @entity {
   amount: BigInt!
 }
 
+type RedeemAction @entity {
+  "REDEEM-TxHash-logIndex" 
+  id: ID!
+
+  block: BigInt!
+  transactionHash: Bytes!
+  timestamp: BigInt!
+
+  "the account that call _redeem"
+  messageSender: Bytes!
+
+  "the otoken to redeem"
+  oToken: OToken!
+
+  "amount of oToken burned"
+  otokenBurned: BigInt!
+
+  "the asset that payout was denominated in. (Should be the collateral of the token)"
+  payoutAsset: ERC20!
+
+  payoutAmount: BigInt!
+
+  "the payout goes to"
+  receiver: Bytes!
+
+}
+
 type WhitelistedProduct @entity {
   id: ID!
   underlying: ERC20!
