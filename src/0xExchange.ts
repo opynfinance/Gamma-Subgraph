@@ -1,8 +1,9 @@
 import { Fill } from "../generated/zxExchange/ZxExchange"
 import { Whitelist as WhitelistContract } from "../generated/Whitelist/Whitelist"
 import { AddressBook as AddressBookContract } from "../generated/AddressBook/AddressBook"
-import { FillOrder, Controller } from '../generated/schema'
+import { FillOrder, Controller, OTokenTrade } from '../generated/schema'
 import { Address } from "@graphprotocol/graph-ts"
+import { checkERC20Entity } from "./Whitelist"
 
 export function handleFillOrder(event: Fill): void {
   let id = event.params.orderHash.toHex() + '-' + event.transaction.hash.toHex()
@@ -25,6 +26,8 @@ export function handleFillOrder(event: Fill): void {
   
   if (!makerAssetIsOToken && !takerAssetIsOToken) return
 
+  // Record Fill event
+
   let fill = new FillOrder(id)
   fill.transactionHash = event.transaction.hash;
   fill.timestamp = event.block.timestamp
@@ -41,4 +44,33 @@ export function handleFillOrder(event: Fill): void {
   fill.takerAsset = takerAssetAddr
   
   fill.save()
+
+  // convert to an OTokenTrade entity
+  let trade = new OTokenTrade(id)
+  trade.exchange = 'ZeroX'
+  trade.timestamp = event.block.timestamp
+  trade.transactionHash = event.transaction.hash;
+
+  if(makerAssetIsOToken) { // maker asset is oToken, maker is seller
+    trade.seller = event.params.makerAddress
+    trade.buyer = event.params.takerAddress
+
+    trade.oToken = makerAssetAddr;
+    trade.oTokenAmount = event.params.makerAssetFilledAmount
+    checkERC20Entity(Address.fromString(takerAssetAddr))
+    trade.paymentToken = takerAssetAddr;
+    trade.paymentTokenAmount = event.params.takerAssetFilledAmount
+  } else { // taker asset is oToken. Taker is seller
+    trade.seller = event.params.takerAddress
+    trade.buyer = event.params.makerAddress
+
+    trade.oToken = takerAssetAddr;
+    trade.oTokenAmount = event.params.takerAssetFilledAmount
+    checkERC20Entity(Address.fromString(makerAssetAddr))
+    trade.paymentToken = makerAssetAddr;
+    trade.paymentTokenAmount = event.params.makerAssetFilledAmount
+  }
+
+  trade.save()
+
 }

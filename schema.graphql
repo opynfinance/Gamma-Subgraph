@@ -340,6 +340,29 @@ type ExpiryPrice @entity {
    isDisputed: Boolean!
 }
 
+type OTokenTrade @entity {
+  id: ID!
+
+  timestamp: BigInt!
+
+  "the one buying oToken"
+  buyer: Bytes!
+
+  "the one selling oToken"
+  seller: Bytes!
+
+  oToken: OToken!
+  paymentToken: ERC20!
+  transactionHash: Bytes!
+
+  oTokenAmount: BigInt!
+
+  paymentTokenAmount: BigInt!
+
+  "Name of the DEX protocol."
+  exchange: String!
+}
+
 type FillOrder @entity {
   id: ID!
   timestamp: BigInt!
