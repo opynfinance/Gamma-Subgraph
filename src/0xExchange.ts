@@ -26,6 +26,7 @@ export function handleFillOrder(event: Fill): void {
   if (!makerAssetIsOToken && !takerAssetIsOToken) return
 
   let fill = new FillOrder(id)
+  fill.transactionHash = event.transaction.hash;
   fill.timestamp = event.block.timestamp
   fill.makerAddress = event.params.makerAddress
   fill.takerAddress = event.params.takerAddress

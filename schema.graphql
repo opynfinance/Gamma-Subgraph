@@ -340,13 +340,22 @@ type ExpiryPrice @entity {
 type FillOrder @entity {
   id: ID!
   timestamp: BigInt!
+
+  transactionHash: Bytes!
+
   makerAddress: Bytes!
   takerAddress: Bytes!
   senderAddress: Bytes!
   makerAssetAmount: BigInt!
   takerAssetAmount: BigInt!
+
+  "0x protocol fee, denominated in eth"
   protocolFeePaid: BigInt!
+  
+  "maker asset data"
   makerAssetData: String!
+
+  "taker asset data"
   takerAssetData: String!
 
   "taker asset address"
