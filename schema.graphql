@@ -227,6 +227,9 @@ type SettleAction implements VaultAction @entity {
   block: BigInt!
   transactionHash: Bytes!
   timestamp: BigInt!
+
+  "the asset that payout was denominated in. (Should be the collateral of the token)"
+  payoutAsset: ERC20!
   
   " Payout to to"
   to: Bytes!

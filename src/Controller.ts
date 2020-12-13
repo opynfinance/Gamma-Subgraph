@@ -35,7 +35,8 @@ import {
   BurnShortAction,
   MintShortAction,
   SettleAction,
-  RedeemAction
+  RedeemAction,
+  OToken
 } from '../generated/schema';
 
 function loadOrCreateAccount(accountId: string): Account {
@@ -394,7 +395,10 @@ export function handleVaultSettled(event: VaultSettled): void {
   action.transactionHash = event.transaction.hash;
   action.timestamp = event.block.timestamp;
   // Settle fields
+  let otoken = OToken.load(event.params.otoken.toHex())
+
   action.oToken = event.params.otoken.toHex();
+  action.payoutAsset = otoken.collateralAsset;
   action.to = event.params.to;
   action.amount = event.params.payout;
   action.save();
