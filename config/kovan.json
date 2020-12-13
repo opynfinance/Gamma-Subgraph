@@ -1,15 +1,15 @@
 {
   "network": "kovan",
-  "factory": "0x7EaEbc642Af4E92245105De1958B87BF8ee89757",
-  "factory-start-block": 22013713,
-  "controller": "0x162114ca77be3234e459c816be93c3a32c3ad5a7",
-  "controller-start-block": 22013700,
-  "whitelist": "0xDDAc0160b056A034424aaeCc9f3A2b48D9624c9c",
-  "whitelist-start-block": 22013700,
-  "addressbook": "0xD37752Fd2976335fddb2e6A2cF5FfbfA88bf5F05",
-  "addressbook-start-block":22013700,
-  "oracle": "0x821097a79Aa9aEdB96aC588252E6802aFF9bC19a",
-  "oracle-start-block": 22013700,
+  "factory": "0x6fb1a6809961b0611c4296b16d8F14eF17FfAacF",
+  "factory-start-block": 22308473,
+  "controller": "0x37adb373e5f986a31a3441a24453bc047f26c46c",
+  "controller-start-block": 22308498,
+  "whitelist": "0x130C3FAE2E2AD8F21f4163583F5B11b4a56e653C",
+  "whitelist-start-block": 22308480,
+  "addressbook": "0x16124C5d58F58Fe3fce36C36C5c5Df67548d0CDf",
+  "addressbook-start-block":22308471,
+  "oracle": "0x0646D9a416cA7EACcAA2f2Ed5730b68C9f69dF80",
+  "oracle-start-block": 22308484,
   "0xExchange": "0x4eacd0aF335451709e1e7B570B8Ea68EdEC8bc97",
-  "0xExchange-start-block": 22013710
+  "0xExchange-start-block": 22308473
 }

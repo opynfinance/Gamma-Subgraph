@@ -227,6 +227,9 @@ type SettleAction implements VaultAction @entity {
   block: BigInt!
   transactionHash: Bytes!
   timestamp: BigInt!
+
+  "the asset that payout was denominated in. (Should be the collateral of the token)"
+  payoutAsset: ERC20!
   
   " Payout to to"
   to: Bytes!
@@ -234,6 +237,33 @@ type SettleAction implements VaultAction @entity {
   oToken: OToken!
   " Amount payout"
   amount: BigInt!
+}
+
+type RedeemAction @entity {
+  "REDEEM-TxHash-logIndex" 
+  id: ID!
+
+  block: BigInt!
+  transactionHash: Bytes!
+  timestamp: BigInt!
+
+  "the account that call _redeem"
+  messageSender: Bytes!
+
+  "the otoken to redeem"
+  oToken: OToken!
+
+  "amount of oToken burned"
+  otokenBurned: BigInt!
+
+  "the asset that payout was denominated in. (Should be the collateral of the token)"
+  payoutAsset: ERC20!
+
+  payoutAmount: BigInt!
+
+  "the payout goes to"
+  receiver: Bytes!
+
 }
 
 type WhitelistedProduct @entity {
@@ -313,13 +343,22 @@ type ExpiryPrice @entity {
 type FillOrder @entity {
   id: ID!
   timestamp: BigInt!
+
+  transactionHash: Bytes!
+
   makerAddress: Bytes!
   takerAddress: Bytes!
   senderAddress: Bytes!
   makerAssetAmount: BigInt!
   takerAssetAmount: BigInt!
+
+  "0x protocol fee, denominated in eth"
   protocolFeePaid: BigInt!
+  
+  "maker asset data"
   makerAssetData: String!
+
+  "taker asset data"
   takerAssetData: String!
 
   "taker asset address"

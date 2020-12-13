@@ -3,7 +3,7 @@
 Official subgraph(s) for opyn v2.
 
 * [Gamma Rinkeby](https://thegraph.com/explorer/subgraph/antoncoding/gamma-rinkeby)
-* [Gamma Kovan](https://thegraph.com/explorer/subgraph/antoncoding/gamma-kovan)
+* [Gamma Kovan](https://thegraph.com/explorer/subgraph/antoncoding/gamma-kovan-new)
 
 ## Install
 

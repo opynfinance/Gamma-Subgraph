@@ -48,7 +48,7 @@ dataSources:
         - name: ERC20
           file: ./abis/ERC20.json
       eventHandlers:
-        - event: OtokenCreated(indexed address,indexed address,address,address,address,uint256,uint256,bool)
+        - event: OtokenCreated(address,address,indexed address,indexed address,indexed address,uint256,uint256,bool)
           handler: handleOtokenCreated
       file: ./src/OTokenFactory.ts
 
@@ -189,7 +189,7 @@ dataSources:
         - name: Controller
           file: ./abis/Controller.json
       eventHandlers:
-        - event: ProxyCreated(bytes32,address)
+        - event: ProxyCreated(indexed bytes32,indexed address)
           handler: handleProxyCreated
       file: ./src/AddressBook.ts
 
@@ -230,7 +230,7 @@ dataSources:
           handler: handlePricerDisputePeriodUpdated
         - event: PricerLockingPeriodUpdated(indexed address,uint256)
           handler: handlePricerLockingPeriodUpdated
-        - event: PricerUpdated(address,address)
+        - event: PricerUpdated(indexed address,indexed address)
           handler: handlePricerUpdated
       file: ./src/Oracle.ts
 
