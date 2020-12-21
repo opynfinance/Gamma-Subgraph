@@ -1,0 +1,15 @@
+{
+  "network": "mainnet",
+  "factory": "0xE21127f47B365d3b1467746804f32BF8dCf47e26",
+  "factory-start-block": 11476638,
+  "controller": "0xde158Fa7022f11707d4a3570eec4621B35d83829",
+  "controller-start-block": 11477072,
+  "whitelist": "0x2244364c94a9FCb6f9ae3A4cF38f279706011882",
+  "whitelist-start-block": 11476646,
+  "addressbook": "0x57ADe7D5E9D2F45A07f8039Da7228ACC305fbeaF",
+  "addressbook-start-block":11476634,
+  "oracle": "0xef196aA0e3Cb8EA6d5720557C3B611Eff6777670",
+  "oracle-start-block": 11476651,
+  "0xExchange": "0x61935cbdd02287b511119ddb11aeb42f1593b7ef",
+  "0xExchange-start-block": 11477072
+}

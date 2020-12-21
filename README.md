@@ -2,7 +2,7 @@
 
 Official subgraph(s) for opyn v2.
 
-* [Gamma Rinkeby](https://thegraph.com/explorer/subgraph/antoncoding/gamma-rinkeby)
+* [Gamma Mainnet](https://thegraph.com/explorer/subgraph/antoncoding/gamma-mainnet)
 * [Gamma Kovan](https://thegraph.com/explorer/subgraph/antoncoding/gamma-kovan-new)
 
 ## Install
@@ -24,10 +24,20 @@ npm run build
 
 ## Deploy
 
-### Rinkeby
+### Get Access Token
+
+You will need an access token for deployment.
 
 ```shell
-npm run deploy:rinkeby
+graph auth https://api.thegraph.com/deploy/ <ACCESS_TOKEN>
+```
+
+Make sure include the last `/` at the end of the url!
+
+### Mainnet
+
+```shell
+npm run deploy:mainnet
 ```
 
 ### Kovan
@@ -42,4 +52,4 @@ Deploy the [opyn contracts](https://github.com/opynfinance/GammaProtocol) on the
 
 ## Deploy to custom subgraph endpoint
 
-Change `antoncoding/gamma-rinkeby` in `package.json` to your subgraph id.
+Change `antoncoding/gamma-subgraph` in `package.json` to your subgraph id.
