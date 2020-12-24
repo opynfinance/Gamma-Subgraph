@@ -39,7 +39,7 @@ import {
   OToken
 } from '../generated/schema';
 
-function loadOrCreateAccount(accountId: string): Account {
+export function loadOrCreateAccount(accountId: string): Account {
   let account = Account.load(accountId);
   // if no account, create new entity
   if (account == null) {
