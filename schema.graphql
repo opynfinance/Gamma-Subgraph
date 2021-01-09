@@ -42,6 +42,8 @@ type Account @entity {
 
   "Balances"
   balances: [AccountBalance!]! @derivedFrom(field: "account")
+
+  positions: [Position!]! @derivedFrom(field: "account")
 }
 
 type Operator @entity {
@@ -68,6 +70,22 @@ type AccountBalance @entity {
   account: Account!
   token: OToken!
   balance: BigInt!
+}
+
+type Position @entity {
+  "Equals to <account>-<oToken>-<id>"
+  id: ID!
+
+  account: Account!
+
+  oToken: OToken!
+
+  amount: BigInt!
+
+  transactions: [OTokenTrade!]!
+
+  "Wheather this is an active or closed position."
+  active: Boolean!
 }
 
 type Vault @entity {

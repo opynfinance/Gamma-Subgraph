@@ -19,7 +19,7 @@ import {
   VaultSettled,
 } from '../generated/Controller/Controller';
 
-import { BIGINT_ONE, BIGINT_ZERO, ZERO_ADDRESS} from './helper';
+import { BIGINT_ONE, BIGINT_ZERO} from './helper';
 
 import {
   Controller,
