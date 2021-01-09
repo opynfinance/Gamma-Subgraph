@@ -1,10 +1,9 @@
 import { BigDecimal, BigInt, Bytes, Address } from '@graphprotocol/graph-ts'
 
 import {
+  Account,
   Position
 } from '../generated/schema';
-
-import { loadOrCreateAccount } from './Controller'
 
 export let BIGINT_ONE = BigInt.fromI32(1)
 export let BIGINT_ZERO = BigInt.fromI32(0)
@@ -53,4 +52,15 @@ export function loadOrCreatePosition(user: Address, oToken: string): Position {
 
   }
   return position as Position;
+}
+
+export function loadOrCreateAccount(accountId: string): Account {
+  let account = Account.load(accountId);
+  // if no account, create new entity
+  if (account == null) {
+    account = new Account(accountId);
+    account.operatorCount = new BigInt(0);
+    account.vaultCount = new BigInt(0);
+  }
+  return account as Account;
 }

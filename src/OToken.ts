@@ -2,10 +2,9 @@ import { Approval, Transfer } from "../generated/templates/OToken/OToken"
 
 const ZERO_ADDRESS = '0x0000000000000000000000000000000000000000'
 
-import { OToken, AccountBalance, Account } from '../generated/schema'
+import { OToken, AccountBalance } from '../generated/schema'
 import { Address } from "@graphprotocol/graph-ts"
-import { BIGINT_ZERO } from "./helper"
-import { loadOrCreateAccount } from './Controller'
+import { BIGINT_ZERO, loadOrCreateAccount } from "./helper"
 
 export function handleApproval(event: Approval): void {}
 

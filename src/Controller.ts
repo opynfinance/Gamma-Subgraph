@@ -19,7 +19,7 @@ import {
   VaultSettled,
 } from '../generated/Controller/Controller';
 
-import { BIGINT_ONE, BIGINT_ZERO} from './helper';
+import { BIGINT_ONE, BIGINT_ZERO, loadOrCreateAccount} from './helper';
 
 import {
   Controller,
@@ -38,17 +38,6 @@ import {
   RedeemAction,
   OToken
 } from '../generated/schema';
-
-export function loadOrCreateAccount(accountId: string): Account {
-  let account = Account.load(accountId);
-  // if no account, create new entity
-  if (account == null) {
-    account = new Account(accountId);
-    account.operatorCount = new BigInt(0);
-    account.vaultCount = new BigInt(0);
-  }
-  return account as Account;
-}
 
 function loadOrCreateOperator(operatorId: string): Operator {
   let operator = Operator.load(operatorId);
