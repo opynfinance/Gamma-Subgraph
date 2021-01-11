@@ -67,7 +67,7 @@ export function handleFillOrder(event: Fill): void {
   } else { // taker asset is oToken. Taker is seller
     
     seller = event.params.takerAddress
-    buyer = event.params.takerAddress
+    buyer = event.params.makerAddress
 
     trade.oToken = takerAssetAddr;
     trade.oTokenAmount = event.params.takerAssetFilledAmount
