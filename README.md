@@ -2,8 +2,8 @@
 
 Official subgraph(s) for opyn v2.
 
-- [Gamma Mainnet](https://thegraph.com/explorer/subgraph/antoncoding/gamma-mainnet)
-- [Gamma Kovan](https://thegraph.com/explorer/subgraph/antoncoding/gamma-kovan-new)
+- [Gamma Mainnet](https://thegraph.com/explorer/subgraph/opynfinance/gamma-mainnet)
+- [Gamma Kovan](https://thegraph.com/explorer/subgraph/opynfinance/gamma-kovan)
 
 ## Install
 
