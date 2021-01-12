@@ -19,7 +19,7 @@ import {
   VaultSettled,
 } from '../generated/Controller/Controller';
 
-import { BIGINT_ONE, BIGINT_ZERO, loadOrCreateAccount} from './helper';
+import { BIGINT_ONE, BIGINT_ZERO, loadOrCreateAccount, updateSettlerPosition, updateRedeemerPosition} from './helper';
 
 import {
   Controller,
@@ -363,17 +363,9 @@ export function handleVaultOpened(event: VaultOpened): void {
 
 export function handleVaultSettled(event: VaultSettled): void {
   let id = event.params.vaultId;
-  let accountId = event.params.AccountOwner.toHex();
-  // update vault struct
+  let accountId = event.params.AccountOwner.toHex();  
+
   let vaultId = accountId + '-' + id.toString();
-  let vault = Vault.load(vaultId);
-  vault.collateralAsset = null;
-  vault.collateralAmount = BIGINT_ZERO;
-  vault.shortOToken = null;
-  vault.shortAmount = BIGINT_ZERO;
-  vault.longOToken = null;
-  vault.longAmount = BIGINT_ZERO;
-  vault.save();
 
   // create action entity
   let actionId = 'SETTLE-' + event.transaction.hash.toHex() + '-' + event.logIndex.toString();
@@ -386,9 +378,26 @@ export function handleVaultSettled(event: VaultSettled): void {
   // Settle fields
   let otoken = OToken.load(event.params.otoken.toHex())
 
-  action.oToken = event.params.otoken.toHex();
-  action.payoutAsset = otoken.collateralAsset;
+  
+  let vault = Vault.load(vaultId);
+
+  action.long = vault.longOToken;
+  action.short = vault.shortOToken;
+  action.longAmount = vault.longAmount;
+  action.shortAmount = vault.shortAmount;
+  action.collateral = vault.collateralAsset;
+  action.collateralAmount = vault.collateralAmount
+  
   action.to = event.params.to;
   action.amount = event.params.payout;
   action.save();
+
+  // update vault struct
+  vault.collateralAsset = null;
+  vault.collateralAmount = BIGINT_ZERO;
+  vault.shortOToken = null;
+  vault.shortAmount = BIGINT_ZERO;
+  vault.longOToken = null;
+  vault.longAmount = BIGINT_ZERO;
+  vault.save();
 }

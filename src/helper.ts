@@ -35,6 +35,45 @@ export function updateBuyerPosition(buyer: Address, oToken: string, amount: BigI
   position.save()
 }
 
+export function updateRedeemerPosition(redeemer: Address, oToken: string, amount: BigInt, tradeId: string): void {
+  let initPositionId = BIGINT_ZERO
+  let position = loadOrCreatePosition(redeemer, oToken, initPositionId)
+  // get the first active position for this otoken.
+  while (!position.active) {
+    initPositionId = initPositionId.plus(BIGINT_ONE)
+    position = loadOrCreatePosition(redeemer, oToken, initPositionId)
+  }
+  let neg = position.amount.lt(amount)
+  position.amount = neg ? amount.minus(position.amount).neg() : position.amount.minus(amount);
+  // set position to inactive (closed) whenever we get back to amount = 0 
+  
+
+  let redeemActions = position.redeemActions 
+  redeemActions.push(tradeId)
+  position.redeemActions = redeemActions
+  position.save()
+}
+
+
+export function updateSettlerPosition(settler: Address, oToken: string, amount: BigInt, settleId: string): void {
+  let initPositionId = BIGINT_ZERO
+  let position = loadOrCreatePosition(settler, oToken, initPositionId)
+  // get the first active position for this otoken.
+  while (!position.active) {
+    initPositionId = initPositionId.plus(BIGINT_ONE)
+    position = loadOrCreatePosition(settler, oToken, initPositionId)
+  }
+  
+  let neg = position.amount.lt(amount)
+  position.amount = neg ? amount.minus(position.amount).neg() : position.amount.minus(amount);
+  if (position.amount.isZero()) position.active = false
+
+  let settleActions = position.settleActions 
+  settleActions.push(settleId)
+  position.settleActions = settleActions
+  position.save()
+}
+
 export function updateSellerPosition(seller: Address, oToken: string, amount: BigInt, tradeId: string): void {
   let initPositionId = BIGINT_ZERO
   let position = loadOrCreatePosition(seller, oToken, initPositionId)
@@ -69,6 +108,8 @@ export function loadOrCreatePosition(user: Address, oToken: string, numId: BigIn
     position.amount = BIGINT_ZERO;
     position.active = true;
     position.transactions = [];
+    position.settleActions = []
+    position.redeemActions = []
 
   }
   return position as Position;

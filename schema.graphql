@@ -84,6 +84,12 @@ type Position @entity {
 
   transactions: [OTokenTrade!]!
 
+  "vault settle actions (payout)"
+  settleActions: [SettleAction!]!
+
+  "holder redeem actions (payout)"
+  redeemActions: [RedeemAction!]!
+
   "Wheather this is an active or closed position."
   active: Boolean!
 }
@@ -102,6 +108,9 @@ type Vault @entity {
   shortAmount: BigInt
   longAmount: BigInt
   collateralAmount: BigInt
+
+   
+  roundTimestamp: BigInt!
 }
 
 #
@@ -247,12 +256,24 @@ type SettleAction implements VaultAction @entity {
   timestamp: BigInt!
 
   "the asset that payout was denominated in. (Should be the collateral of the token)"
-  payoutAsset: ERC20!
+  collateral: ERC20
+
+  "original collateral in the vault"
+  collateralAmount: BigInt
   
   " Payout to to"
   to: Bytes!
-  " Short otoken of the vault. (Could be long token when there's no short)"
-  oToken: OToken!
+  
+  "long oToken"
+  long: OToken
+
+  longAmount: BigInt
+
+  "short oToken"
+  short: OToken
+
+  shortAmount: BigInt
+
   " Amount payout"
   amount: BigInt!
 }
