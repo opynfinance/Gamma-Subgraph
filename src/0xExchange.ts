@@ -4,6 +4,7 @@ import { AddressBook as AddressBookContract } from "../generated/AddressBook/Add
 import { FillOrder, Controller, OTokenTrade } from '../generated/schema'
 import { Address } from "@graphprotocol/graph-ts"
 import { checkERC20Entity } from "./Whitelist"
+import { updateBuyerPosition, updateSellerPosition } from './helper'
 
 export function handleFillOrder(event: Fill): void {
   let id = event.params.orderHash.toHex() + '-' + event.transaction.hash.toHex()
@@ -51,9 +52,12 @@ export function handleFillOrder(event: Fill): void {
   trade.timestamp = event.block.timestamp
   trade.transactionHash = event.transaction.hash;
 
+  let seller: Address
+  let buyer: Address
+
   if(makerAssetIsOToken) { // maker asset is oToken, maker is seller
-    trade.seller = event.params.makerAddress
-    trade.buyer = event.params.takerAddress
+    seller = event.params.makerAddress
+    buyer = event.params.takerAddress
 
     trade.oToken = makerAssetAddr;
     trade.oTokenAmount = event.params.makerAssetFilledAmount
@@ -61,8 +65,9 @@ export function handleFillOrder(event: Fill): void {
     trade.paymentToken = takerAssetAddr;
     trade.paymentTokenAmount = event.params.takerAssetFilledAmount
   } else { // taker asset is oToken. Taker is seller
-    trade.seller = event.params.takerAddress
-    trade.buyer = event.params.makerAddress
+    
+    seller = event.params.takerAddress
+    buyer = event.params.makerAddress
 
     trade.oToken = takerAssetAddr;
     trade.oTokenAmount = event.params.takerAssetFilledAmount
@@ -71,6 +76,12 @@ export function handleFillOrder(event: Fill): void {
     trade.paymentTokenAmount = event.params.makerAssetFilledAmount
   }
 
+  trade.seller = seller
+  trade.buyer = buyer
+
   trade.save()
+
+  updateBuyerPosition(buyer, trade.oToken, trade.oTokenAmount, id);
+  updateSellerPosition(seller, trade.oToken, trade.oTokenAmount, id);
 
 }
