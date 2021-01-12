@@ -109,8 +109,6 @@ type Vault @entity {
   longAmount: BigInt
   collateralAmount: BigInt
 
-   
-  roundTimestamp: BigInt!
 }
 
 #
