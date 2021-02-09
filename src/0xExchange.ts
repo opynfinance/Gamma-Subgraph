@@ -81,7 +81,7 @@ export function handleFillOrder(event: Fill): void {
 
   trade.save()
 
-  updateBuyerPosition(buyer, trade.oToken, trade.oTokenAmount, id);
-  updateSellerPosition(seller, trade.oToken, trade.oTokenAmount, id);
+  // updateBuyerPosition(buyer, trade.oToken, trade.oTokenAmount, id);
+  // updateSellerPosition(seller, trade.oToken, trade.oTokenAmount, id);
 
 }
