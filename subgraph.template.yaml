@@ -47,6 +47,8 @@ dataSources:
           file: ./abis/OToken.json
         - name: ERC20
           file: ./abis/ERC20.json
+        - name: AddressBook
+          file: ./abis/AddressBook.json
       eventHandlers:
         - event: OtokenCreated(address,address,indexed address,indexed address,indexed address,uint256,uint256,bool)
           handler: handleOtokenCreated

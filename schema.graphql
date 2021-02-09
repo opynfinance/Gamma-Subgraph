@@ -7,6 +7,10 @@ type ERC20 @entity {
 
 type OToken @entity {
   id: ID!
+  
+  # implementation address
+  implementation: Bytes!
+
   name: String!
   symbol: String!
   decimals: Int!
