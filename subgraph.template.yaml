@@ -6,9 +6,9 @@ dataSources:
     name: zxExchange
     network: {{network}}
     source:
-      address: "{{0xExchange}}"
+      address: "{{0xExchangeV3}}"
       abi: ZxExchange
-      startBlock: {{0xExchange-start-block}}
+      startBlock: {{0xExchangeV3-start-block}}
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.4
@@ -17,7 +17,7 @@ dataSources:
         - Fill
       abis:
         - name: ZxExchange
-          file: ./abis/0xExchange.json
+          file: ./abis/0xExchangeV3.json
         - name: Whitelist
           file: ./abis/Whitelist.json
         - name: AddressBook
@@ -25,7 +25,7 @@ dataSources:
       eventHandlers:
         - event: Fill(indexed address,indexed address,bytes,bytes,bytes,bytes,indexed bytes32,address,address,uint256,uint256,uint256,uint256,uint256)
           handler: handleFillOrder
-      file: ./src/0xExchange.ts
+      file: ./src/0xExchangeV3.ts
 
   - kind: ethereum/contract
     name: OTokenFactory
