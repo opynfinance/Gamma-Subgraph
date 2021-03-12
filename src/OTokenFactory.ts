@@ -4,7 +4,7 @@ import { OToken as OTokenSource } from "../generated/templates"
 import { OToken as TokenContract } from "../generated/templates/OToken/OToken"
 import { AddressBook as AddressBookInterface } from '../generated/AddressBook/AddressBook'
 import { OTokenFactory as FactoryInterface } from '../generated/OTokenFactory/OTokenFactory'
-import { OToken, Factory } from "../generated/schema"
+import { OToken } from "../generated/schema"
 
 export function handleOtokenCreated(event: OtokenCreated): void {
 
