@@ -267,6 +267,13 @@ export function handleRedeem(event: Redeem): void {
   action.payoutAmount = event.params.payout
   action.receiver = event.params.receiver
   action.save()
+
+  updateRedeemerPosition(
+    event.params.receiver, 
+    event.params.otoken.toHex(), 
+    event.params.otokenBurned, 
+    actionId
+  )
 }
 
 export function handleShortOtokenBurned(event: ShortOtokenBurned): void {
