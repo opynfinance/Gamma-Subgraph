@@ -7,9 +7,12 @@
     "prepare:mainnet": "mustache config/mainnet.json subgraph.template.yaml > subgraph.yaml",
     "prepare:mainnet-internal": "mustache config/mainnet-internal.json subgraph.template.yaml > subgraph.yaml",
     "prepare:kovan": "mustache config/kovan.json subgraph.template.yaml > subgraph.yaml",
+    "prepare:kovan-internal": "mustache config/kovan-internal.json subgraph.template.yaml > subgraph.yaml",
+    
     "deploy:mainnet": "npm run prepare:mainnet && graph deploy --node https://api.thegraph.com/deploy/ --ipfs https://api.thegraph.com/ipfs/ opynfinance/gamma-mainnet",
     "deploy:mainnet-internal": "npm run prepare:mainnet-internal && graph deploy --node https://api.thegraph.com/deploy/ --ipfs https://api.thegraph.com/ipfs/ opynfinance/playground",
-    "deploy:kovan": "npm run prepare:kovan && graph deploy --node https://api.thegraph.com/deploy/ --ipfs https://api.thegraph.com/ipfs/ opynfinance/gamma-kovan"
+    "deploy:kovan": "npm run prepare:kovan && graph deploy --node https://api.thegraph.com/deploy/ --ipfs https://api.thegraph.com/ipfs/ opynfinance/gamma-kovan",
+    "deploy:kovan-internal": "npm run prepare:kovan-internal && graph deploy --node https://api.thegraph.com/deploy/ --ipfs https://api.thegraph.com/ipfs/ opynfinance/gamma-internal-kovan"
   },
   "dependencies": {
     "@graphprotocol/graph-cli": "0.18.0",

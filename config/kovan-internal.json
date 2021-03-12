@@ -1,0 +1,15 @@
+{
+  "network": "kovan",
+  "factory": "0x32b5a18238BAdF23F8E88669de2bD3671ff7BF83",
+  "factory-start-block": 23515212,
+  "controller": "0xa84cff11957a0a08a3e1d568ed1caaf47626c1f3",
+  "controller-start-block": 23515251,
+  "whitelist": "0xc990BB199c0ed8CEE305bD1A4c50A87029AdfAE3",
+  "whitelist-start-block": 23515220,
+  "addressbook": "0x4163Bf53878B2169Ea9E404b9E840FA010DbF949",
+  "addressbook-start-block": 23515209,
+  "oracle": "0xA5A21B97d84BFF99366Fc9624019eb05e05baE48",
+  "oracle-start-block": 23515224,
+  "0xExchange": "0x4eacd0aF335451709e1e7B570B8Ea68EdEC8bc97",
+  "0xExchange-start-block": 23515251
+}
