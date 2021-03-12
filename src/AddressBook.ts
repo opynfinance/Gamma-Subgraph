@@ -1,6 +1,7 @@
 import { ProxyCreated } from "../generated/AddressBook/AddressBook"
 import { Controller } from "../generated/schema"
 import { Controller as ControllerContract } from '../generated/Controller/Controller'
+
 export function handleProxyCreated(event: ProxyCreated): void {
   // createProxy is only used to  when Controller address is first created
   // so we initialize Controller entity in this event.
