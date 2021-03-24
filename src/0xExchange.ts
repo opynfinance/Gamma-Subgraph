@@ -1,4 +1,4 @@
-import { Fill } from "../generated/zxExchange/ZxExchange"
+import { LimitOrderFilled } from "../generated/zxExchange/ZxExchange"
 import { Whitelist as WhitelistContract } from "../generated/Whitelist/Whitelist"
 import { AddressBook as AddressBookContract } from "../generated/AddressBook/AddressBook"
 import { FillOrder, Controller, OTokenTrade } from '../generated/schema'
@@ -6,11 +6,11 @@ import { Address } from "@graphprotocol/graph-ts"
 import { checkERC20Entity } from "./Whitelist"
 import { updateBuyerPosition, updateSellerPosition } from './helper'
 
-export function handleFillOrder(event: Fill): void {
+export function handleFillOrder(event: LimitOrderFilled): void {
   let id = event.params.orderHash.toHex() + '-' + event.transaction.hash.toHex()
 
-  let makerAssetAddr = '0x' + event.params.makerAssetData.toHex().substr(-40)
-  let takerAssetAddr = '0x' + event.params.takerAssetData.toHex().substr(-40)
+  let makerAssetAddr = event.params.makerToken
+  let takerAssetAddr = event.params.takerToken
 
   // get addressBook address
   let controller = Controller.load('1')
@@ -22,8 +22,8 @@ export function handleFillOrder(event: Fill): void {
     let whitelistAddr = addressBook.getWhitelist()
     let whitelistContract = WhitelistContract.bind(whitelistAddr)
 
-    makerAssetIsOToken = whitelistContract.isWhitelistedOtoken(Address.fromString(makerAssetAddr))
-    takerAssetIsOToken = whitelistContract.isWhitelistedOtoken(Address.fromString(takerAssetAddr))
+    makerAssetIsOToken = whitelistContract.isWhitelistedOtoken(makerAssetAddr)
+    takerAssetIsOToken = whitelistContract.isWhitelistedOtoken(takerAssetAddr)
   
   if (!makerAssetIsOToken && !takerAssetIsOToken) return
 
@@ -32,17 +32,14 @@ export function handleFillOrder(event: Fill): void {
   let fill = new FillOrder(id)
   fill.transactionHash = event.transaction.hash;
   fill.timestamp = event.block.timestamp
-  fill.makerAddress = event.params.makerAddress
-  fill.takerAddress = event.params.takerAddress
-  fill.senderAddress = event.params.senderAddress
-  fill.makerAssetAmount = event.params.makerAssetFilledAmount
-  fill.takerAssetAmount = event.params.takerAssetFilledAmount
+  fill.makerAddress = event.params.maker
+  fill.takerAddress = event.params.taker
+  // fill.senderAddress = event.params.sender
+  fill.makerAssetAmount = event.params.makerTokenFilledAmount
+  fill.takerAssetAmount = event.params.takerTokenFilledAmount
   fill.protocolFeePaid = event.params.protocolFeePaid
-  fill.makerAssetData = event.params.makerAssetData.toHex()
-  fill.takerAssetData = event.params.takerAssetData.toHex()
-
-  fill.makerAsset = makerAssetAddr
-  fill.takerAsset = takerAssetAddr
+  fill.makerAsset = makerAssetAddr.toString();
+  fill.takerAsset = takerAssetAddr.toString();
   
   fill.save()
 
@@ -56,24 +53,24 @@ export function handleFillOrder(event: Fill): void {
   let buyer: Address
 
   if(makerAssetIsOToken) { // maker asset is oToken, maker is seller
-    seller = event.params.makerAddress
-    buyer = event.params.takerAddress
+    seller = event.params.maker
+    buyer = event.params.taker
 
-    trade.oToken = makerAssetAddr;
-    trade.oTokenAmount = event.params.makerAssetFilledAmount
-    checkERC20Entity(Address.fromString(takerAssetAddr))
-    trade.paymentToken = takerAssetAddr;
-    trade.paymentTokenAmount = event.params.takerAssetFilledAmount
+    trade.oToken = makerAssetAddr.toString()
+    trade.oTokenAmount = event.params.makerTokenFilledAmount
+    checkERC20Entity(takerAssetAddr)
+    trade.paymentToken = takerAssetAddr.toString()
+    trade.paymentTokenAmount = event.params.takerTokenFilledAmount
   } else { // taker asset is oToken. Taker is seller
     
-    seller = event.params.takerAddress
-    buyer = event.params.makerAddress
+    seller = event.params.taker
+    buyer = event.params.maker
 
-    trade.oToken = takerAssetAddr;
-    trade.oTokenAmount = event.params.takerAssetFilledAmount
-    checkERC20Entity(Address.fromString(makerAssetAddr))
-    trade.paymentToken = makerAssetAddr;
-    trade.paymentTokenAmount = event.params.makerAssetFilledAmount
+    trade.oToken = takerAssetAddr.toString();
+    trade.oTokenAmount = event.params.takerTokenFilledAmount
+    checkERC20Entity(makerAssetAddr)
+    trade.paymentToken = makerAssetAddr.toString();
+    trade.paymentTokenAmount = event.params.makerTokenFilledAmount
   }
 
   trade.seller = seller

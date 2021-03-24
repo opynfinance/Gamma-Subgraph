@@ -23,7 +23,7 @@ dataSources:
         - name: AddressBook
           file: ./abis/AddressBook.json
       eventHandlers:
-        - event: Fill(indexed address,indexed address,bytes,bytes,bytes,bytes,indexed bytes32,address,address,uint256,uint256,uint256,uint256,uint256)
+        - event: LimitOrderFilled(bytes32,address,address,address,address,address,uint128,uint128,uint128,uint256,bytes32)
           handler: handleFillOrder
       file: ./src/0xExchange.ts
 
@@ -195,46 +195,46 @@ dataSources:
           handler: handleProxyCreated
       file: ./src/AddressBook.ts
 
-  - kind: ethereum/contract
-    name: Oracle
-    network: {{network}}
-    source:
-      address: "{{oracle}}"
-      abi: Oracle
-      startBlock: {{oracle-start-block}}
-    mapping:
-      kind: ethereum/events
-      apiVersion: 0.0.4
-      language: wasm/assemblyscript
-      entities:
-        - DisputerUpdated
-        - ExpiryPriceDisputed
-        - ExpiryPriceUpdated
-        - OwnershipTransferred
-        - PricerDisputePeriodUpdated
-        - PricerLockingPeriodUpdated
-        - PricerUpdated
-      abis:
-        - name: Oracle
-          file: ./abis/Oracle.json
-        - name: ERC20
-          file: ./abis/ERC20.json
-      eventHandlers:
-        - event: DisputerUpdated(indexed address)
-          handler: handleDisputerUpdated
-        - event: ExpiryPriceDisputed(indexed address,indexed uint256,uint256,uint256,uint256)
-          handler: handleExpiryPriceDisputed
-        - event: ExpiryPriceUpdated(indexed address,indexed uint256,uint256,uint256)
-          handler: handleExpiryPriceUpdated
-        - event: OwnershipTransferred(indexed address,indexed address)
-          handler: handleOwnershipTransferred
-        - event: PricerDisputePeriodUpdated(indexed address,uint256)
-          handler: handlePricerDisputePeriodUpdated
-        - event: PricerLockingPeriodUpdated(indexed address,uint256)
-          handler: handlePricerLockingPeriodUpdated
-        - event: PricerUpdated(indexed address,indexed address)
-          handler: handlePricerUpdated
-      file: ./src/Oracle.ts
+  # - kind: ethereum/contract
+  #   name: Oracle
+  #   network: {{network}}
+  #   source:
+  #     address: "{{oracle}}"
+  #     abi: Oracle
+  #     startBlock: {{oracle-start-block}}
+  #   mapping:
+  #     kind: ethereum/events
+  #     apiVersion: 0.0.4
+  #     language: wasm/assemblyscript
+  #     entities:
+  #       - DisputerUpdated
+  #       - ExpiryPriceDisputed
+  #       - ExpiryPriceUpdated
+  #       - OwnershipTransferred
+  #       - PricerDisputePeriodUpdated
+  #       - PricerLockingPeriodUpdated
+  #       - PricerUpdated
+  #     abis:
+  #       - name: Oracle
+  #         file: ./abis/Oracle.json
+  #       - name: ERC20
+  #         file: ./abis/ERC20.json
+  #     eventHandlers:
+  #       - event: DisputerUpdated(indexed address)
+  #         handler: handleDisputerUpdated
+  #       - event: ExpiryPriceDisputed(indexed address,indexed uint256,uint256,uint256,uint256)
+  #         handler: handleExpiryPriceDisputed
+  #       - event: ExpiryPriceUpdated(indexed address,indexed uint256,uint256,uint256)
+  #         handler: handleExpiryPriceUpdated
+  #       - event: OwnershipTransferred(indexed address,indexed address)
+  #         handler: handleOwnershipTransferred
+  #       - event: PricerDisputePeriodUpdated(indexed address,uint256)
+  #         handler: handlePricerDisputePeriodUpdated
+  #       - event: PricerLockingPeriodUpdated(indexed address,uint256)
+  #         handler: handlePricerLockingPeriodUpdated
+  #       - event: PricerUpdated(indexed address,indexed address)
+  #         handler: handlePricerUpdated
+  #     file: ./src/Oracle.ts
 
   # Call handlers only supported on mainnet    
   # - kind: ethereum/contract
