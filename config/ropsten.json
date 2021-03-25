@@ -8,8 +8,6 @@
     "whitelist-start-block": 9821766,
     "addressbook": "0xe71417eefc794c9b83fc494861981721e26db0e9",
     "addressbook-start-block": 9821699,
-    // "oracle": "0xA5A21B97d84BFF99366Fc9624019eb05e05baE48",
-    // "oracle-start-block": 23515224,
     "0xExchange": "0xdef1c0ded9bec7f1a1670819833240f027b25eff",
     "0xExchange-start-block": 8845990
-  }
+}
