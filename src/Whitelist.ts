@@ -12,6 +12,9 @@ import {
 } from "../generated/Whitelist/Whitelist"
 import { ERC20 as ERC20Contract } from "../generated/OTokenFactory/ERC20"
 import { ERC20, WhitelistedProduct } from "../generated/schema"
+import { log } from '@graphprotocol/graph-ts'
+
+// const blacklistedPaymentTokens = ['0xb7a4f3e9097c08da09517b5ab877f7a917224ede']
 
 export function handleCalleeBlacklisted(event: CalleeBlacklisted): void {}
 
@@ -44,6 +47,11 @@ export function handleProductWhitelisted(event: ProductWhitelisted): void {
 }
 
 function getProductEntity(underlying: Address, strike: Address, collateral: Address, isPut:boolean): WhitelistedProduct {
+  log.info('getProduct Entity with: {}, {}, {}', [
+    underlying.toString(),
+    strike.toString(),
+    collateral.toString(),
+  ])
   checkERC20Entity(underlying)
   checkERC20Entity(strike)
   checkERC20Entity(collateral)
@@ -74,6 +82,10 @@ function getProductId(underlying:Address, strike:Address, collateral:Address, is
 export function checkERC20Entity(address: Address): void {
   let entity = ERC20.load(address.toHex())
   if (entity != null) return
+
+  log.info('checkERC20Entity createERC20 Entity {} start', [
+    address.toString(),
+  ])
   
   entity = new ERC20(address.toHex())
   let contract = ERC20Contract.bind(address)
@@ -81,4 +93,8 @@ export function checkERC20Entity(address: Address): void {
   entity.name = contract.name()
   entity.decimals = contract.decimals()
   entity.save();
+
+  log.info('checkERC20Entity createERC20 Entity {} done', [
+    address.toString(),
+  ])
 }
