@@ -59,7 +59,7 @@ export function handleFillOrder(event: Fill): void {
     // maker asset is oToken, maker is seller
 
     let paymentToken = ERC20.load(takerAssetAddr)
-    if (paymentToken != null) return
+    if (paymentToken == null) return
 
     // checkERC20Entity(Address.fromString(takerAssetAddr));
 
@@ -75,7 +75,7 @@ export function handleFillOrder(event: Fill): void {
     // taker asset is oToken. Taker is seller
 
     let paymentToken = ERC20.load(makerAssetAddr)
-    if (paymentToken != null) return
+    if (paymentToken == null) return
     // checkERC20Entity(Address.fromString(makerAssetAddr));
 
     seller = event.params.takerAddress;
