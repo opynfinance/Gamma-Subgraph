@@ -1,0 +1,15 @@
+{
+  "network": "arbitrum",
+  "factory": "0x0D963D4DfF92fbeC2897B2Fe38DF74835e36513F",
+  "factory-start-block": 0,
+  "controller": "0x4C8696De199F6e1C069e147382D500C6F04A0374",
+  "controller-start-block": 0,
+  "whitelist": "0xb20Df1356F2ffE9F3ba9b0Ce91C172454FEa6CE1",
+  "whitelist-start-block": 0,
+  "addressbook": "0xb9DBed1792e6450015F7ea9fbaB2BAD799638404",
+  "addressbook-start-block":0,
+  "oracle": "0xb46A1A5d4F9263FA247f44489B337Efb731F3788",
+  "oracle-start-block": 0,
+  "0xExchange": "0x0D963D4DfF92fbeC2897B2Fe38DF74835e36513F",
+  "0xExchange-start-block": 0
+}
