@@ -404,7 +404,7 @@ type OTokenTrade @entity {
   exchange: String!
 }
 
-type FillOrder @entity {
+type FillOrderV3 @entity {
   id: ID!
   timestamp: BigInt!
 
@@ -424,6 +424,27 @@ type FillOrder @entity {
 
   "taker asset data"
   takerAssetData: String!
+
+  "taker asset address"
+  takerAsset: String!
+
+  "maker asset address"
+  makerAsset: String!
+}
+
+type FillOrderV4 @entity {
+  id: ID!
+  timestamp: BigInt!
+
+  transactionHash: Bytes!
+
+  maker: Bytes!
+  taker: Bytes!
+  makerAmount: BigInt!
+  takerAmount: BigInt!
+
+  "0x protocol fee, denominated in eth"
+  protocolFeePaid: BigInt!
 
   "taker asset address"
   takerAsset: String!

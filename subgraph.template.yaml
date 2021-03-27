@@ -3,28 +3,53 @@ schema:
   file: ./schema.graphql
 dataSources:
   - kind: ethereum/contract
-    name: zxExchange
+    name: zxExchangeV3
     network: {{network}}
     source:
       address: "{{0xExchange}}"
-      abi: ZxExchange
+      abi: ZxExchangeV3
       startBlock: {{0xExchange-start-block}}
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.4
       language: wasm/assemblyscript
       entities:
-        - Fill
+        - FillV3
       abis:
-        - name: ZxExchange
-          file: ./abis/0xExchange.json
+        - name: ZxExchangeV3
+          file: ./abis/0xExchangeV3.json
+        - name: Whitelist
+          file: ./abis/Whitelist.json
+        - name: AddressBook
+          file: ./abis/AddressBook.json
+      eventHandlers:
+        - event: Fill(indexed address,indexed address,bytes,bytes,bytes,bytes,indexed bytes32,address,address,uint256,uint256,uint256,uint256,uint256)
+          handler: handleFillOrderV3
+      file: ./src/0xExchange.ts
+
+  - kind: ethereum/contract
+    name: zxExchangeV4
+    network: {{network}}
+    source:
+      address: "{{0xExchange}}"
+      abi: ZxExchangeV4
+      startBlock: {{0xExchange-start-block}}
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.4
+      language: wasm/assemblyscript
+      entities:
+        - FillV4
+      abis:
+        - name: ZxExchangeV4
+          file: ./abis/0xExchangeV4.json
         - name: Whitelist
           file: ./abis/Whitelist.json
         - name: AddressBook
           file: ./abis/AddressBook.json
       eventHandlers:
         - event: LimitOrderFilled(bytes32,address,address,address,address,address,uint128,uint128,uint128,uint256,bytes32)
-          handler: handleFillOrder
+          handler: handleFillOrderV4
       file: ./src/0xExchange.ts
 
   - kind: ethereum/contract
