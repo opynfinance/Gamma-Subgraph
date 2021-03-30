@@ -69,7 +69,7 @@ export function handleFillOrderV4(event: LimitOrderFilled): void {
 
     //TODO: figure out a workaround for this to preserve initial premium
     let paymentToken = ERC20.load(takerAssetAddr.toHexString())
-    if (paymentToken != null) return
+    if (paymentToken == null) return
 
     // checkERC20Entity(Address.fromString(takerAssetAddr));
 
@@ -86,7 +86,7 @@ export function handleFillOrderV4(event: LimitOrderFilled): void {
 
     //TODO: figure out a workaround for this to preserve initial premium
     let paymentToken = ERC20.load(makerAssetAddr.toHexString())
-    if (paymentToken != null) return
+    if (paymentToken == null) return
     // checkERC20Entity(Address.fromString(makerAssetAddr));
 
     seller = event.params.taker;
@@ -161,7 +161,7 @@ export function handleFillOrderV3(event: Fill): void {
     // maker asset is oToken, maker is seller
 
     let paymentToken = ERC20.load(takerAssetAddr)
-    if (paymentToken != null) return
+    if (paymentToken == null) return
 
     // checkERC20Entity(Address.fromString(takerAssetAddr));
 
@@ -177,7 +177,7 @@ export function handleFillOrderV3(event: Fill): void {
     // taker asset is oToken. Taker is seller
 
     let paymentToken = ERC20.load(makerAssetAddr)
-    if (paymentToken != null) return
+    if (paymentToken == null) return
     // checkERC20Entity(Address.fromString(makerAssetAddr));
 
     seller = event.params.takerAddress;
