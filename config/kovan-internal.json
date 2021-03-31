@@ -10,6 +10,6 @@
   "addressbook-start-block": 23515209,
   "oracle": "0xA5A21B97d84BFF99366Fc9624019eb05e05baE48",
   "oracle-start-block": 23515224,
-  "0xExchange": "0x4eacd0aF335451709e1e7B570B8Ea68EdEC8bc97",
-  "0xExchange-start-block": 23515251
+  "0xExchangeV3": "0x4eacd0aF335451709e1e7B570B8Ea68EdEC8bc97",
+  "0xExchangeV3-start-block": 23515251
 }

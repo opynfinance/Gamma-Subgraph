@@ -3,7 +3,7 @@ import { Fill } from "../generated/zxExchangeV3/ZxExchangeV3"
 import { Whitelist as WhitelistContract } from "../generated/Whitelist/Whitelist"
 import { AddressBook as AddressBookContract } from "../generated/AddressBook/AddressBook"
 import { FillOrderV4, FillOrderV3, Controller, OTokenTrade, ERC20 } from '../generated/schema'
-import { Address, log } from "@graphprotocol/graph-ts"
+import { Address} from "@graphprotocol/graph-ts"
 import { checkERC20Entity } from "./Whitelist"
 import { updateBuyerPosition, updateSellerPosition, ZERO_ADDRESS } from './helper'
 
@@ -40,18 +40,6 @@ export function handleFillOrderV4(event: LimitOrderFilled): void {
   fill.protocolFeePaid = event.params.protocolFeePaid
   fill.makerAsset = makerAssetAddr.toHexString();
   fill.takerAsset = takerAssetAddr.toHexString();
-
-  log.info('Fill params: {}, {}, {}, {}, {}, {}, {}, {}, {}', [
-    fill.transactionHash.toHexString(),
-    fill.timestamp.toString(),
-    fill.maker.toHexString(),
-    fill.taker.toHexString(),
-    fill.makerAmount.toString(),
-    fill.takerAmount.toString(),
-    fill.protocolFeePaid.toString(),
-    fill.makerAsset,
-    fill.takerAsset,
-  ])
   
   fill.save()
 
