@@ -14,7 +14,7 @@ dataSources:
       apiVersion: 0.0.4
       language: wasm/assemblyscript
       entities:
-        - FillV3
+        - Fill
       abis:
         - name: ZxExchangeV3
           file: ./abis/0xExchangeV3.json
@@ -39,7 +39,7 @@ dataSources:
       apiVersion: 0.0.4
       language: wasm/assemblyscript
       entities:
-        - FillV4
+        - LimitOrderFilled
       abis:
         - name: ZxExchangeV4
           file: ./abis/0xExchangeV4.json

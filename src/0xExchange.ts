@@ -4,8 +4,8 @@ import { Whitelist as WhitelistContract } from "../generated/Whitelist/Whitelist
 import { AddressBook as AddressBookContract } from "../generated/AddressBook/AddressBook"
 import { FillOrderV4, FillOrderV3, Controller, OTokenTrade, ERC20 } from '../generated/schema'
 import { Address} from "@graphprotocol/graph-ts"
-import { checkERC20Entity } from "./Whitelist"
-import { updateBuyerPosition, updateSellerPosition, ZERO_ADDRESS } from './helper'
+// import { checkERC20Entity } from "./Whitelist"
+// import { updateBuyerPosition, updateSellerPosition, ZERO_ADDRESS } from './helper'
 
 export function handleFillOrderV4(event: LimitOrderFilled): void {
   let id = event.params.orderHash.toHex() + '-' + event.transaction.hash.toHex()
@@ -55,7 +55,6 @@ export function handleFillOrderV4(event: LimitOrderFilled): void {
   if (makerAssetIsOToken) {
     // maker asset is oToken, maker is seller
 
-    //TODO: figure out a workaround for this to preserve initial premium
     let paymentToken = ERC20.load(takerAssetAddr.toHexString())
     if (paymentToken == null) return
 
@@ -72,7 +71,6 @@ export function handleFillOrderV4(event: LimitOrderFilled): void {
   } else {
     // taker asset is oToken. Taker is seller
 
-    //TODO: figure out a workaround for this to preserve initial premium
     let paymentToken = ERC20.load(makerAssetAddr.toHexString())
     if (paymentToken == null) return
     // checkERC20Entity(Address.fromString(makerAssetAddr));
