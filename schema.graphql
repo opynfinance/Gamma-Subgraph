@@ -113,6 +113,8 @@ type Vault @entity {
   longAmount: BigInt
   collateralAmount: BigInt
 
+  " The first time this vault creates short position. Got reset after settleing and redeeming."
+  firstMintTimestamp: BigInt!
 }
 
 #
