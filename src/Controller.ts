@@ -312,6 +312,10 @@ export function handleShortOtokenMinted(event: ShortOtokenMinted): void {
   let vaultId = accountId + '-' + id.toString();
   let vault = Vault.load(vaultId);
   vault.shortOToken = asset.toHex(); // convert to id
+  // if this is the first time creating a short position, mark the timestamp
+  if (vault.shortAmount == null || vault.shortAmount.isZero()) {
+    vault.firstMintTimestamp = event.block.timestamp;
+  }
   vault.shortAmount = vault.shortAmount.plus(amount);
   vault.save();
 
@@ -347,6 +351,7 @@ export function handleVaultOpened(event: VaultOpened): void {
 
   vault.owner = accountId;
   vault.vaultId = id!;
+  vault.firstMintTimestamp = BIGINT_ZERO;
 
   vault.save();
 

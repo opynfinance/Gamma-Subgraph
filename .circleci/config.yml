@@ -4,20 +4,24 @@ orbs:
   node: circleci/node@1.1.6
 
 workflows:
-  build-test-report:
+  build-test:
     jobs:
       - checkout_and_install
-      - build:
+      - build-kovan:
+          requires:
+            - checkout_and_install
+      - build-ropsten:
+          requires:
+            - checkout_and_install
+      - build-mainnet:
           requires:
             - checkout_and_install
 
 jobs:
-
   checkout_and_install:
     working_directory: ~/gamma-subgraph
     docker:
       - image: circleci/node:10.18.0
-      
     steps:
       - checkout
       - restore_cache:
@@ -34,7 +38,7 @@ jobs:
           paths:
             - ~/gamma-subgraph
 
-  build:
+  build-kovan:
     working_directory: ~/gamma-subgraph
     docker:
       - image: circleci/node:10.18.0
@@ -58,4 +62,53 @@ jobs:
           key: gamma-contracts-build-{{ .Environment.CIRCLE_SHA1 }}
           paths:
             - ~/gamma-subgraph
-  
+            
+  build-ropsten:
+    working_directory: ~/gamma-subgraph
+    docker:
+      - image: circleci/node:10.18.0
+    steps:
+      - checkout
+      - restore_cache:
+          key: gamma-{{ .Environment.CIRCLE_SHA1 }}
+      - run:
+          name: Install packages
+          command: npm install
+      - run: 
+          name: Generate Config
+          command: npm run prepare:ropsten
+      - run:
+          name: Code Gen
+          command: npm run codegen
+      - run:
+          name: Build Subgraph
+          command: npm run build
+      - save_cache:
+          key: gamma-contracts-build-{{ .Environment.CIRCLE_SHA1 }}
+          paths:
+            - ~/gamma-subgraph
+
+  build-mainnet:
+    working_directory: ~/gamma-subgraph
+    docker:
+      - image: circleci/node:10.18.0
+    steps:
+      - checkout
+      - restore_cache:
+          key: gamma-{{ .Environment.CIRCLE_SHA1 }}
+      - run:
+          name: Install packages
+          command: npm install
+      - run: 
+          name: Generate Config
+          command: npm run prepare:mainnet
+      - run:
+          name: Code Gen
+          command: npm run codegen
+      - run:
+          name: Build Subgraph
+          command: npm run build
+      - save_cache:
+          key: gamma-contracts-build-{{ .Environment.CIRCLE_SHA1 }}
+          paths:
+            - ~/gamma-subgraph
