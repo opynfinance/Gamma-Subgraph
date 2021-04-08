@@ -34,7 +34,7 @@ export function handleFillOrderV4(event: LimitOrderFilled): void {
   fill.transactionHash = event.transaction.hash;
   fill.timestamp = event.block.timestamp
   fill.maker = event.params.maker
-  fill.taker = event.params.taker
+  fill.taker = event.transaction.from
   fill.makerAmount = event.params.makerTokenFilledAmount
   fill.takerAmount = event.params.takerTokenFilledAmount
   fill.protocolFeePaid = event.params.protocolFeePaid
@@ -61,7 +61,7 @@ export function handleFillOrderV4(event: LimitOrderFilled): void {
     // checkERC20Entity(Address.fromString(takerAssetAddr));
 
     seller = event.params.maker;
-    buyer = event.params.taker;
+    buyer = event.transaction.from;
 
     trade.oToken = makerAssetAddr.toHexString();
     trade.oTokenAmount = event.params.makerTokenFilledAmount;
@@ -75,7 +75,7 @@ export function handleFillOrderV4(event: LimitOrderFilled): void {
     if (paymentToken == null) return
     // checkERC20Entity(Address.fromString(makerAssetAddr));
 
-    seller = event.params.taker;
+    seller = event.transaction.from;
     buyer = event.params.maker;
 
     trade.oToken = takerAssetAddr.toHexString();
@@ -121,7 +121,7 @@ export function handleFillOrderV3(event: Fill): void {
   fill.transactionHash = event.transaction.hash;
   fill.timestamp = event.block.timestamp;
   fill.makerAddress = event.params.makerAddress;
-  fill.takerAddress = event.params.takerAddress;
+  fill.takerAddress = event.transaction.from;
   fill.senderAddress = event.params.senderAddress;
   fill.makerAssetAmount = event.params.makerAssetFilledAmount;
   fill.takerAssetAmount = event.params.takerAssetFilledAmount;
@@ -152,7 +152,7 @@ export function handleFillOrderV3(event: Fill): void {
     // checkERC20Entity(Address.fromString(takerAssetAddr));
 
     seller = event.params.makerAddress;
-    buyer = event.params.takerAddress;
+    buyer = event.transaction.from;
 
     trade.oToken = makerAssetAddr;
     trade.oTokenAmount = event.params.makerAssetFilledAmount;
@@ -166,7 +166,7 @@ export function handleFillOrderV3(event: Fill): void {
     if (paymentToken == null) return
     // checkERC20Entity(Address.fromString(makerAssetAddr));
 
-    seller = event.params.takerAddress;
+    seller = event.transaction.from;
     buyer = event.params.makerAddress;
 
     trade.oToken = takerAssetAddr;
