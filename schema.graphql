@@ -404,6 +404,10 @@ type OTokenTrade @entity {
 
   "Name of the DEX protocol."
   exchange: String!
+
+  "Amount of fee user paid. for 0x it's the protocol fee"
+  fee: BigInt!
+  feeToken: Bytes!
 }
 
 type FillOrderV3 @entity {
