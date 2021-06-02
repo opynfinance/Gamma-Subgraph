@@ -512,6 +512,25 @@
   {
     "anonymous": false,
     "inputs": [
+      { 
+        "indexed": true,
+        "internalType": "address",
+        "name": "accountOwner",
+        "type": "address" 
+      },
+      { 
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "vaultId",
+        "type": "uint256" 
+      }
+    ],
+    "name": "VaultOpenedOld",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
       {
         "indexed": true,
         "internalType": "address",
