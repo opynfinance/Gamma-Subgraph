@@ -16,6 +16,7 @@ import {
   SystemFullyPaused,
   SystemPartiallyPaused,
   VaultOpened,
+  VaultOpenedOld,
   VaultSettled,
 } from '../generated/Controller/Controller';
 
@@ -24,7 +25,6 @@ import { BIGINT_ONE, BIGINT_ZERO, loadOrCreateAccount } from './helper';
 import {
   Controller,
   Operator,
-  Account,
   AccountOperator,
   Vault,
   OpenVaultAction,
@@ -36,7 +36,7 @@ import {
   MintShortAction,
   SettleAction,
   RedeemAction,
-  OToken
+  OToken,
 } from '../generated/schema';
 
 function loadOrCreateOperator(operatorId: string): Operator {
@@ -348,7 +348,39 @@ export function handleVaultOpened(event: VaultOpened): void {
   // create and initializd a vault entity
   let vaultId = accountId + '-' + id.toString();
   let vault = new Vault(vaultId);
-  vault.type = event.params.vaultType.toI32();
+  vault.type = event.params.vaultType;
+  vault.owner = accountId;
+  vault.vaultId = id!;
+  vault.firstMintTimestamp = BIGINT_ZERO;
+
+  vault.save();
+
+  // create action entity
+  let actionId = 'VAULT-OPENED-' + event.transaction.hash.toHex() + '-' + event.logIndex.toString();
+  let action = new OpenVaultAction(actionId);
+  action.messageSender = event.transaction.from;
+  action.vault = vaultId;
+  action.block = event.block.number;
+  action.transactionHash = event.transaction.hash;
+  action.timestamp = event.block.timestamp;
+  action.save();
+}
+
+export function handleVaultOpenedOld(event: VaultOpenedOld): void {
+  let accountId = event.params.accountOwner.toHex();
+  let id = event.params.vaultId;
+
+  // update the account entity
+  let account = loadOrCreateAccount(accountId);
+  account.vaultCount = account.vaultCount.plus(BIGINT_ONE);
+  account.save();
+
+  // create and initializd a vault entity
+  let vaultId = accountId + '-' + id.toString();
+  let vault = new Vault(vaultId);
+
+  // old vault always has type 0
+  vault.type = BIGINT_ZERO;
   vault.owner = accountId;
   vault.vaultId = id!;
   vault.firstMintTimestamp = BIGINT_ZERO;

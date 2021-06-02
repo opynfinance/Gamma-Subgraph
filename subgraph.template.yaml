@@ -144,6 +144,8 @@ dataSources:
           handler: handleSystemPartiallyPaused
         - event: VaultOpened(indexed address,uint256,indexed uint256)
           handler: handleVaultOpened
+        - event: VaultOpenedOld(indexed address,uint256)
+          handler: handleVaultOpenedOld
         - event: VaultSettled(indexed address,indexed address,indexed address,uint256,uint256)
           handler: handleVaultSettled
       file: ./src/Controller.ts
