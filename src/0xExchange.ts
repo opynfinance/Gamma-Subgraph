@@ -3,9 +3,9 @@ import { Fill } from "../generated/zxExchangeV3/ZxExchangeV3"
 import { Whitelist as WhitelistContract } from "../generated/Whitelist/Whitelist"
 import { AddressBook as AddressBookContract } from "../generated/AddressBook/AddressBook"
 import { FillOrderV4, FillOrderV3, Controller, OTokenTrade, ERC20 } from '../generated/schema'
-import { Address} from "@graphprotocol/graph-ts"
+import { Address, BigInt } from "@graphprotocol/graph-ts"
 // import { checkERC20Entity } from "./Whitelist"
-// import { updateBuyerPosition, updateSellerPosition, ZERO_ADDRESS } from './helper'
+import { ZERO_ADDRESS } from './helper'
 
 export function handleFillOrderV4(event: LimitOrderFilled): void {
   let id = event.params.orderHash.toHex() + '-' + event.transaction.hash.toHex()
@@ -48,6 +48,9 @@ export function handleFillOrderV4(event: LimitOrderFilled): void {
   trade.exchange = 'ZeroX';
   trade.timestamp = event.block.timestamp;
   trade.transactionHash = event.transaction.hash;
+
+  trade.fee = event.transaction.gasPrice.times(BigInt.fromI32(70000));
+  trade.feeToken = Address.fromString(ZERO_ADDRESS)
 
   let seller: Address;
   let buyer: Address;
@@ -139,6 +142,9 @@ export function handleFillOrderV3(event: Fill): void {
   trade.exchange = 'ZeroX';
   trade.timestamp = event.block.timestamp;
   trade.transactionHash = event.transaction.hash;
+
+  trade.fee = event.transaction.gasPrice.times(BigInt.fromI32(70000));
+  trade.feeToken = Address.fromString(ZERO_ADDRESS)
 
   let seller: Address;
   let buyer: Address;
