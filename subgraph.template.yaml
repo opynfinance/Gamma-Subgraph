@@ -114,7 +114,7 @@ dataSources:
       eventHandlers:
         - event: AccountOperatorUpdated(indexed address,indexed address,bool)
           handler: handleAccountOperatorUpdated
-        - event: CallExecuted(indexed address,indexed address,indexed address,uint256,bytes)
+        - event: CallExecuted(indexed address,indexed address,bytes)
           handler: handleCallExecuted
         - event: CallRestricted(bool)
           handler: handleCallRestricted
@@ -142,7 +142,7 @@ dataSources:
           handler: handleSystemFullyPaused
         - event: SystemPartiallyPaused(bool)
           handler: handleSystemPartiallyPaused
-        - event: VaultOpened(indexed address,uint256)
+        - event: VaultOpened(indexed address,uint256,indexed uint256)
           handler: handleVaultOpened
         - event: VaultSettled(indexed address,indexed address,indexed address,uint256,uint256)
           handler: handleVaultSettled

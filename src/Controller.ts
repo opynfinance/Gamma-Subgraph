@@ -112,14 +112,14 @@ export function handleFullPauserUpdated(event: FullPauserUpdated): void {
 export function handleSystemFullyPaused(event: SystemFullyPaused): void {
   let controller = Controller.load('1')
   // Todo: update the event parameter name {isActive} 
-  controller.systemPartiallyPaused = event.params.isActive;
+  controller.systemPartiallyPaused = event.params.isPaused;
   controller.save()
 }
 
 export function handleSystemPartiallyPaused(event: SystemPartiallyPaused): void {
   let controller = Controller.load('1')
   // Todo: update the event parameter name {isActive} 
-  controller.systemFullyPaused = event.params.isActive;
+  controller.systemFullyPaused = event.params.isPaused;
   controller.save()
 }
 
@@ -348,7 +348,7 @@ export function handleVaultOpened(event: VaultOpened): void {
   // create and initializd a vault entity
   let vaultId = accountId + '-' + id.toString();
   let vault = new Vault(vaultId);
-
+  vault.type = event.params.vaultType.toI32();
   vault.owner = accountId;
   vault.vaultId = id!;
   vault.firstMintTimestamp = BIGINT_ZERO;
