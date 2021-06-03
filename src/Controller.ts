@@ -16,7 +16,7 @@ import {
   SystemFullyPaused,
   SystemPartiallyPaused,
   VaultOpened,
-  VaultOpenedOld,
+  VaultOpened1,
   VaultSettled,
 } from '../generated/Controller/Controller';
 
@@ -336,7 +336,7 @@ export function handleShortOtokenMinted(event: ShortOtokenMinted): void {
   
 }
 
-export function handleVaultOpened(event: VaultOpened): void {
+export function handleVaultOpened(event: VaultOpened1): void {
   let accountId = event.params.accountOwner.toHex();
   let id = event.params.vaultId;
 
@@ -348,9 +348,11 @@ export function handleVaultOpened(event: VaultOpened): void {
   // create and initializd a vault entity
   let vaultId = accountId + '-' + id.toString();
   let vault = new Vault(vaultId);
-  vault.type = event.params.vaultType;
+
+  vault.vaultId = id;
+  // old vault always has type 0
+  vault.type = BIGINT_ZERO;
   vault.owner = accountId;
-  vault.vaultId = id!;
   vault.firstMintTimestamp = BIGINT_ZERO;
 
   vault.save();
@@ -366,7 +368,7 @@ export function handleVaultOpened(event: VaultOpened): void {
   action.save();
 }
 
-export function handleVaultOpenedOld(event: VaultOpenedOld): void {
+export function handleVaultOpenedV2(event: VaultOpened): void {
   let accountId = event.params.accountOwner.toHex();
   let id = event.params.vaultId;
 
@@ -378,11 +380,9 @@ export function handleVaultOpenedOld(event: VaultOpenedOld): void {
   // create and initializd a vault entity
   let vaultId = accountId + '-' + id.toString();
   let vault = new Vault(vaultId);
-
-  // old vault always has type 0
-  vault.type = BIGINT_ZERO;
+  vault.type = event.params.vaultType;
   vault.owner = accountId;
-  vault.vaultId = id!;
+  vault.vaultId = id;
   vault.firstMintTimestamp = BIGINT_ZERO;
 
   vault.save();

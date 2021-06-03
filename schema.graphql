@@ -101,7 +101,7 @@ type Position @entity {
 type Vault @entity {
   "Equals to <owner>-<vaultId>"
   id: ID!
-  type: BigInt!
+  type: BigInt
 
   owner: Account! # address
   vaultId: BigInt!
