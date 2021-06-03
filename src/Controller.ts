@@ -49,7 +49,6 @@ function loadOrCreateOperator(operatorId: string): Operator {
   return operator as Operator;
 }
 
-
 export function handleAccountOperatorUpdated(event: AccountOperatorUpdated): void {
   let accountId = event.params.accountOwner.toHex();
   let operatorId = event.params.operator.toHex();
@@ -86,44 +85,42 @@ export function handleCallExecuted(event: CallExecuted): void {}
  */
 
 export function handleCallRestricted(event: CallRestricted): void {
-  let controller = Controller.load('1')
+  let controller = Controller.load('1');
   controller.callRestricted = event.params.isRestricted;
-  controller.save()
+  controller.save();
 }
 
 export function handleOwnershipTransferred(event: OwnershipTransferred): void {
-  let controller = Controller.load('1')
+  let controller = Controller.load('1');
   controller.owner = event.params.newOwner;
-  controller.save()
+  controller.save();
 }
 
 export function handlePartialPauserUpdated(event: PartialPauserUpdated): void {
-  let controller = Controller.load('1')
+  let controller = Controller.load('1');
   controller.partialPauser = event.params.newPartialPauser;
-  controller.save()
+  controller.save();
 }
 
 export function handleFullPauserUpdated(event: FullPauserUpdated): void {
-  let controller = Controller.load('1')
+  let controller = Controller.load('1');
   controller.fullPauser = event.params.newFullPauser;
-  controller.save()
+  controller.save();
 }
 
 export function handleSystemFullyPaused(event: SystemFullyPaused): void {
-  let controller = Controller.load('1')
-  // Todo: update the event parameter name {isActive} 
+  let controller = Controller.load('1');
+  // Todo: update the event parameter name {isActive}
   controller.systemPartiallyPaused = event.params.isPaused;
-  controller.save()
+  controller.save();
 }
 
 export function handleSystemPartiallyPaused(event: SystemPartiallyPaused): void {
-  let controller = Controller.load('1')
-  // Todo: update the event parameter name {isActive} 
+  let controller = Controller.load('1');
+  // Todo: update the event parameter name {isActive}
   controller.systemFullyPaused = event.params.isPaused;
-  controller.save()
+  controller.save();
 }
-
-
 
 /**
  * Vault Actions
@@ -169,10 +166,10 @@ export function handleCollateralAssetWithdrawed(event: CollateralAssetWithdrawed
   // update vault struct
   let vaultId = accountId + '-' + id.toString();
   let vault = Vault.load(vaultId);
-  
+
   vault.collateralAsset = vault.collateralAmount.minus(amount).isZero() ? null : asset.toHex();
   vault.collateralAmount = vault.collateralAmount.minus(amount);
-  
+
   vault.save();
 
   // create action entity
@@ -252,21 +249,20 @@ export function handleLongOtokenWithdrawed(event: LongOtokenWithdrawed): void {
 }
 
 export function handleRedeem(event: Redeem): void {
-
   // Create Redeem Action to keep track of this event.
-  let actionId = "REDEEM-" + event.transaction.hash.toHex() + '-' + event.logIndex.toString();
+  let actionId = 'REDEEM-' + event.transaction.hash.toHex() + '-' + event.logIndex.toString();
   let action = new RedeemAction(actionId);
-  action.id = actionId
+  action.id = actionId;
   action.block = event.block.number;
   action.transactionHash = event.transaction.hash;
   action.timestamp = event.block.timestamp;
   action.messageSender = event.transaction.from;
-  action.oToken = event.params.otoken.toHex()
-  action.otokenBurned = event.params.otokenBurned
-  action.payoutAsset = event.params.collateralAsset.toHex()
-  action.payoutAmount = event.params.payout
-  action.receiver = event.params.receiver
-  action.save()
+  action.oToken = event.params.otoken.toHex();
+  action.otokenBurned = event.params.otokenBurned;
+  action.payoutAsset = event.params.collateralAsset.toHex();
+  action.payoutAmount = event.params.payout;
+  action.receiver = event.params.receiver;
+  action.save();
 }
 
 export function handleShortOtokenBurned(event: ShortOtokenBurned): void {
@@ -283,7 +279,7 @@ export function handleShortOtokenBurned(event: ShortOtokenBurned): void {
   // if amount = 0, set the longOtoken back to null
   vault.shortOToken = vault.shortAmount.minus(amount).isZero() ? null : asset.toHex(); // convert to id
   vault.shortAmount = vault.shortAmount.minus(amount);
-  
+
   vault.save();
 
   // create action entity
@@ -332,11 +328,9 @@ export function handleShortOtokenMinted(event: ShortOtokenMinted): void {
   action.oToken = asset.toHex();
   action.amount = amount;
   action.save();
-
-  
 }
 
-export function handleVaultOpened(event: VaultOpened1): void {
+export function handleVaultOpened(event: VaultOpened): void {
   let accountId = event.params.accountOwner.toHex();
   let id = event.params.vaultId;
 
@@ -349,10 +343,10 @@ export function handleVaultOpened(event: VaultOpened1): void {
   let vaultId = accountId + '-' + id.toString();
   let vault = new Vault(vaultId);
 
+  vault.owner = accountId;
   vault.vaultId = id;
   // old vault always has type 0
   vault.type = BIGINT_ZERO;
-  vault.owner = accountId;
   vault.firstMintTimestamp = BIGINT_ZERO;
 
   vault.save();
@@ -368,7 +362,7 @@ export function handleVaultOpened(event: VaultOpened1): void {
   action.save();
 }
 
-export function handleVaultOpenedV2(event: VaultOpened): void {
+export function handleVaultOpenedV2(event: VaultOpened1): void {
   let accountId = event.params.accountOwner.toHex();
   let id = event.params.vaultId;
 
@@ -380,9 +374,9 @@ export function handleVaultOpenedV2(event: VaultOpened): void {
   // create and initializd a vault entity
   let vaultId = accountId + '-' + id.toString();
   let vault = new Vault(vaultId);
-  vault.type = event.params.vaultType;
   vault.owner = accountId;
   vault.vaultId = id;
+  vault.type = event.params.vaultType;
   vault.firstMintTimestamp = BIGINT_ZERO;
 
   vault.save();
@@ -400,7 +394,7 @@ export function handleVaultOpenedV2(event: VaultOpened): void {
 
 export function handleVaultSettled(event: VaultSettled): void {
   let id = event.params.vaultId;
-  let accountId = event.params.AccountOwner.toHex();  
+  let accountId = event.params.AccountOwner.toHex();
 
   let vaultId = accountId + '-' + id.toString();
 
@@ -413,9 +407,8 @@ export function handleVaultSettled(event: VaultSettled): void {
   action.transactionHash = event.transaction.hash;
   action.timestamp = event.block.timestamp;
   // Settle fields
-  let otoken = OToken.load(event.params.otoken.toHex())
+  let otoken = OToken.load(event.params.otoken.toHex());
 
-  
   let vault = Vault.load(vaultId);
 
   action.long = vault.longOToken;
@@ -423,8 +416,8 @@ export function handleVaultSettled(event: VaultSettled): void {
   action.longAmount = vault.longAmount;
   action.shortAmount = vault.shortAmount;
   action.collateral = vault.collateralAsset;
-  action.collateralAmount = vault.collateralAmount
-  
+  action.collateralAmount = vault.collateralAmount;
+
   action.to = event.params.to;
   action.amount = event.params.payout;
   action.save();
