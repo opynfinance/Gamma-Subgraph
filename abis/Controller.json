@@ -487,6 +487,25 @@
   {
     "anonymous": false,
     "inputs": [
+      { 
+        "indexed": true,
+        "internalType": "address",
+        "name": "accountOwner",
+        "type": "address" 
+      },
+      { 
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "vaultId",
+        "type": "uint256" 
+      }
+    ],
+    "name": "VaultOpened",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
       {
         "indexed": true,
         "internalType": "address",
@@ -504,25 +523,6 @@
         "internalType": "uint256",
         "name": "vaultType",
         "type": "uint256"
-      }
-    ],
-    "name": "VaultOpened",
-    "type": "event"
-  },
-  {
-    "anonymous": false,
-    "inputs": [
-      { 
-        "indexed": true,
-        "internalType": "address",
-        "name": "accountOwner",
-        "type": "address" 
-      },
-      { 
-        "indexed": false,
-        "internalType": "uint256",
-        "name": "vaultId",
-        "type": "uint256" 
       }
     ],
     "name": "VaultOpened",
