@@ -111,6 +111,8 @@ dataSources:
       abis:
         - name: Controller
           file: ./abis/Controller.json
+        - name: ControllerV2
+          file: ./abis/ControllerV2.json
       eventHandlers:
         - event: AccountOperatorUpdated(indexed address,indexed address,bool)
           handler: handleAccountOperatorUpdated
@@ -148,6 +150,8 @@ dataSources:
           handler: handleVaultOpenedV2
         - event: VaultSettled(indexed address,indexed address,indexed address,uint256,uint256)
           handler: handleVaultSettled
+        - event: VaultSettled(indexed address,indexed address,address,uint256,uint256,indexed uint256)
+          handler: handleVaultSettledV2
       file: ./src/Controller.ts
 
   - kind: ethereum/contract
