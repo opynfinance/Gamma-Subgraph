@@ -283,6 +283,23 @@ type SettleAction implements VaultAction @entity {
   amount: BigInt!
 }
 
+type Liquidation implements VaultAction @entity {
+  # Vault fields
+  id: ID!
+  messageSender: Bytes!
+  vault: Vault!
+  block: BigInt!
+  transactionHash: Bytes!
+  timestamp: BigInt!
+  
+  # Liquidation 
+  auctionPrice: BigInt!
+  auctionStartingRound: BigInt!
+  collateralPayout: BigInt!
+  debtAmount: BigInt!
+  liquidator: Bytes!
+}
+
 type RedeemAction @entity {
   "REDEEM-TxHash-logIndex" 
   id: ID!

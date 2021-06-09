@@ -148,6 +148,10 @@ dataSources:
           handler: handleVaultOpenedV2
         - event: VaultSettled(indexed address,indexed address,indexed address,uint256,uint256)
           handler: handleVaultSettled
+        - event: VaultSettled(indexed address,indexed address,address,uint256,uint256,indexed uint256)
+          handler: handleVaultSettledV2
+        - event: VaultLiquidated(indexed address,indexed address,indexed address,uint256,uint256,uint256,uint256,uint256)
+          handler: handleVaultSettledV2
       file: ./src/Controller.ts
 
   - kind: ethereum/contract

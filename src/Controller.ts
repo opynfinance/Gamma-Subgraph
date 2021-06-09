@@ -18,6 +18,8 @@ import {
   VaultOpened,
   VaultOpened1,
   VaultSettled,
+  VaultSettled1,
+  VaultLiquidated,
 } from '../generated/Controller/Controller';
 
 import { BIGINT_ONE, BIGINT_ZERO, loadOrCreateAccount } from './helper';
@@ -37,6 +39,7 @@ import {
   SettleAction,
   RedeemAction,
   OToken,
+  Liquidation
 } from '../generated/schema';
 
 function loadOrCreateOperator(operatorId: string): Operator {
@@ -185,6 +188,38 @@ export function handleCollateralAssetWithdrawed(event: CollateralAssetWithdrawed
   action.to = to;
   action.asset = asset.toHex();
   action.amount = amount;
+  action.save();
+}
+
+export function handleLiquidation(event: VaultLiquidated):void {
+  let accountId = event.params.vaultOwner.toHex();
+  let id = event.params.vaultId;
+  
+  let collateralPayout = event.params.collateralPayout
+  let debtAmount = event.params.debtAmount
+
+  // update vault struct
+  let vaultId = accountId + '-' + id.toString();
+  let vault = Vault.load(vaultId);
+  vault.shortAmount = vault.shortAmount.minus(debtAmount)
+  vault.collateralAmount = vault.collateralAmount.minus(collateralPayout)
+
+  vault.save();
+
+  // create action entity
+  let actionId = 'LIQUIDATION' + event.transaction.hash.toHex() + '-' + event.logIndex.toString();
+  let action = new Liquidation(actionId);
+  action.messageSender = event.transaction.from;
+  action.vault = vaultId;
+  action.block = event.block.number;
+  action.transactionHash = event.transaction.hash;
+  action.timestamp = event.block.timestamp;
+  // Liquidation fields
+  action.auctionPrice = event.params.auctionPrice;
+  action.auctionStartingRound = event.params.auctionStartingRound;
+  action.collateralPayout = collateralPayout
+  action.debtAmount = debtAmount
+  action.liquidator = event.params.liquidator
   action.save();
 }
 
@@ -390,6 +425,44 @@ export function handleVaultOpenedV2(event: VaultOpened1): void {
   action.transactionHash = event.transaction.hash;
   action.timestamp = event.block.timestamp;
   action.save();
+}
+
+export function handleVaultSettledV2(event: VaultSettled1): void {
+  let id = event.params.vaultId;
+  let accountId = event.params.accountOwner.toHex();
+
+  let vaultId = accountId + '-' + id.toString();
+
+  // create action entity
+  let actionId = 'SETTLE-' + event.transaction.hash.toHex() + '-' + event.logIndex.toString();
+  let action = new SettleAction(actionId);
+  action.messageSender = event.transaction.from;
+  action.vault = vaultId;
+  action.block = event.block.number;
+  action.transactionHash = event.transaction.hash;
+  action.timestamp = event.block.timestamp;
+  
+  let vault = Vault.load(vaultId);
+
+  action.long = vault.longOToken;
+  action.short = vault.shortOToken;
+  action.longAmount = vault.longAmount;
+  action.shortAmount = vault.shortAmount;
+  action.collateral = vault.collateralAsset;
+  action.collateralAmount = vault.collateralAmount;
+
+  action.to = event.params.to;
+  action.amount = event.params.payout;
+  action.save();
+
+  // update vault struct
+  vault.collateralAsset = null;
+  vault.collateralAmount = BIGINT_ZERO;
+  vault.shortOToken = null;
+  vault.shortAmount = BIGINT_ZERO;
+  vault.longOToken = null;
+  vault.longAmount = BIGINT_ZERO;
+  vault.save();
 }
 
 export function handleVaultSettled(event: VaultSettled): void {
