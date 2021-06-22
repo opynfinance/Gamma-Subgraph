@@ -1,0 +1,17 @@
+{
+  "network": "ropsten",
+  "factory": "0x7494Ec6D7A9a9e67774Cc9B8d3aEA26A8EB59db3",
+  "factory-start-block": 10459664,
+  "controller": "0xdA9BDf0B5BAA8e6ab727408e6072c4Ab35e3229D",
+  "controller-start-block": 10482538,
+  "whitelist": "0x01062B3ac205c5E8DEF3973dfeb4A8392bFf6f3a",
+  "whitelist-start-block": 10459672,
+  "addressbook": "0x8f92cfB1BF6eD1ce79F2E8Eb0DC96e0F3b61276D",
+  "addressbook-start-block": 10481956 ,
+  "oracle": "0x1D39AdE5E5443b61216ACE572B00Eb5cb36Fc0F9",
+  "oracle-start-block": 10459675,
+  "0xExchangeV4": "0xdef1c0ded9bec7f1a1670819833240f027b25eff",
+  "0xExchangeV4-start-block": 10482538,
+  "0xExchangeV3": "0xdef1c0ded9bec7f1a1670819833240f027b25eff",
+  "0xExchangeV3-start-block": 10482538
+}
