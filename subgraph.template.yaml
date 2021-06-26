@@ -151,7 +151,7 @@ dataSources:
         - event: VaultSettled(indexed address,indexed address,address,uint256,uint256,indexed uint256)
           handler: handleVaultSettledV2
         - event: VaultLiquidated(indexed address,indexed address,indexed address,uint256,uint256,uint256,uint256,uint256)
-          handler: handleVaultSettledV2
+          handler: handleLiquidation
       file: ./src/Controller.ts
 
   - kind: ethereum/contract
