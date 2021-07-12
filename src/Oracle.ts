@@ -7,7 +7,7 @@ import {
   PricerDisputePeriodUpdated,
   PricerLockingPeriodUpdated,
   PricerUpdated
-} from "../generated/Oracle/Oracle"
+} from "../generated/OracleV1/OracleV1"
 
 import {
   Oracle,
