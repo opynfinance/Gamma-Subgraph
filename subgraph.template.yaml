@@ -114,7 +114,7 @@ dataSources:
       eventHandlers:
         - event: AccountOperatorUpdated(indexed address,indexed address,bool)
           handler: handleAccountOperatorUpdated
-        - event: CallExecuted(indexed address,indexed address,indexed address,uint256,bytes)
+        - event: CallExecuted(indexed address,indexed address,bytes)
           handler: handleCallExecuted
         - event: CallRestricted(bool)
           handler: handleCallRestricted
@@ -144,8 +144,14 @@ dataSources:
           handler: handleSystemPartiallyPaused
         - event: VaultOpened(indexed address,uint256)
           handler: handleVaultOpened
+        - event: VaultOpened(indexed address,uint256,indexed uint256)
+          handler: handleVaultOpenedV2
         - event: VaultSettled(indexed address,indexed address,indexed address,uint256,uint256)
           handler: handleVaultSettled
+        - event: VaultSettled(indexed address,indexed address,address,uint256,uint256,indexed uint256)
+          handler: handleVaultSettledV2
+        - event: VaultLiquidated(indexed address,indexed address,indexed address,uint256,uint256,uint256,uint256,uint256)
+          handler: handleLiquidation
       file: ./src/Controller.ts
 
   - kind: ethereum/contract
@@ -221,12 +227,12 @@ dataSources:
       file: ./src/AddressBook.ts
 
   - kind: ethereum/contract
-    name: Oracle
+    name: OracleV1
     network: {{network}}
     source:
-      address: "{{oracle}}"
-      abi: Oracle
-      startBlock: {{oracle-start-block}}
+      address: "{{oracleV1}}"
+      abi: OracleV1
+      startBlock: {{oracleV1-start-block}}
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.4
@@ -240,8 +246,49 @@ dataSources:
         - PricerLockingPeriodUpdated
         - PricerUpdated
       abis:
-        - name: Oracle
-          file: ./abis/Oracle.json
+        - name: OracleV1
+          file: ./abis/OracleV1.json
+        - name: ERC20
+          file: ./abis/ERC20.json
+      eventHandlers:
+        - event: DisputerUpdated(indexed address)
+          handler: handleDisputerUpdated
+        - event: ExpiryPriceDisputed(indexed address,indexed uint256,uint256,uint256,uint256)
+          handler: handleExpiryPriceDisputed
+        - event: ExpiryPriceUpdated(indexed address,indexed uint256,uint256,uint256)
+          handler: handleExpiryPriceUpdated
+        - event: OwnershipTransferred(indexed address,indexed address)
+          handler: handleOwnershipTransferred
+        - event: PricerDisputePeriodUpdated(indexed address,uint256)
+          handler: handlePricerDisputePeriodUpdated
+        - event: PricerLockingPeriodUpdated(indexed address,uint256)
+          handler: handlePricerLockingPeriodUpdated
+        - event: PricerUpdated(indexed address,indexed address)
+          handler: handlePricerUpdated
+      file: ./src/Oracle.ts
+  
+  - kind: ethereum/contract
+    name: OracleV2
+    network: {{network}}
+    source:
+      address: "{{oracleV2}}"
+      abi: OracleV2
+      startBlock: {{oracleV2-start-block}}
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.4
+      language: wasm/assemblyscript
+      entities:
+        - DisputerUpdated
+        - ExpiryPriceDisputed
+        - ExpiryPriceUpdated
+        - OwnershipTransferred
+        - PricerDisputePeriodUpdated
+        - PricerLockingPeriodUpdated
+        - PricerUpdated
+      abis:
+        - name: OracleV2
+          file: ./abis/OracleV2.json
         - name: ERC20
           file: ./abis/ERC20.json
       eventHandlers:

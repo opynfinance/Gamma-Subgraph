@@ -101,6 +101,7 @@ type Position @entity {
 type Vault @entity {
   "Equals to <owner>-<vaultId>"
   id: ID!
+  type: BigInt
 
   owner: Account! # address
   vaultId: BigInt!
@@ -280,6 +281,23 @@ type SettleAction implements VaultAction @entity {
 
   " Amount payout"
   amount: BigInt!
+}
+
+type Liquidation implements VaultAction @entity {
+  # Vault fields
+  id: ID!
+  messageSender: Bytes!
+  vault: Vault!
+  block: BigInt!
+  transactionHash: Bytes!
+  timestamp: BigInt!
+  
+  # Liquidation 
+  auctionPrice: BigInt!
+  auctionStartingRound: BigInt!
+  collateralPayout: BigInt!
+  debtAmount: BigInt!
+  liquidator: Bytes!
 }
 
 type RedeemAction @entity {
