@@ -1,0 +1,19 @@
+{
+  "network": "arbitrum-one",
+  "factory": "0x4D3a52A0e98144CAf46Ac226d83e8f144b5c654D",
+  "factory-start-block": 1263909,
+  "controller": "0xeE30f92cc9Bf896679567d1aCD551f0E179756fC",
+  "controller-start-block": 1286633,
+  "whitelist": "0xB8f0AC1Ab70643ebE8103Db3618EA5eD6901B458",
+  "whitelist-start-block": 1286484,
+  "addressbook": "0x9a33230f59Cc7Cc9A084E0098A2b2934FC7BF7c0",
+  "addressbook-start-block": 1263896,
+  "oracleV1": "0x0000000000000000000000000000000000000000",
+  "oracleV1-start-block": 1263896,
+  "oracleV2": "0x7A1E6f0f07Ee2DddE14Cd4B8Eb582BAd065357C5",
+  "oracleV2-start-block": 1286515,
+  "0xExchangeV3": "0x0000000000000000000000000000000000000000",
+  "0xExchangeV3-start-block": 1263896,
+  "0xExchangeV4": "0x0000000000000000000000000000000000000000",
+  "0xExchangeV4-start-block": 1263896
+}
