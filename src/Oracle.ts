@@ -77,7 +77,9 @@ export function handlePricerLockingPeriodUpdated(
 }
 
 export function handlePricerUpdated(event: PricerUpdated): void {
-  checkERC20Entity(event.params.asset)
+  let success = checkERC20Entity(event.params.asset)
+  if (!success) return
+  
   let assetEntity = loadOrCreateAssetEntity(event.params.asset.toHex())
   let pricerId = event.params.pricer.toHex()
   // if no pricer entity created before, create a new one and save
