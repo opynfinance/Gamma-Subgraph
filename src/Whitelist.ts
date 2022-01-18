@@ -1,4 +1,4 @@
-import {Address, Bytes } from "@graphprotocol/graph-ts"
+import {Address } from "@graphprotocol/graph-ts"
 import {
   CalleeBlacklisted,
   CalleeWhitelisted,
@@ -106,7 +106,7 @@ export function checkERC20Entity(address: Address): boolean {
   entity.name = nameResult.value as string
 
   let decimalsResult = contract.try_decimals()
-  if (decimalsResult.reverted == null) return false
+  if (decimalsResult.reverted) return false
   entity.decimals = decimalsResult.value as i32
   entity.save();
 
