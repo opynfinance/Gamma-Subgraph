@@ -1,0 +1,19 @@
+{
+  "network": "avalanche",
+  "factory": "0x25bC1cD298512885F0e452833198BCBb149f66a5",
+  "factory-start-block": 7339775,
+  "controller": "0x9e3b94819aaF6de606C4Aa844E3215725b997064",
+  "controller-start-block": 7339839,
+  "whitelist": "0xe9963AFfc9a53e293c9bB547c52902071e6087c9",
+  "whitelist-start-block": 7339797,
+  "addressbook": "0xBCa124824326CF8aBc5E2E569FFf3A6f17110510",
+  "addressbook-start-block": 7339770,
+  "oracleV1": "0x0000000000000000000000000000000000000000",
+  "oracleV1-start-block": 7339770,
+  "oracleV2": "0x5c76E757138379E376D1Cb9C18723f884df5e8Eb",
+  "oracleV2-start-block": 7339806,
+  "0xExchangeV3": "0x0000000000000000000000000000000000000000",
+  "0xExchangeV3-start-block": 7339770,
+  "0xExchangeV4": "0x0000000000000000000000000000000000000000",
+  "0xExchangeV4-start-block": 7339770 
+}
