@@ -12,6 +12,7 @@
     "prepare:ropsten-internal": "mustache config/ropsten-internal.json subgraph.template.yaml > subgraph.yaml",
     "prepare:arbitrum": "mustache config/arbitrum-one.json subgraph.template.yaml > subgraph.yaml",
     "prepare:avax": "mustache config/avax.json subgraph.template.yaml > subgraph.yaml",
+    "prepare:matic": "mustache config/matic.json subgraph.template.yaml > subgraph.yaml",
     "deploy:mainnet": "npm run prepare:mainnet && graph deploy --node https://api.thegraph.com/deploy/ --ipfs https://api.thegraph.com/ipfs/ opynfinance/gamma-mainnet",
     "deploy:mainnet-internal": "npm run prepare:mainnet-internal && graph deploy --node https://api.thegraph.com/deploy/ --ipfs https://api.thegraph.com/ipfs/ opynfinance/playground",
     "deploy:kovan": "npm run prepare:kovan && graph deploy --node https://api.thegraph.com/deploy/ --ipfs https://api.thegraph.com/ipfs/ opynfinance/gamma-kovan",
@@ -19,7 +20,8 @@
     "deploy:ropsten": "npm run prepare:ropsten && graph deploy --node https://api.thegraph.com/deploy/ --ipfs https://api.thegraph.com/ipfs/ opynfinance/gamma-ropsten",
     "deploy:ropsten-internal": "npm run prepare:ropsten-internal && graph deploy --node https://api.thegraph.com/deploy/ --ipfs https://api.thegraph.com/ipfs/ opynfinance/gamma-internal-ropsten",
     "deploy:arbitrum": "npm run prepare:arbitrum && graph deploy --product hosted-service opynfinance/gamma-arbitrum-one",
-    "deploy:avax": "npm run prepare:avax && graph deploy --product hosted-service opynfinance/gamma-avax"
+    "deploy:avax": "npm run prepare:avax && graph deploy --product hosted-service opynfinance/gamma-avax",
+    "deploy:matic": "npm run prepare:matic && graph deploy --product hosted-service opynfinance/gamma-matic"
   },
   "dependencies": {
     "@graphprotocol/graph-cli": "0.18.0",

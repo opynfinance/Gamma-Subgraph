@@ -1,0 +1,19 @@
+{
+  "network": "matic",
+  "factory": "0xedD70E045903D34fBA7302B5094D37EAceb1397c",
+  "factory-start-block": 23813613,
+  "controller": "0x7a23c712bddde52b22d8ff52e4cdadb1bcb0b203",
+  "controller-start-block": 23813700,
+  "whitelist": "0x9E435A5Cb48aeE2C156a8E541ee645e1c171d012",
+  "whitelist-start-block": 23813641,
+  "addressbook": "0xa87ECDaEA486bB0baEeB77FF0630364772A6bbFE",
+  "addressbook-start-block": 23813604,
+  "oracleV1": "0x0000000000000000000000000000000000000000",
+  "oracleV1-start-block": 23813604,
+  "oracleV2": "0x3D561c832706E6e0B485A7a78958982e782E8E91",
+  "oracleV2-start-block": 23813652,
+  "0xExchangeV3": "0x0000000000000000000000000000000000000000",
+  "0xExchangeV3-start-block": 23813652,
+  "0xExchangeV4": "0x0000000000000000000000000000000000000000",
+  "0xExchangeV4-start-block":  23813652
+}
